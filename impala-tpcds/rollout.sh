@@ -15,8 +15,13 @@ create_directories()
 
 cleanup()
 {
-	echo "rm -f $PWD/log/end*"
-	rm -f $PWD/log/end*
+	echo "rm -f $PWD/log/end_ddl.log"
+	rm -f $PWD/log/end_ddl.log
+	echo "rm -f $PWD/log/end_load.log"
+	rm -f $PWD/log/end_load.log
+	echo "rm -f $PWD/log/end_sql.log"
+	rm -f $PWD/log/end_sql.log
+
 }
 
 create_directories

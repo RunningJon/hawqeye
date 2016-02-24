@@ -8,7 +8,7 @@ source $PWD/../functions.sh
 step=sql
 init_log $step
 
-for i in $(ls *.$QUERY_TYPE.*.sql); do
+for i in $(ls $PWD/*.$QUERY_TYPE.*.sql); do
 	id=`echo $i | awk -F '.' '{print $1}'`
 	schema_name=`echo $i | awk -F '.' '{print $2}'`
 	table_name=`echo $i | awk -F '.' '{print $3}'`
