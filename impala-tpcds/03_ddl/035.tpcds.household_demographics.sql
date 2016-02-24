@@ -1,0 +1,1 @@
+CREATE TABLE household_demographics LIKE et_household_demographics STORED AS PARQUETFILE;

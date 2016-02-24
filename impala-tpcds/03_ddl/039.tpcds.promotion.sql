@@ -1,0 +1,1 @@
+CREATE TABLE promotion LIKE et_promotion STORED AS PARQUETFILE;

@@ -1,0 +1,1 @@
+CREATE TABLE warehouse LIKE et_warehouse STORED AS PARQUETFILE;

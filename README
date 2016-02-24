@@ -1,0 +1,3 @@
+HAWQEYE is a test suite to compare HAWQ (Pivotal HDB) with other SQL on Hadoop products.  The tests include:
+1.  Impala TPC-DS
+

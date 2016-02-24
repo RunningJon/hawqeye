@@ -1,0 +1,2005 @@
+   0  $accept : workload_spec $end
+
+   1  workload_spec : statement_list
+
+   2  statement_list : statement
+   3                 | statement_list statement
+
+   4  statement : include_statement
+   5            | define_statement
+   6            | query_statement
+   7            | dist_statement
+
+   8  include_statement : '#' KW_INCLUDE path
+   9                    | '#' KW_INCLUDE '<' path '>'
+
+  10  dist_statement : KW_DIST TOK_ID ';' dist_argument_list dist_members_list
+
+  11  dist_argument_list : dist_argument
+  12                     | dist_argument_list dist_argument
+
+  13  dist_argument : KW_SET KW_WEIGHTS '=' TOK_INT ';'
+  14                | KW_SET KW_TYPES '=' '(' dist_type_list ')' ';'
+  15                | KW_SET KW_NAMES '=' '(' dist_name_list ':' dist_name_list ')' ';'
+
+  16  dist_type : KW_INT
+  17            | KW_VARCHAR
+  18            | KW_DECIMAL
+
+  19  dist_type_list :
+  20                 | dist_type
+  21                 | dist_type_list ',' dist_type
+
+  22  dist_name_list : TOK_ID
+  23                 | dist_name_list ',' TOK_ID
+
+  24  dist_members_list : dist_member
+  25                    | dist_members_list dist_member
+
+  26  dist_member : KW_ADD '(' dist_value_list ':' dist_weight_list ')' ';'
+
+  27  dist_value : TOK_INT
+  28             | TOK_LITERAL
+  29             | TOK_DECIMAL
+
+  30  dist_value_list : dist_value
+  31                  | dist_value_list ',' dist_value
+
+  32  dist_weight_list : TOK_INT
+  33                   | dist_value_list ',' TOK_INT
+
+  34  define_statement : KW_DEFINE TOK_ID '=' expr ';'
+  35                   | KW_DEFINE KW_LIMIT '=' TOK_INT ';'
+
+  36  comma_expr_list : expr
+  37                  | comma_expr_list ',' expr
+
+  38  expr : TOK_LITERAL
+  39       | TOK_INT
+  40       | function_call
+  41       | keyword_expr
+  42       | '[' keyword_value ']'
+  43       | '[' TOK_ID TOK_INT opt_substitution_suffix ']'
+  44       | '[' TOK_ID opt_substitution_suffix ']'
+  45       | KW_SCALE
+  46       | arithmetic_expr
+
+  47  function_call : function_name '(' comma_expr_list ')'
+  48                | dist_function_name '(' dist_expr_list ')'
+  49                | KW_TEXT '(' replacement_list ')'
+  50                | KW_ROWCOUNT '(' TOK_LITERAL ')'
+  51                | KW_ROWCOUNT '(' TOK_LITERAL ',' TOK_LITERAL ')'
+  52                | KW_SCALE_STEP '(' ')'
+  53                | KW_ULIST '(' expr ',' TOK_INT ')'
+  54                | KW_LIST '(' expr ',' TOK_INT ')'
+  55                | KW_RANGE '(' expr ',' TOK_INT ')'
+
+  56  arithmetic_expr : expr '+' expr
+  57                  | expr '-' expr
+  58                  | expr '*' expr
+  59                  | expr '/' expr
+
+  60  dist_expr_list : expr
+  61                 | TOK_ID
+  62                 | dist_expr_list ',' expr
+  63                 | dist_expr_list ',' TOK_ID
+
+  64  function_name : KW_DATE
+  65                | KW_RANDOM
+
+  66  dist_function_name : KW_DIST
+  67                     | KW_DISTMEMBER
+  68                     | KW_DISTWEIGHT
+
+  69  keyword_expr : KW_UNIFORM
+  70               | KW_SALES
+  71               | KW_RETURNS
+
+  72  keyword_value : KW_QUERY
+  73                | KW_TEMPLATE
+  74                | KW_STREAM
+  75                | KW_SEED
+
+  76  replacement_list : replacement
+  77                   | replacement_list ',' replacement
+
+  78  replacement : '{' TOK_LITERAL ',' TOK_INT '}'
+
+  79  query_statement : query_component_list ';'
+
+  80  query_component_list : substitution
+  81                       | TOK_SQL
+  82                       | query_component_list substitution
+  83                       | query_component_list TOK_SQL
+
+  84  substitution : '[' TOK_ID opt_substitution_suffix ']'
+  85               | '[' TOK_ID TOK_INT opt_substitution_suffix ']'
+  86               | '[' KW_QUERY ']'
+  87               | '[' KW_STREAM ']'
+  88               | '[' KW_TEMPLATE ']'
+  89               | '[' KW_SEED ']'
+  90               | '[' KW_LIMITA ']'
+  91               | '[' KW_LIMITB ']'
+  92               | '[' KW_LIMITC ']'
+
+  93  opt_substitution_suffix :
+  94                          | '.' KW_BEGIN
+  95                          | '.' KW_END
+  96                          | '.' TOK_INT
+
+  97  path : TOK_LITERAL
+
+state 0
+	$accept : . workload_spec $end  (0)
+
+	TOK_SQL  shift 1
+	KW_DEFINE  shift 2
+	KW_DIST  shift 3
+	'['  shift 4
+	'#'  shift 5
+	.  error
+
+	workload_spec  goto 6
+	statement  goto 7
+	statement_list  goto 8
+	include_statement  goto 9
+	define_statement  goto 10
+	query_statement  goto 11
+	dist_statement  goto 12
+	query_component_list  goto 13
+	substitution  goto 14
+
+
+state 1
+	query_component_list : TOK_SQL .  (81)
+
+	.  reduce 81
+
+
+state 2
+	define_statement : KW_DEFINE . TOK_ID '=' expr ';'  (34)
+	define_statement : KW_DEFINE . KW_LIMIT '=' TOK_INT ';'  (35)
+
+	TOK_ID  shift 15
+	KW_LIMIT  shift 16
+	.  error
+
+
+state 3
+	dist_statement : KW_DIST . TOK_ID ';' dist_argument_list dist_members_list  (10)
+
+	TOK_ID  shift 17
+	.  error
+
+
+state 4
+	substitution : '[' . TOK_ID opt_substitution_suffix ']'  (84)
+	substitution : '[' . TOK_ID TOK_INT opt_substitution_suffix ']'  (85)
+	substitution : '[' . KW_QUERY ']'  (86)
+	substitution : '[' . KW_STREAM ']'  (87)
+	substitution : '[' . KW_TEMPLATE ']'  (88)
+	substitution : '[' . KW_SEED ']'  (89)
+	substitution : '[' . KW_LIMITA ']'  (90)
+	substitution : '[' . KW_LIMITB ']'  (91)
+	substitution : '[' . KW_LIMITC ']'  (92)
+
+	TOK_ID  shift 18
+	KW_QUERY  shift 19
+	KW_STREAM  shift 20
+	KW_TEMPLATE  shift 21
+	KW_SEED  shift 22
+	KW_LIMITA  shift 23
+	KW_LIMITB  shift 24
+	KW_LIMITC  shift 25
+	.  error
+
+
+state 5
+	include_statement : '#' . KW_INCLUDE path  (8)
+	include_statement : '#' . KW_INCLUDE '<' path '>'  (9)
+
+	KW_INCLUDE  shift 26
+	.  error
+
+
+state 6
+	$accept : workload_spec . $end  (0)
+
+	$end  accept
+
+
+state 7
+	statement_list : statement .  (2)
+
+	.  reduce 2
+
+
+state 8
+	workload_spec : statement_list .  (1)
+	statement_list : statement_list . statement  (3)
+
+	TOK_SQL  shift 1
+	KW_DEFINE  shift 2
+	KW_DIST  shift 3
+	'['  shift 4
+	'#'  shift 5
+	$end  reduce 1
+
+	statement  goto 27
+	include_statement  goto 9
+	define_statement  goto 10
+	query_statement  goto 11
+	dist_statement  goto 12
+	query_component_list  goto 13
+	substitution  goto 14
+
+
+state 9
+	statement : include_statement .  (4)
+
+	.  reduce 4
+
+
+state 10
+	statement : define_statement .  (5)
+
+	.  reduce 5
+
+
+state 11
+	statement : query_statement .  (6)
+
+	.  reduce 6
+
+
+state 12
+	statement : dist_statement .  (7)
+
+	.  reduce 7
+
+
+state 13
+	query_statement : query_component_list . ';'  (79)
+	query_component_list : query_component_list . substitution  (82)
+	query_component_list : query_component_list . TOK_SQL  (83)
+
+	TOK_SQL  shift 28
+	'['  shift 4
+	';'  shift 29
+	.  error
+
+	substitution  goto 30
+
+
+state 14
+	query_component_list : substitution .  (80)
+
+	.  reduce 80
+
+
+state 15
+	define_statement : KW_DEFINE TOK_ID . '=' expr ';'  (34)
+
+	'='  shift 31
+	.  error
+
+
+state 16
+	define_statement : KW_DEFINE KW_LIMIT . '=' TOK_INT ';'  (35)
+
+	'='  shift 32
+	.  error
+
+
+state 17
+	dist_statement : KW_DIST TOK_ID . ';' dist_argument_list dist_members_list  (10)
+
+	';'  shift 33
+	.  error
+
+
+state 18
+	substitution : '[' TOK_ID . opt_substitution_suffix ']'  (84)
+	substitution : '[' TOK_ID . TOK_INT opt_substitution_suffix ']'  (85)
+	opt_substitution_suffix : .  (93)
+
+	TOK_INT  shift 34
+	'.'  shift 35
+	']'  reduce 93
+
+	opt_substitution_suffix  goto 36
+
+
+state 19
+	substitution : '[' KW_QUERY . ']'  (86)
+
+	']'  shift 37
+	.  error
+
+
+state 20
+	substitution : '[' KW_STREAM . ']'  (87)
+
+	']'  shift 38
+	.  error
+
+
+state 21
+	substitution : '[' KW_TEMPLATE . ']'  (88)
+
+	']'  shift 39
+	.  error
+
+
+state 22
+	substitution : '[' KW_SEED . ']'  (89)
+
+	']'  shift 40
+	.  error
+
+
+state 23
+	substitution : '[' KW_LIMITA . ']'  (90)
+
+	']'  shift 41
+	.  error
+
+
+state 24
+	substitution : '[' KW_LIMITB . ']'  (91)
+
+	']'  shift 42
+	.  error
+
+
+state 25
+	substitution : '[' KW_LIMITC . ']'  (92)
+
+	']'  shift 43
+	.  error
+
+
+state 26
+	include_statement : '#' KW_INCLUDE . path  (8)
+	include_statement : '#' KW_INCLUDE . '<' path '>'  (9)
+
+	TOK_LITERAL  shift 44
+	'<'  shift 45
+	.  error
+
+	path  goto 46
+
+
+state 27
+	statement_list : statement_list statement .  (3)
+
+	.  reduce 3
+
+
+state 28
+	query_component_list : query_component_list TOK_SQL .  (83)
+
+	.  reduce 83
+
+
+state 29
+	query_statement : query_component_list ';' .  (79)
+
+	.  reduce 79
+
+
+state 30
+	query_component_list : query_component_list substitution .  (82)
+
+	.  reduce 82
+
+
+state 31
+	define_statement : KW_DEFINE TOK_ID '=' . expr ';'  (34)
+
+	TOK_INT  shift 47
+	TOK_LITERAL  shift 48
+	KW_RANDOM  shift 49
+	KW_UNIFORM  shift 50
+	KW_RANGE  shift 51
+	KW_DATE  shift 52
+	KW_TEXT  shift 53
+	KW_DIST  shift 54
+	KW_LIST  shift 55
+	KW_ROWCOUNT  shift 56
+	KW_SALES  shift 57
+	KW_RETURNS  shift 58
+	KW_DISTMEMBER  shift 59
+	KW_DISTWEIGHT  shift 60
+	KW_SCALE  shift 61
+	KW_SCALE_STEP  shift 62
+	KW_ULIST  shift 63
+	'['  shift 64
+	.  error
+
+	expr  goto 65
+	function_call  goto 66
+	arithmetic_expr  goto 67
+	dist_function_name  goto 68
+	function_name  goto 69
+	keyword_expr  goto 70
+
+
+state 32
+	define_statement : KW_DEFINE KW_LIMIT '=' . TOK_INT ';'  (35)
+
+	TOK_INT  shift 71
+	.  error
+
+
+state 33
+	dist_statement : KW_DIST TOK_ID ';' . dist_argument_list dist_members_list  (10)
+
+	KW_SET  shift 72
+	.  error
+
+	dist_argument_list  goto 73
+	dist_argument  goto 74
+
+
+state 34
+	substitution : '[' TOK_ID TOK_INT . opt_substitution_suffix ']'  (85)
+	opt_substitution_suffix : .  (93)
+
+	'.'  shift 35
+	']'  reduce 93
+
+	opt_substitution_suffix  goto 75
+
+
+state 35
+	opt_substitution_suffix : '.' . KW_BEGIN  (94)
+	opt_substitution_suffix : '.' . KW_END  (95)
+	opt_substitution_suffix : '.' . TOK_INT  (96)
+
+	TOK_INT  shift 76
+	KW_BEGIN  shift 77
+	KW_END  shift 78
+	.  error
+
+
+state 36
+	substitution : '[' TOK_ID opt_substitution_suffix . ']'  (84)
+
+	']'  shift 79
+	.  error
+
+
+state 37
+	substitution : '[' KW_QUERY ']' .  (86)
+
+	.  reduce 86
+
+
+state 38
+	substitution : '[' KW_STREAM ']' .  (87)
+
+	.  reduce 87
+
+
+state 39
+	substitution : '[' KW_TEMPLATE ']' .  (88)
+
+	.  reduce 88
+
+
+state 40
+	substitution : '[' KW_SEED ']' .  (89)
+
+	.  reduce 89
+
+
+state 41
+	substitution : '[' KW_LIMITA ']' .  (90)
+
+	.  reduce 90
+
+
+state 42
+	substitution : '[' KW_LIMITB ']' .  (91)
+
+	.  reduce 91
+
+
+state 43
+	substitution : '[' KW_LIMITC ']' .  (92)
+
+	.  reduce 92
+
+
+state 44
+	path : TOK_LITERAL .  (97)
+
+	.  reduce 97
+
+
+state 45
+	include_statement : '#' KW_INCLUDE '<' . path '>'  (9)
+
+	TOK_LITERAL  shift 44
+	.  error
+
+	path  goto 80
+
+
+state 46
+	include_statement : '#' KW_INCLUDE path .  (8)
+
+	.  reduce 8
+
+
+state 47
+	expr : TOK_INT .  (39)
+
+	.  reduce 39
+
+
+state 48
+	expr : TOK_LITERAL .  (38)
+
+	.  reduce 38
+
+
+state 49
+	function_name : KW_RANDOM .  (65)
+
+	.  reduce 65
+
+
+state 50
+	keyword_expr : KW_UNIFORM .  (69)
+
+	.  reduce 69
+
+
+state 51
+	function_call : KW_RANGE . '(' expr ',' TOK_INT ')'  (55)
+
+	'('  shift 81
+	.  error
+
+
+state 52
+	function_name : KW_DATE .  (64)
+
+	.  reduce 64
+
+
+state 53
+	function_call : KW_TEXT . '(' replacement_list ')'  (49)
+
+	'('  shift 82
+	.  error
+
+
+state 54
+	dist_function_name : KW_DIST .  (66)
+
+	.  reduce 66
+
+
+state 55
+	function_call : KW_LIST . '(' expr ',' TOK_INT ')'  (54)
+
+	'('  shift 83
+	.  error
+
+
+state 56
+	function_call : KW_ROWCOUNT . '(' TOK_LITERAL ')'  (50)
+	function_call : KW_ROWCOUNT . '(' TOK_LITERAL ',' TOK_LITERAL ')'  (51)
+
+	'('  shift 84
+	.  error
+
+
+state 57
+	keyword_expr : KW_SALES .  (70)
+
+	.  reduce 70
+
+
+state 58
+	keyword_expr : KW_RETURNS .  (71)
+
+	.  reduce 71
+
+
+state 59
+	dist_function_name : KW_DISTMEMBER .  (67)
+
+	.  reduce 67
+
+
+state 60
+	dist_function_name : KW_DISTWEIGHT .  (68)
+
+	.  reduce 68
+
+
+state 61
+	expr : KW_SCALE .  (45)
+
+	.  reduce 45
+
+
+state 62
+	function_call : KW_SCALE_STEP . '(' ')'  (52)
+
+	'('  shift 85
+	.  error
+
+
+state 63
+	function_call : KW_ULIST . '(' expr ',' TOK_INT ')'  (53)
+
+	'('  shift 86
+	.  error
+
+
+state 64
+	expr : '[' . keyword_value ']'  (42)
+	expr : '[' . TOK_ID TOK_INT opt_substitution_suffix ']'  (43)
+	expr : '[' . TOK_ID opt_substitution_suffix ']'  (44)
+
+	TOK_ID  shift 87
+	KW_QUERY  shift 88
+	KW_STREAM  shift 89
+	KW_TEMPLATE  shift 90
+	KW_SEED  shift 91
+	.  error
+
+	keyword_value  goto 92
+
+
+state 65
+	define_statement : KW_DEFINE TOK_ID '=' expr . ';'  (34)
+	arithmetic_expr : expr . '+' expr  (56)
+	arithmetic_expr : expr . '-' expr  (57)
+	arithmetic_expr : expr . '*' expr  (58)
+	arithmetic_expr : expr . '/' expr  (59)
+
+	'+'  shift 93
+	'-'  shift 94
+	'*'  shift 95
+	'/'  shift 96
+	';'  shift 97
+	.  error
+
+
+state 66
+	expr : function_call .  (40)
+
+	.  reduce 40
+
+
+state 67
+	expr : arithmetic_expr .  (46)
+
+	.  reduce 46
+
+
+state 68
+	function_call : dist_function_name . '(' dist_expr_list ')'  (48)
+
+	'('  shift 98
+	.  error
+
+
+state 69
+	function_call : function_name . '(' comma_expr_list ')'  (47)
+
+	'('  shift 99
+	.  error
+
+
+state 70
+	expr : keyword_expr .  (41)
+
+	.  reduce 41
+
+
+state 71
+	define_statement : KW_DEFINE KW_LIMIT '=' TOK_INT . ';'  (35)
+
+	';'  shift 100
+	.  error
+
+
+state 72
+	dist_argument : KW_SET . KW_WEIGHTS '=' TOK_INT ';'  (13)
+	dist_argument : KW_SET . KW_TYPES '=' '(' dist_type_list ')' ';'  (14)
+	dist_argument : KW_SET . KW_NAMES '=' '(' dist_name_list ':' dist_name_list ')' ';'  (15)
+
+	KW_NAMES  shift 101
+	KW_TYPES  shift 102
+	KW_WEIGHTS  shift 103
+	.  error
+
+
+state 73
+	dist_statement : KW_DIST TOK_ID ';' dist_argument_list . dist_members_list  (10)
+	dist_argument_list : dist_argument_list . dist_argument  (12)
+
+	KW_SET  shift 72
+	KW_ADD  shift 104
+	.  error
+
+	dist_members_list  goto 105
+	dist_argument  goto 106
+	dist_member  goto 107
+
+
+state 74
+	dist_argument_list : dist_argument .  (11)
+
+	.  reduce 11
+
+
+state 75
+	substitution : '[' TOK_ID TOK_INT opt_substitution_suffix . ']'  (85)
+
+	']'  shift 108
+	.  error
+
+
+state 76
+	opt_substitution_suffix : '.' TOK_INT .  (96)
+
+	.  reduce 96
+
+
+state 77
+	opt_substitution_suffix : '.' KW_BEGIN .  (94)
+
+	.  reduce 94
+
+
+state 78
+	opt_substitution_suffix : '.' KW_END .  (95)
+
+	.  reduce 95
+
+
+state 79
+	substitution : '[' TOK_ID opt_substitution_suffix ']' .  (84)
+
+	.  reduce 84
+
+
+state 80
+	include_statement : '#' KW_INCLUDE '<' path . '>'  (9)
+
+	'>'  shift 109
+	.  error
+
+
+state 81
+	function_call : KW_RANGE '(' . expr ',' TOK_INT ')'  (55)
+
+	TOK_INT  shift 47
+	TOK_LITERAL  shift 48
+	KW_RANDOM  shift 49
+	KW_UNIFORM  shift 50
+	KW_RANGE  shift 51
+	KW_DATE  shift 52
+	KW_TEXT  shift 53
+	KW_DIST  shift 54
+	KW_LIST  shift 55
+	KW_ROWCOUNT  shift 56
+	KW_SALES  shift 57
+	KW_RETURNS  shift 58
+	KW_DISTMEMBER  shift 59
+	KW_DISTWEIGHT  shift 60
+	KW_SCALE  shift 61
+	KW_SCALE_STEP  shift 62
+	KW_ULIST  shift 63
+	'['  shift 64
+	.  error
+
+	expr  goto 110
+	function_call  goto 66
+	arithmetic_expr  goto 67
+	dist_function_name  goto 68
+	function_name  goto 69
+	keyword_expr  goto 70
+
+
+state 82
+	function_call : KW_TEXT '(' . replacement_list ')'  (49)
+
+	'{'  shift 111
+	.  error
+
+	replacement  goto 112
+	replacement_list  goto 113
+
+
+state 83
+	function_call : KW_LIST '(' . expr ',' TOK_INT ')'  (54)
+
+	TOK_INT  shift 47
+	TOK_LITERAL  shift 48
+	KW_RANDOM  shift 49
+	KW_UNIFORM  shift 50
+	KW_RANGE  shift 51
+	KW_DATE  shift 52
+	KW_TEXT  shift 53
+	KW_DIST  shift 54
+	KW_LIST  shift 55
+	KW_ROWCOUNT  shift 56
+	KW_SALES  shift 57
+	KW_RETURNS  shift 58
+	KW_DISTMEMBER  shift 59
+	KW_DISTWEIGHT  shift 60
+	KW_SCALE  shift 61
+	KW_SCALE_STEP  shift 62
+	KW_ULIST  shift 63
+	'['  shift 64
+	.  error
+
+	expr  goto 114
+	function_call  goto 66
+	arithmetic_expr  goto 67
+	dist_function_name  goto 68
+	function_name  goto 69
+	keyword_expr  goto 70
+
+
+state 84
+	function_call : KW_ROWCOUNT '(' . TOK_LITERAL ')'  (50)
+	function_call : KW_ROWCOUNT '(' . TOK_LITERAL ',' TOK_LITERAL ')'  (51)
+
+	TOK_LITERAL  shift 115
+	.  error
+
+
+state 85
+	function_call : KW_SCALE_STEP '(' . ')'  (52)
+
+	')'  shift 116
+	.  error
+
+
+state 86
+	function_call : KW_ULIST '(' . expr ',' TOK_INT ')'  (53)
+
+	TOK_INT  shift 47
+	TOK_LITERAL  shift 48
+	KW_RANDOM  shift 49
+	KW_UNIFORM  shift 50
+	KW_RANGE  shift 51
+	KW_DATE  shift 52
+	KW_TEXT  shift 53
+	KW_DIST  shift 54
+	KW_LIST  shift 55
+	KW_ROWCOUNT  shift 56
+	KW_SALES  shift 57
+	KW_RETURNS  shift 58
+	KW_DISTMEMBER  shift 59
+	KW_DISTWEIGHT  shift 60
+	KW_SCALE  shift 61
+	KW_SCALE_STEP  shift 62
+	KW_ULIST  shift 63
+	'['  shift 64
+	.  error
+
+	expr  goto 117
+	function_call  goto 66
+	arithmetic_expr  goto 67
+	dist_function_name  goto 68
+	function_name  goto 69
+	keyword_expr  goto 70
+
+
+state 87
+	expr : '[' TOK_ID . TOK_INT opt_substitution_suffix ']'  (43)
+	expr : '[' TOK_ID . opt_substitution_suffix ']'  (44)
+	opt_substitution_suffix : .  (93)
+
+	TOK_INT  shift 118
+	'.'  shift 35
+	']'  reduce 93
+
+	opt_substitution_suffix  goto 119
+
+
+state 88
+	keyword_value : KW_QUERY .  (72)
+
+	.  reduce 72
+
+
+state 89
+	keyword_value : KW_STREAM .  (74)
+
+	.  reduce 74
+
+
+state 90
+	keyword_value : KW_TEMPLATE .  (73)
+
+	.  reduce 73
+
+
+state 91
+	keyword_value : KW_SEED .  (75)
+
+	.  reduce 75
+
+
+state 92
+	expr : '[' keyword_value . ']'  (42)
+
+	']'  shift 120
+	.  error
+
+
+state 93
+	arithmetic_expr : expr '+' . expr  (56)
+
+	TOK_INT  shift 47
+	TOK_LITERAL  shift 48
+	KW_RANDOM  shift 49
+	KW_UNIFORM  shift 50
+	KW_RANGE  shift 51
+	KW_DATE  shift 52
+	KW_TEXT  shift 53
+	KW_DIST  shift 54
+	KW_LIST  shift 55
+	KW_ROWCOUNT  shift 56
+	KW_SALES  shift 57
+	KW_RETURNS  shift 58
+	KW_DISTMEMBER  shift 59
+	KW_DISTWEIGHT  shift 60
+	KW_SCALE  shift 61
+	KW_SCALE_STEP  shift 62
+	KW_ULIST  shift 63
+	'['  shift 64
+	.  error
+
+	expr  goto 121
+	function_call  goto 66
+	arithmetic_expr  goto 67
+	dist_function_name  goto 68
+	function_name  goto 69
+	keyword_expr  goto 70
+
+
+state 94
+	arithmetic_expr : expr '-' . expr  (57)
+
+	TOK_INT  shift 47
+	TOK_LITERAL  shift 48
+	KW_RANDOM  shift 49
+	KW_UNIFORM  shift 50
+	KW_RANGE  shift 51
+	KW_DATE  shift 52
+	KW_TEXT  shift 53
+	KW_DIST  shift 54
+	KW_LIST  shift 55
+	KW_ROWCOUNT  shift 56
+	KW_SALES  shift 57
+	KW_RETURNS  shift 58
+	KW_DISTMEMBER  shift 59
+	KW_DISTWEIGHT  shift 60
+	KW_SCALE  shift 61
+	KW_SCALE_STEP  shift 62
+	KW_ULIST  shift 63
+	'['  shift 64
+	.  error
+
+	expr  goto 122
+	function_call  goto 66
+	arithmetic_expr  goto 67
+	dist_function_name  goto 68
+	function_name  goto 69
+	keyword_expr  goto 70
+
+
+state 95
+	arithmetic_expr : expr '*' . expr  (58)
+
+	TOK_INT  shift 47
+	TOK_LITERAL  shift 48
+	KW_RANDOM  shift 49
+	KW_UNIFORM  shift 50
+	KW_RANGE  shift 51
+	KW_DATE  shift 52
+	KW_TEXT  shift 53
+	KW_DIST  shift 54
+	KW_LIST  shift 55
+	KW_ROWCOUNT  shift 56
+	KW_SALES  shift 57
+	KW_RETURNS  shift 58
+	KW_DISTMEMBER  shift 59
+	KW_DISTWEIGHT  shift 60
+	KW_SCALE  shift 61
+	KW_SCALE_STEP  shift 62
+	KW_ULIST  shift 63
+	'['  shift 64
+	.  error
+
+	expr  goto 123
+	function_call  goto 66
+	arithmetic_expr  goto 67
+	dist_function_name  goto 68
+	function_name  goto 69
+	keyword_expr  goto 70
+
+
+state 96
+	arithmetic_expr : expr '/' . expr  (59)
+
+	TOK_INT  shift 47
+	TOK_LITERAL  shift 48
+	KW_RANDOM  shift 49
+	KW_UNIFORM  shift 50
+	KW_RANGE  shift 51
+	KW_DATE  shift 52
+	KW_TEXT  shift 53
+	KW_DIST  shift 54
+	KW_LIST  shift 55
+	KW_ROWCOUNT  shift 56
+	KW_SALES  shift 57
+	KW_RETURNS  shift 58
+	KW_DISTMEMBER  shift 59
+	KW_DISTWEIGHT  shift 60
+	KW_SCALE  shift 61
+	KW_SCALE_STEP  shift 62
+	KW_ULIST  shift 63
+	'['  shift 64
+	.  error
+
+	expr  goto 124
+	function_call  goto 66
+	arithmetic_expr  goto 67
+	dist_function_name  goto 68
+	function_name  goto 69
+	keyword_expr  goto 70
+
+
+state 97
+	define_statement : KW_DEFINE TOK_ID '=' expr ';' .  (34)
+
+	.  reduce 34
+
+
+state 98
+	function_call : dist_function_name '(' . dist_expr_list ')'  (48)
+
+	TOK_INT  shift 47
+	TOK_LITERAL  shift 48
+	TOK_ID  shift 125
+	KW_RANDOM  shift 49
+	KW_UNIFORM  shift 50
+	KW_RANGE  shift 51
+	KW_DATE  shift 52
+	KW_TEXT  shift 53
+	KW_DIST  shift 54
+	KW_LIST  shift 55
+	KW_ROWCOUNT  shift 56
+	KW_SALES  shift 57
+	KW_RETURNS  shift 58
+	KW_DISTMEMBER  shift 59
+	KW_DISTWEIGHT  shift 60
+	KW_SCALE  shift 61
+	KW_SCALE_STEP  shift 62
+	KW_ULIST  shift 63
+	'['  shift 64
+	.  error
+
+	dist_expr_list  goto 126
+	expr  goto 127
+	function_call  goto 66
+	arithmetic_expr  goto 67
+	dist_function_name  goto 68
+	function_name  goto 69
+	keyword_expr  goto 70
+
+
+state 99
+	function_call : function_name '(' . comma_expr_list ')'  (47)
+
+	TOK_INT  shift 47
+	TOK_LITERAL  shift 48
+	KW_RANDOM  shift 49
+	KW_UNIFORM  shift 50
+	KW_RANGE  shift 51
+	KW_DATE  shift 52
+	KW_TEXT  shift 53
+	KW_DIST  shift 54
+	KW_LIST  shift 55
+	KW_ROWCOUNT  shift 56
+	KW_SALES  shift 57
+	KW_RETURNS  shift 58
+	KW_DISTMEMBER  shift 59
+	KW_DISTWEIGHT  shift 60
+	KW_SCALE  shift 61
+	KW_SCALE_STEP  shift 62
+	KW_ULIST  shift 63
+	'['  shift 64
+	.  error
+
+	comma_expr_list  goto 128
+	expr  goto 129
+	function_call  goto 66
+	arithmetic_expr  goto 67
+	dist_function_name  goto 68
+	function_name  goto 69
+	keyword_expr  goto 70
+
+
+state 100
+	define_statement : KW_DEFINE KW_LIMIT '=' TOK_INT ';' .  (35)
+
+	.  reduce 35
+
+
+state 101
+	dist_argument : KW_SET KW_NAMES . '=' '(' dist_name_list ':' dist_name_list ')' ';'  (15)
+
+	'='  shift 130
+	.  error
+
+
+state 102
+	dist_argument : KW_SET KW_TYPES . '=' '(' dist_type_list ')' ';'  (14)
+
+	'='  shift 131
+	.  error
+
+
+state 103
+	dist_argument : KW_SET KW_WEIGHTS . '=' TOK_INT ';'  (13)
+
+	'='  shift 132
+	.  error
+
+
+state 104
+	dist_member : KW_ADD . '(' dist_value_list ':' dist_weight_list ')' ';'  (26)
+
+	'('  shift 133
+	.  error
+
+
+state 105
+	dist_statement : KW_DIST TOK_ID ';' dist_argument_list dist_members_list .  (10)
+	dist_members_list : dist_members_list . dist_member  (25)
+
+	KW_ADD  shift 104
+	$end  reduce 10
+	TOK_SQL  reduce 10
+	KW_DEFINE  reduce 10
+	KW_DIST  reduce 10
+	'['  reduce 10
+	'#'  reduce 10
+
+	dist_member  goto 134
+
+
+state 106
+	dist_argument_list : dist_argument_list dist_argument .  (12)
+
+	.  reduce 12
+
+
+state 107
+	dist_members_list : dist_member .  (24)
+
+	.  reduce 24
+
+
+state 108
+	substitution : '[' TOK_ID TOK_INT opt_substitution_suffix ']' .  (85)
+
+	.  reduce 85
+
+
+state 109
+	include_statement : '#' KW_INCLUDE '<' path '>' .  (9)
+
+	.  reduce 9
+
+
+state 110
+	function_call : KW_RANGE '(' expr . ',' TOK_INT ')'  (55)
+	arithmetic_expr : expr . '+' expr  (56)
+	arithmetic_expr : expr . '-' expr  (57)
+	arithmetic_expr : expr . '*' expr  (58)
+	arithmetic_expr : expr . '/' expr  (59)
+
+	'+'  shift 93
+	'-'  shift 94
+	'*'  shift 95
+	'/'  shift 96
+	','  shift 135
+	.  error
+
+
+state 111
+	replacement : '{' . TOK_LITERAL ',' TOK_INT '}'  (78)
+
+	TOK_LITERAL  shift 136
+	.  error
+
+
+state 112
+	replacement_list : replacement .  (76)
+
+	.  reduce 76
+
+
+state 113
+	function_call : KW_TEXT '(' replacement_list . ')'  (49)
+	replacement_list : replacement_list . ',' replacement  (77)
+
+	')'  shift 137
+	','  shift 138
+	.  error
+
+
+state 114
+	function_call : KW_LIST '(' expr . ',' TOK_INT ')'  (54)
+	arithmetic_expr : expr . '+' expr  (56)
+	arithmetic_expr : expr . '-' expr  (57)
+	arithmetic_expr : expr . '*' expr  (58)
+	arithmetic_expr : expr . '/' expr  (59)
+
+	'+'  shift 93
+	'-'  shift 94
+	'*'  shift 95
+	'/'  shift 96
+	','  shift 139
+	.  error
+
+
+state 115
+	function_call : KW_ROWCOUNT '(' TOK_LITERAL . ')'  (50)
+	function_call : KW_ROWCOUNT '(' TOK_LITERAL . ',' TOK_LITERAL ')'  (51)
+
+	')'  shift 140
+	','  shift 141
+	.  error
+
+
+state 116
+	function_call : KW_SCALE_STEP '(' ')' .  (52)
+
+	.  reduce 52
+
+
+state 117
+	function_call : KW_ULIST '(' expr . ',' TOK_INT ')'  (53)
+	arithmetic_expr : expr . '+' expr  (56)
+	arithmetic_expr : expr . '-' expr  (57)
+	arithmetic_expr : expr . '*' expr  (58)
+	arithmetic_expr : expr . '/' expr  (59)
+
+	'+'  shift 93
+	'-'  shift 94
+	'*'  shift 95
+	'/'  shift 96
+	','  shift 142
+	.  error
+
+
+state 118
+	expr : '[' TOK_ID TOK_INT . opt_substitution_suffix ']'  (43)
+	opt_substitution_suffix : .  (93)
+
+	'.'  shift 35
+	']'  reduce 93
+
+	opt_substitution_suffix  goto 143
+
+
+state 119
+	expr : '[' TOK_ID opt_substitution_suffix . ']'  (44)
+
+	']'  shift 144
+	.  error
+
+
+state 120
+	expr : '[' keyword_value ']' .  (42)
+
+	.  reduce 42
+
+
+state 121
+	arithmetic_expr : expr . '+' expr  (56)
+	arithmetic_expr : expr '+' expr .  (56)
+	arithmetic_expr : expr . '-' expr  (57)
+	arithmetic_expr : expr . '*' expr  (58)
+	arithmetic_expr : expr . '/' expr  (59)
+
+	'*'  shift 95
+	'/'  shift 96
+	'+'  reduce 56
+	'-'  reduce 56
+	';'  reduce 56
+	')'  reduce 56
+	','  reduce 56
+
+
+state 122
+	arithmetic_expr : expr . '+' expr  (56)
+	arithmetic_expr : expr . '-' expr  (57)
+	arithmetic_expr : expr '-' expr .  (57)
+	arithmetic_expr : expr . '*' expr  (58)
+	arithmetic_expr : expr . '/' expr  (59)
+
+	'*'  shift 95
+	'/'  shift 96
+	'+'  reduce 57
+	'-'  reduce 57
+	';'  reduce 57
+	')'  reduce 57
+	','  reduce 57
+
+
+state 123
+	arithmetic_expr : expr . '+' expr  (56)
+	arithmetic_expr : expr . '-' expr  (57)
+	arithmetic_expr : expr . '*' expr  (58)
+	arithmetic_expr : expr '*' expr .  (58)
+	arithmetic_expr : expr . '/' expr  (59)
+
+	.  reduce 58
+
+
+state 124
+	arithmetic_expr : expr . '+' expr  (56)
+	arithmetic_expr : expr . '-' expr  (57)
+	arithmetic_expr : expr . '*' expr  (58)
+	arithmetic_expr : expr . '/' expr  (59)
+	arithmetic_expr : expr '/' expr .  (59)
+
+	.  reduce 59
+
+
+state 125
+	dist_expr_list : TOK_ID .  (61)
+
+	.  reduce 61
+
+
+state 126
+	function_call : dist_function_name '(' dist_expr_list . ')'  (48)
+	dist_expr_list : dist_expr_list . ',' expr  (62)
+	dist_expr_list : dist_expr_list . ',' TOK_ID  (63)
+
+	')'  shift 145
+	','  shift 146
+	.  error
+
+
+state 127
+	arithmetic_expr : expr . '+' expr  (56)
+	arithmetic_expr : expr . '-' expr  (57)
+	arithmetic_expr : expr . '*' expr  (58)
+	arithmetic_expr : expr . '/' expr  (59)
+	dist_expr_list : expr .  (60)
+
+	'+'  shift 93
+	'-'  shift 94
+	'*'  shift 95
+	'/'  shift 96
+	')'  reduce 60
+	','  reduce 60
+
+
+state 128
+	comma_expr_list : comma_expr_list . ',' expr  (37)
+	function_call : function_name '(' comma_expr_list . ')'  (47)
+
+	')'  shift 147
+	','  shift 148
+	.  error
+
+
+state 129
+	comma_expr_list : expr .  (36)
+	arithmetic_expr : expr . '+' expr  (56)
+	arithmetic_expr : expr . '-' expr  (57)
+	arithmetic_expr : expr . '*' expr  (58)
+	arithmetic_expr : expr . '/' expr  (59)
+
+	'+'  shift 93
+	'-'  shift 94
+	'*'  shift 95
+	'/'  shift 96
+	')'  reduce 36
+	','  reduce 36
+
+
+state 130
+	dist_argument : KW_SET KW_NAMES '=' . '(' dist_name_list ':' dist_name_list ')' ';'  (15)
+
+	'('  shift 149
+	.  error
+
+
+state 131
+	dist_argument : KW_SET KW_TYPES '=' . '(' dist_type_list ')' ';'  (14)
+
+	'('  shift 150
+	.  error
+
+
+state 132
+	dist_argument : KW_SET KW_WEIGHTS '=' . TOK_INT ';'  (13)
+
+	TOK_INT  shift 151
+	.  error
+
+
+state 133
+	dist_member : KW_ADD '(' . dist_value_list ':' dist_weight_list ')' ';'  (26)
+
+	TOK_INT  shift 152
+	TOK_LITERAL  shift 153
+	TOK_DECIMAL  shift 154
+	.  error
+
+	dist_value_list  goto 155
+	dist_value  goto 156
+
+
+state 134
+	dist_members_list : dist_members_list dist_member .  (25)
+
+	.  reduce 25
+
+
+state 135
+	function_call : KW_RANGE '(' expr ',' . TOK_INT ')'  (55)
+
+	TOK_INT  shift 157
+	.  error
+
+
+state 136
+	replacement : '{' TOK_LITERAL . ',' TOK_INT '}'  (78)
+
+	','  shift 158
+	.  error
+
+
+state 137
+	function_call : KW_TEXT '(' replacement_list ')' .  (49)
+
+	.  reduce 49
+
+
+state 138
+	replacement_list : replacement_list ',' . replacement  (77)
+
+	'{'  shift 111
+	.  error
+
+	replacement  goto 159
+
+
+state 139
+	function_call : KW_LIST '(' expr ',' . TOK_INT ')'  (54)
+
+	TOK_INT  shift 160
+	.  error
+
+
+state 140
+	function_call : KW_ROWCOUNT '(' TOK_LITERAL ')' .  (50)
+
+	.  reduce 50
+
+
+state 141
+	function_call : KW_ROWCOUNT '(' TOK_LITERAL ',' . TOK_LITERAL ')'  (51)
+
+	TOK_LITERAL  shift 161
+	.  error
+
+
+state 142
+	function_call : KW_ULIST '(' expr ',' . TOK_INT ')'  (53)
+
+	TOK_INT  shift 162
+	.  error
+
+
+state 143
+	expr : '[' TOK_ID TOK_INT opt_substitution_suffix . ']'  (43)
+
+	']'  shift 163
+	.  error
+
+
+state 144
+	expr : '[' TOK_ID opt_substitution_suffix ']' .  (44)
+
+	.  reduce 44
+
+
+state 145
+	function_call : dist_function_name '(' dist_expr_list ')' .  (48)
+
+	.  reduce 48
+
+
+state 146
+	dist_expr_list : dist_expr_list ',' . expr  (62)
+	dist_expr_list : dist_expr_list ',' . TOK_ID  (63)
+
+	TOK_INT  shift 47
+	TOK_LITERAL  shift 48
+	TOK_ID  shift 164
+	KW_RANDOM  shift 49
+	KW_UNIFORM  shift 50
+	KW_RANGE  shift 51
+	KW_DATE  shift 52
+	KW_TEXT  shift 53
+	KW_DIST  shift 54
+	KW_LIST  shift 55
+	KW_ROWCOUNT  shift 56
+	KW_SALES  shift 57
+	KW_RETURNS  shift 58
+	KW_DISTMEMBER  shift 59
+	KW_DISTWEIGHT  shift 60
+	KW_SCALE  shift 61
+	KW_SCALE_STEP  shift 62
+	KW_ULIST  shift 63
+	'['  shift 64
+	.  error
+
+	expr  goto 165
+	function_call  goto 66
+	arithmetic_expr  goto 67
+	dist_function_name  goto 68
+	function_name  goto 69
+	keyword_expr  goto 70
+
+
+state 147
+	function_call : function_name '(' comma_expr_list ')' .  (47)
+
+	.  reduce 47
+
+
+state 148
+	comma_expr_list : comma_expr_list ',' . expr  (37)
+
+	TOK_INT  shift 47
+	TOK_LITERAL  shift 48
+	KW_RANDOM  shift 49
+	KW_UNIFORM  shift 50
+	KW_RANGE  shift 51
+	KW_DATE  shift 52
+	KW_TEXT  shift 53
+	KW_DIST  shift 54
+	KW_LIST  shift 55
+	KW_ROWCOUNT  shift 56
+	KW_SALES  shift 57
+	KW_RETURNS  shift 58
+	KW_DISTMEMBER  shift 59
+	KW_DISTWEIGHT  shift 60
+	KW_SCALE  shift 61
+	KW_SCALE_STEP  shift 62
+	KW_ULIST  shift 63
+	'['  shift 64
+	.  error
+
+	expr  goto 166
+	function_call  goto 66
+	arithmetic_expr  goto 67
+	dist_function_name  goto 68
+	function_name  goto 69
+	keyword_expr  goto 70
+
+
+state 149
+	dist_argument : KW_SET KW_NAMES '=' '(' . dist_name_list ':' dist_name_list ')' ';'  (15)
+
+	TOK_ID  shift 167
+	.  error
+
+	dist_name_list  goto 168
+
+
+state 150
+	dist_argument : KW_SET KW_TYPES '=' '(' . dist_type_list ')' ';'  (14)
+	dist_type_list : .  (19)
+
+	KW_INT  shift 169
+	KW_VARCHAR  shift 170
+	KW_DECIMAL  shift 171
+	')'  reduce 19
+	','  reduce 19
+
+	dist_type_list  goto 172
+	dist_type  goto 173
+
+
+state 151
+	dist_argument : KW_SET KW_WEIGHTS '=' TOK_INT . ';'  (13)
+
+	';'  shift 174
+	.  error
+
+
+state 152
+	dist_value : TOK_INT .  (27)
+
+	.  reduce 27
+
+
+state 153
+	dist_value : TOK_LITERAL .  (28)
+
+	.  reduce 28
+
+
+state 154
+	dist_value : TOK_DECIMAL .  (29)
+
+	.  reduce 29
+
+
+state 155
+	dist_member : KW_ADD '(' dist_value_list . ':' dist_weight_list ')' ';'  (26)
+	dist_value_list : dist_value_list . ',' dist_value  (31)
+
+	':'  shift 175
+	','  shift 176
+	.  error
+
+
+state 156
+	dist_value_list : dist_value .  (30)
+
+	.  reduce 30
+
+
+state 157
+	function_call : KW_RANGE '(' expr ',' TOK_INT . ')'  (55)
+
+	')'  shift 177
+	.  error
+
+
+state 158
+	replacement : '{' TOK_LITERAL ',' . TOK_INT '}'  (78)
+
+	TOK_INT  shift 178
+	.  error
+
+
+state 159
+	replacement_list : replacement_list ',' replacement .  (77)
+
+	.  reduce 77
+
+
+state 160
+	function_call : KW_LIST '(' expr ',' TOK_INT . ')'  (54)
+
+	')'  shift 179
+	.  error
+
+
+state 161
+	function_call : KW_ROWCOUNT '(' TOK_LITERAL ',' TOK_LITERAL . ')'  (51)
+
+	')'  shift 180
+	.  error
+
+
+state 162
+	function_call : KW_ULIST '(' expr ',' TOK_INT . ')'  (53)
+
+	')'  shift 181
+	.  error
+
+
+state 163
+	expr : '[' TOK_ID TOK_INT opt_substitution_suffix ']' .  (43)
+
+	.  reduce 43
+
+
+state 164
+	dist_expr_list : dist_expr_list ',' TOK_ID .  (63)
+
+	.  reduce 63
+
+
+state 165
+	arithmetic_expr : expr . '+' expr  (56)
+	arithmetic_expr : expr . '-' expr  (57)
+	arithmetic_expr : expr . '*' expr  (58)
+	arithmetic_expr : expr . '/' expr  (59)
+	dist_expr_list : dist_expr_list ',' expr .  (62)
+
+	'+'  shift 93
+	'-'  shift 94
+	'*'  shift 95
+	'/'  shift 96
+	')'  reduce 62
+	','  reduce 62
+
+
+state 166
+	comma_expr_list : comma_expr_list ',' expr .  (37)
+	arithmetic_expr : expr . '+' expr  (56)
+	arithmetic_expr : expr . '-' expr  (57)
+	arithmetic_expr : expr . '*' expr  (58)
+	arithmetic_expr : expr . '/' expr  (59)
+
+	'+'  shift 93
+	'-'  shift 94
+	'*'  shift 95
+	'/'  shift 96
+	')'  reduce 37
+	','  reduce 37
+
+
+state 167
+	dist_name_list : TOK_ID .  (22)
+
+	.  reduce 22
+
+
+state 168
+	dist_argument : KW_SET KW_NAMES '=' '(' dist_name_list . ':' dist_name_list ')' ';'  (15)
+	dist_name_list : dist_name_list . ',' TOK_ID  (23)
+
+	':'  shift 182
+	','  shift 183
+	.  error
+
+
+state 169
+	dist_type : KW_INT .  (16)
+
+	.  reduce 16
+
+
+state 170
+	dist_type : KW_VARCHAR .  (17)
+
+	.  reduce 17
+
+
+state 171
+	dist_type : KW_DECIMAL .  (18)
+
+	.  reduce 18
+
+
+state 172
+	dist_argument : KW_SET KW_TYPES '=' '(' dist_type_list . ')' ';'  (14)
+	dist_type_list : dist_type_list . ',' dist_type  (21)
+
+	')'  shift 184
+	','  shift 185
+	.  error
+
+
+state 173
+	dist_type_list : dist_type .  (20)
+
+	.  reduce 20
+
+
+state 174
+	dist_argument : KW_SET KW_WEIGHTS '=' TOK_INT ';' .  (13)
+
+	.  reduce 13
+
+
+state 175
+	dist_member : KW_ADD '(' dist_value_list ':' . dist_weight_list ')' ';'  (26)
+
+	TOK_INT  shift 186
+	TOK_LITERAL  shift 153
+	TOK_DECIMAL  shift 154
+	.  error
+
+	dist_value_list  goto 187
+	dist_weight_list  goto 188
+	dist_value  goto 156
+
+
+state 176
+	dist_value_list : dist_value_list ',' . dist_value  (31)
+
+	TOK_INT  shift 152
+	TOK_LITERAL  shift 153
+	TOK_DECIMAL  shift 154
+	.  error
+
+	dist_value  goto 189
+
+
+state 177
+	function_call : KW_RANGE '(' expr ',' TOK_INT ')' .  (55)
+
+	.  reduce 55
+
+
+state 178
+	replacement : '{' TOK_LITERAL ',' TOK_INT . '}'  (78)
+
+	'}'  shift 190
+	.  error
+
+
+state 179
+	function_call : KW_LIST '(' expr ',' TOK_INT ')' .  (54)
+
+	.  reduce 54
+
+
+state 180
+	function_call : KW_ROWCOUNT '(' TOK_LITERAL ',' TOK_LITERAL ')' .  (51)
+
+	.  reduce 51
+
+
+state 181
+	function_call : KW_ULIST '(' expr ',' TOK_INT ')' .  (53)
+
+	.  reduce 53
+
+
+state 182
+	dist_argument : KW_SET KW_NAMES '=' '(' dist_name_list ':' . dist_name_list ')' ';'  (15)
+
+	TOK_ID  shift 167
+	.  error
+
+	dist_name_list  goto 191
+
+
+state 183
+	dist_name_list : dist_name_list ',' . TOK_ID  (23)
+
+	TOK_ID  shift 192
+	.  error
+
+
+state 184
+	dist_argument : KW_SET KW_TYPES '=' '(' dist_type_list ')' . ';'  (14)
+
+	';'  shift 193
+	.  error
+
+
+state 185
+	dist_type_list : dist_type_list ',' . dist_type  (21)
+
+	KW_INT  shift 169
+	KW_VARCHAR  shift 170
+	KW_DECIMAL  shift 171
+	.  error
+
+	dist_type  goto 194
+
+
+state 186
+	dist_value : TOK_INT .  (27)
+	dist_weight_list : TOK_INT .  (32)
+
+	')'  reduce 32
+	','  reduce 27
+
+
+state 187
+	dist_value_list : dist_value_list . ',' dist_value  (31)
+	dist_weight_list : dist_value_list . ',' TOK_INT  (33)
+
+	','  shift 195
+	.  error
+
+
+state 188
+	dist_member : KW_ADD '(' dist_value_list ':' dist_weight_list . ')' ';'  (26)
+
+	')'  shift 196
+	.  error
+
+
+state 189
+	dist_value_list : dist_value_list ',' dist_value .  (31)
+
+	.  reduce 31
+
+
+state 190
+	replacement : '{' TOK_LITERAL ',' TOK_INT '}' .  (78)
+
+	.  reduce 78
+
+
+state 191
+	dist_argument : KW_SET KW_NAMES '=' '(' dist_name_list ':' dist_name_list . ')' ';'  (15)
+	dist_name_list : dist_name_list . ',' TOK_ID  (23)
+
+	')'  shift 197
+	','  shift 183
+	.  error
+
+
+state 192
+	dist_name_list : dist_name_list ',' TOK_ID .  (23)
+
+	.  reduce 23
+
+
+state 193
+	dist_argument : KW_SET KW_TYPES '=' '(' dist_type_list ')' ';' .  (14)
+
+	.  reduce 14
+
+
+state 194
+	dist_type_list : dist_type_list ',' dist_type .  (21)
+
+	.  reduce 21
+
+
+state 195
+	dist_value_list : dist_value_list ',' . dist_value  (31)
+	dist_weight_list : dist_value_list ',' . TOK_INT  (33)
+
+	TOK_INT  shift 198
+	TOK_LITERAL  shift 153
+	TOK_DECIMAL  shift 154
+	.  error
+
+	dist_value  goto 189
+
+
+state 196
+	dist_member : KW_ADD '(' dist_value_list ':' dist_weight_list ')' . ';'  (26)
+
+	';'  shift 199
+	.  error
+
+
+state 197
+	dist_argument : KW_SET KW_NAMES '=' '(' dist_name_list ':' dist_name_list ')' . ';'  (15)
+
+	';'  shift 200
+	.  error
+
+
+state 198
+	dist_value : TOK_INT .  (27)
+	dist_weight_list : dist_value_list ',' TOK_INT .  (33)
+
+	')'  reduce 33
+	','  reduce 27
+
+
+state 199
+	dist_member : KW_ADD '(' dist_value_list ':' dist_weight_list ')' ';' .  (26)
+
+	.  reduce 26
+
+
+state 200
+	dist_argument : KW_SET KW_NAMES '=' '(' dist_name_list ':' dist_name_list ')' ';' .  (15)
+
+	.  reduce 15
+
+
+66 terminals, 33 nonterminals
+98 grammar rules, 201 states

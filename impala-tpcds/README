@@ -1,0 +1,22 @@
+1. Create a user on every host such as "impadmin".
+2. Create and exchange keys for impadmin for all hosts.
+3. After extracting this installer, create a dn.txt file in the home directory with an entry for every data node where Impala is installed.
+4. Edit tpcds-env.sh to set the variables you want.
+4. On every datanode, create a "/datax/" directory with 1 through $DSDGEN_THREADS_PER_NODE which is set in tpcds-env.sh
+5. On every datanode, create a sub-directory named "/datax/$TPCDS_DBNAME"
+
+Example:
+
+for i in $(seq 1 $DSDGEN_THREADS_PER_NODE); do
+	echo "mkdir -p /data$i/$TPCDS_DBNAME"
+	mkdir -p /data$i/$TPCDS_DBNAME
+done
+
+6. Run rollout.sh to run the entire TPC-DS bencmark.
+
+Example:
+./rollout.sh
+
+Example to run in the background:
+
+./rollout.sh > tpcds.log 2>&1 < tpcds.log &

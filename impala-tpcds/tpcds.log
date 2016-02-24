@@ -1,0 +1,1519 @@
+rm -f /home/impadmin/impala-tpcds/log/end*
+/home/impadmin/impala-tpcds/00_compile_tpcds/rollout.sh
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o mkheader.o mkheader.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall  -o mkheader mkheader.o -lm
+./mkheader column_list.txt
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_brand.o s_brand.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_customer_address.o s_customer_address.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_call_center.o s_call_center.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_catalog.o s_catalog.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_catalog_order.o s_catalog_order.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_catalog_order_lineitem.o s_catalog_order_lineitem.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_catalog_page.o s_catalog_page.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_catalog_promotional_item.o s_catalog_promotional_item.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_catalog_returns.o s_catalog_returns.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_category.o s_category.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_class.o s_class.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_company.o s_company.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_customer.o s_customer.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_division.o s_division.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_inventory.o s_inventory.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_item.o s_item.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_manager.o s_manager.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_manufacturer.o s_manufacturer.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_market.o s_market.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_pline.o s_pline.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_product.o s_product.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_promotion.o s_promotion.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_purchase.o s_purchase.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_reason.o s_reason.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_store.o s_store.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_store_promotional_item.o s_store_promotional_item.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_store_returns.o s_store_returns.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_subcategory.o s_subcategory.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_subclass.o s_subclass.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_warehouse.o s_warehouse.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_web_order.o s_web_order.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_web_order_lineitem.o s_web_order_lineitem.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_web_page.o s_web_page.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_web_promotinal_item.o s_web_promotinal_item.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_web_returns.o s_web_returns.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_web_site.o s_web_site.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o s_zip_to_gmt.o s_zip_to_gmt.c
+s_zip_to_gmt.c: In function ‘mk_s_zip’:
+s_zip_to_gmt.c:152: warning: format ‘%05lld’ expects type ‘long long int’, but argument 3 has type ‘ds_key_t’
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_call_center.o w_call_center.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_catalog_page.o w_catalog_page.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_catalog_returns.o w_catalog_returns.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_catalog_sales.o w_catalog_sales.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_customer_address.o w_customer_address.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_customer.o w_customer.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_customer_demographics.o w_customer_demographics.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_datetbl.o w_datetbl.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_household_demographics.o w_household_demographics.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_income_band.o w_income_band.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_inventory.o w_inventory.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_item.o w_item.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_promotion.o w_promotion.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_reason.o w_reason.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_ship_mode.o w_ship_mode.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_store.o w_store.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_store_returns.o w_store_returns.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_store_sales.o w_store_sales.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_timetbl.o w_timetbl.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_warehouse.o w_warehouse.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_web_page.o w_web_page.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_web_returns.o w_web_returns.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_web_sales.o w_web_sales.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o w_web_site.o w_web_site.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o dbgen_version.o dbgen_version.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o address.o address.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o build_support.o build_support.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o date.o date.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o decimal.o decimal.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o dist.o dist.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o dcgram.o dcgram.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o dcomp.o dcomp.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o grammar.o grammar.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o error_msg.o error_msg.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o StringBuffer.o StringBuffer.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o r_params.o r_params.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall  -o distcomp dcgram.o dcomp.o grammar.o error_msg.o StringBuffer.o r_params.o  -lm
+./distcomp -i tpcds.dst -o tpcds.idx
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o driver.o driver.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o genrand.o genrand.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o join.o join.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o list.o list.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o load.o load.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o misc.o misc.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o nulls.o nulls.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o parallel.o parallel.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o permute.o permute.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o pricing.o pricing.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o print.o print.c
+print.c: In function ‘print_key’:
+print.c:347: warning: format ‘%lld’ expects type ‘long long int’, but argument 3 has type ‘ds_key_t’
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o tdef_functions.o tdef_functions.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o tdefs.o tdefs.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o text.o text.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o scd.o scd.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o scaling.o scaling.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o release.o release.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o sparse.o sparse.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o validate.o validate.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall  -o dsdgen s_brand.o s_customer_address.o s_call_center.o s_catalog.o s_catalog_order.o s_catalog_order_lineitem.o s_catalog_page.o s_catalog_promotional_item.o s_catalog_returns.o s_category.o s_class.o s_company.o s_customer.o s_division.o s_inventory.o s_item.o s_manager.o s_manufacturer.o s_market.o s_pline.o s_product.o s_promotion.o s_purchase.o s_reason.o s_store.o s_store_promotional_item.o s_store_returns.o s_subcategory.o s_subclass.o s_warehouse.o s_web_order.o s_web_order_lineitem.o s_web_page.o s_web_promotinal_item.o s_web_returns.o s_web_site.o s_zip_to_gmt.o w_call_center.o w_catalog_page.o w_catalog_returns.o w_catalog_sales.o w_customer_address.o w_customer.o w_customer_demographics.o w_datetbl.o w_household_demographics.o w_income_band.o w_inventory.o w_item.o w_promotion.o w_reason.o w_ship_mode.o w_store.o w_store_returns.o w_store_sales.o w_timetbl.o w_warehouse.o w_web_page.o w_web_returns.o w_web_sales.o w_web_site.o dbgen_version.o address.o build_support.o date.o decimal.o dist.o driver.o error_msg.o genrand.o join.o list.o load.o misc.o nulls.o parallel.o permute.o pricing.o print.o r_params.o StringBuffer.o tdef_functions.o tdefs.o text.o scd.o scaling.o release.o sparse.o validate.o -lm
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o expr.o expr.c
+expr.c: In function ‘PrintExpr’:
+expr.c:442: warning: format ‘%lld’ expects type ‘long long int’, but argument 2 has type ‘ds_key_t’
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o eval.o eval.c
+eval.c: In function ‘EvalArithmetic’:
+eval.c:93: warning: format ‘%lld’ expects type ‘long long int’, but argument 3 has type ‘ds_key_t’
+eval.c:100: warning: format ‘%lld’ expects type ‘long long int’, but argument 3 has type ‘ds_key_t’
+eval.c: In function ‘EvalRownCountExpr’:
+eval.c:343: warning: format ‘%lld’ expects type ‘long long int’, but argument 3 has type ‘ds_key_t’
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o grammar_support.o grammar_support.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o keywords.o keywords.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o QgenMain.o QgenMain.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o query_handler.o query_handler.c
+query_handler.c: In function ‘GenerateQuery’:
+query_handler.c:281: warning: format ‘%lld’ expects type ‘long long int’, but argument 3 has type ‘ds_key_t’
+query_handler.c:303: warning: format ‘%lld’ expects type ‘long long int’, but argument 3 has type ‘ds_key_t’
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o substitution.o substitution.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o tokenizer.o tokenizer.c
+tokenizer.l:594: warning: ‘yyunput’ defined but not used
+tokenizer.l:641: warning: ‘input’ defined but not used
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o y.tab.o y.tab.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall  -o dsqgen address.o date.o decimal.o dist.o error_msg.o expr.o eval.o genrand.o grammar_support.o keywords.o list.o nulls.o permute.o print.o QgenMain.o query_handler.o r_params.o scaling.o StringBuffer.o substitution.o tdefs.o text.o tokenizer.o w_inventory.o y.tab.o release.o scd.o build_support.o parallel.o  -lm
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall   -c -o checksum.o checksum.c
+gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DYYDEBUG  -DLINUX -g -Wall  -o checksum checksum.o -lm
+copy tpcds binaries to node6:/home/impadmin
+copy tpcds binaries to node7:/home/impadmin
+copy tpcds binaries to node8:/home/impadmin
+copy tpcds binaries to node10:/home/impadmin
+copy tpcds binaries to node11:/home/impadmin
+copy tpcds binaries to node12:/home/impadmin
+copy tpcds binaries to node14:/home/impadmin
+copy tpcds binaries to node15:/home/impadmin
+copy tpcds binaries to node16:/home/impadmin
+copy tpcds binaries to node17:/home/impadmin
+copy tpcds binaries to node18:/home/impadmin
+copy tpcds binaries to node19:/home/impadmin
+copy tpcds binaries to node21:/home/impadmin
+copy tpcds binaries to node22:/home/impadmin
+copy tpcds binaries to node24:/home/impadmin
+copy tpcds binaries to node25:/home/impadmin
+/home/impadmin/impala-tpcds/01_gen_data/rollout.sh
+node6:kill any orphaned processes
+node7:kill any orphaned processes
+node8:kill any orphaned processes
+node10:kill any orphaned processes
+node11:kill any orphaned processes
+node12:kill any orphaned processes
+node14:kill any orphaned processes
+node15:kill any orphaned processes
+node16:kill any orphaned processes
+node17:kill any orphaned processes
+node18:kill any orphaned processes
+node19:kill any orphaned processes
+node21:kill any orphaned processes
+node22:kill any orphaned processes
+node24:kill any orphaned processes
+node25:kill any orphaned processes
+copy generate_data.sh to node6:/home/impadmin
+copy generate_data.sh to node7:/home/impadmin
+copy generate_data.sh to node8:/home/impadmin
+copy generate_data.sh to node10:/home/impadmin
+copy generate_data.sh to node11:/home/impadmin
+copy generate_data.sh to node12:/home/impadmin
+copy generate_data.sh to node14:/home/impadmin
+copy generate_data.sh to node15:/home/impadmin
+copy generate_data.sh to node16:/home/impadmin
+copy generate_data.sh to node17:/home/impadmin
+copy generate_data.sh to node18:/home/impadmin
+copy generate_data.sh to node19:/home/impadmin
+copy generate_data.sh to node21:/home/impadmin
+copy generate_data.sh to node22:/home/impadmin
+copy generate_data.sh to node24:/home/impadmin
+copy generate_data.sh to node25:/home/impadmin
+hdfs dfs -rm -r -f -skipTrash /user/impadmin/tpcds_parquet
+Deleted /user/impadmin/tpcds_parquet
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/call_center
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/catalog_page
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/catalog_returns
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/catalog_sales
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/customer
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/customer_address
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/customer_demographics
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/date_dim
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/household_demographics
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/income_band
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/inventory
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/item
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/promotion
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/reason
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/ship_mode
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/store
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/store_returns
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/store_sales
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/time_dim
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/warehouse
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/web_page
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/web_returns
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/web_sales
+hdfs dfs -mkdir /user/impadmin/tpcds_parquet/web_site
+hdfs dfs -chmod -R 777 /user/impadmin/tpcds_parquet
+ssh -n -f node6 "bash -c 'cd ~/; ./generate_data.sh 3000 1 192 "/data1/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.1.log 2>&1 < generate_data.1.log &'"
+ssh -n -f node6 "bash -c 'cd ~/; ./generate_data.sh 3000 2 192 "/data2/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.2.log 2>&1 < generate_data.2.log &'"
+ssh -n -f node6 "bash -c 'cd ~/; ./generate_data.sh 3000 3 192 "/data3/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.3.log 2>&1 < generate_data.3.log &'"
+ssh -n -f node6 "bash -c 'cd ~/; ./generate_data.sh 3000 4 192 "/data4/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.4.log 2>&1 < generate_data.4.log &'"
+ssh -n -f node6 "bash -c 'cd ~/; ./generate_data.sh 3000 5 192 "/data5/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.5.log 2>&1 < generate_data.5.log &'"
+ssh -n -f node6 "bash -c 'cd ~/; ./generate_data.sh 3000 6 192 "/data6/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.6.log 2>&1 < generate_data.6.log &'"
+ssh -n -f node6 "bash -c 'cd ~/; ./generate_data.sh 3000 7 192 "/data7/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.7.log 2>&1 < generate_data.7.log &'"
+ssh -n -f node6 "bash -c 'cd ~/; ./generate_data.sh 3000 8 192 "/data8/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.8.log 2>&1 < generate_data.8.log &'"
+ssh -n -f node6 "bash -c 'cd ~/; ./generate_data.sh 3000 9 192 "/data9/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.9.log 2>&1 < generate_data.9.log &'"
+ssh -n -f node6 "bash -c 'cd ~/; ./generate_data.sh 3000 10 192 "/data10/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.10.log 2>&1 < generate_data.10.log &'"
+ssh -n -f node6 "bash -c 'cd ~/; ./generate_data.sh 3000 11 192 "/data11/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.11.log 2>&1 < generate_data.11.log &'"
+ssh -n -f node6 "bash -c 'cd ~/; ./generate_data.sh 3000 12 192 "/data12/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.12.log 2>&1 < generate_data.12.log &'"
+ssh -n -f node7 "bash -c 'cd ~/; ./generate_data.sh 3000 13 192 "/data1/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.13.log 2>&1 < generate_data.13.log &'"
+ssh -n -f node7 "bash -c 'cd ~/; ./generate_data.sh 3000 14 192 "/data2/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.14.log 2>&1 < generate_data.14.log &'"
+ssh -n -f node7 "bash -c 'cd ~/; ./generate_data.sh 3000 15 192 "/data3/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.15.log 2>&1 < generate_data.15.log &'"
+ssh -n -f node7 "bash -c 'cd ~/; ./generate_data.sh 3000 16 192 "/data4/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.16.log 2>&1 < generate_data.16.log &'"
+ssh -n -f node7 "bash -c 'cd ~/; ./generate_data.sh 3000 17 192 "/data5/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.17.log 2>&1 < generate_data.17.log &'"
+ssh -n -f node7 "bash -c 'cd ~/; ./generate_data.sh 3000 18 192 "/data6/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.18.log 2>&1 < generate_data.18.log &'"
+ssh -n -f node7 "bash -c 'cd ~/; ./generate_data.sh 3000 19 192 "/data7/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.19.log 2>&1 < generate_data.19.log &'"
+ssh -n -f node7 "bash -c 'cd ~/; ./generate_data.sh 3000 20 192 "/data8/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.20.log 2>&1 < generate_data.20.log &'"
+ssh -n -f node7 "bash -c 'cd ~/; ./generate_data.sh 3000 21 192 "/data9/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.21.log 2>&1 < generate_data.21.log &'"
+ssh -n -f node7 "bash -c 'cd ~/; ./generate_data.sh 3000 22 192 "/data10/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.22.log 2>&1 < generate_data.22.log &'"
+ssh -n -f node7 "bash -c 'cd ~/; ./generate_data.sh 3000 23 192 "/data11/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.23.log 2>&1 < generate_data.23.log &'"
+ssh -n -f node7 "bash -c 'cd ~/; ./generate_data.sh 3000 24 192 "/data12/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.24.log 2>&1 < generate_data.24.log &'"
+ssh -n -f node8 "bash -c 'cd ~/; ./generate_data.sh 3000 25 192 "/data1/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.25.log 2>&1 < generate_data.25.log &'"
+ssh -n -f node8 "bash -c 'cd ~/; ./generate_data.sh 3000 26 192 "/data2/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.26.log 2>&1 < generate_data.26.log &'"
+ssh -n -f node8 "bash -c 'cd ~/; ./generate_data.sh 3000 27 192 "/data3/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.27.log 2>&1 < generate_data.27.log &'"
+ssh -n -f node8 "bash -c 'cd ~/; ./generate_data.sh 3000 28 192 "/data4/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.28.log 2>&1 < generate_data.28.log &'"
+ssh -n -f node8 "bash -c 'cd ~/; ./generate_data.sh 3000 29 192 "/data5/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.29.log 2>&1 < generate_data.29.log &'"
+ssh -n -f node8 "bash -c 'cd ~/; ./generate_data.sh 3000 30 192 "/data6/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.30.log 2>&1 < generate_data.30.log &'"
+ssh -n -f node8 "bash -c 'cd ~/; ./generate_data.sh 3000 31 192 "/data7/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.31.log 2>&1 < generate_data.31.log &'"
+ssh -n -f node8 "bash -c 'cd ~/; ./generate_data.sh 3000 32 192 "/data8/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.32.log 2>&1 < generate_data.32.log &'"
+ssh -n -f node8 "bash -c 'cd ~/; ./generate_data.sh 3000 33 192 "/data9/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.33.log 2>&1 < generate_data.33.log &'"
+ssh -n -f node8 "bash -c 'cd ~/; ./generate_data.sh 3000 34 192 "/data10/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.34.log 2>&1 < generate_data.34.log &'"
+ssh -n -f node8 "bash -c 'cd ~/; ./generate_data.sh 3000 35 192 "/data11/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.35.log 2>&1 < generate_data.35.log &'"
+ssh -n -f node8 "bash -c 'cd ~/; ./generate_data.sh 3000 36 192 "/data12/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.36.log 2>&1 < generate_data.36.log &'"
+ssh -n -f node10 "bash -c 'cd ~/; ./generate_data.sh 3000 37 192 "/data1/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.37.log 2>&1 < generate_data.37.log &'"
+ssh -n -f node10 "bash -c 'cd ~/; ./generate_data.sh 3000 38 192 "/data2/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.38.log 2>&1 < generate_data.38.log &'"
+ssh -n -f node10 "bash -c 'cd ~/; ./generate_data.sh 3000 39 192 "/data3/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.39.log 2>&1 < generate_data.39.log &'"
+ssh -n -f node10 "bash -c 'cd ~/; ./generate_data.sh 3000 40 192 "/data4/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.40.log 2>&1 < generate_data.40.log &'"
+ssh -n -f node10 "bash -c 'cd ~/; ./generate_data.sh 3000 41 192 "/data5/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.41.log 2>&1 < generate_data.41.log &'"
+ssh -n -f node10 "bash -c 'cd ~/; ./generate_data.sh 3000 42 192 "/data6/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.42.log 2>&1 < generate_data.42.log &'"
+ssh -n -f node10 "bash -c 'cd ~/; ./generate_data.sh 3000 43 192 "/data7/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.43.log 2>&1 < generate_data.43.log &'"
+ssh -n -f node10 "bash -c 'cd ~/; ./generate_data.sh 3000 44 192 "/data8/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.44.log 2>&1 < generate_data.44.log &'"
+ssh -n -f node10 "bash -c 'cd ~/; ./generate_data.sh 3000 45 192 "/data9/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.45.log 2>&1 < generate_data.45.log &'"
+ssh -n -f node10 "bash -c 'cd ~/; ./generate_data.sh 3000 46 192 "/data10/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.46.log 2>&1 < generate_data.46.log &'"
+ssh -n -f node10 "bash -c 'cd ~/; ./generate_data.sh 3000 47 192 "/data11/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.47.log 2>&1 < generate_data.47.log &'"
+ssh -n -f node10 "bash -c 'cd ~/; ./generate_data.sh 3000 48 192 "/data12/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.48.log 2>&1 < generate_data.48.log &'"
+ssh -n -f node11 "bash -c 'cd ~/; ./generate_data.sh 3000 49 192 "/data1/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.49.log 2>&1 < generate_data.49.log &'"
+ssh -n -f node11 "bash -c 'cd ~/; ./generate_data.sh 3000 50 192 "/data2/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.50.log 2>&1 < generate_data.50.log &'"
+ssh -n -f node11 "bash -c 'cd ~/; ./generate_data.sh 3000 51 192 "/data3/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.51.log 2>&1 < generate_data.51.log &'"
+ssh -n -f node11 "bash -c 'cd ~/; ./generate_data.sh 3000 52 192 "/data4/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.52.log 2>&1 < generate_data.52.log &'"
+ssh -n -f node11 "bash -c 'cd ~/; ./generate_data.sh 3000 53 192 "/data5/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.53.log 2>&1 < generate_data.53.log &'"
+ssh -n -f node11 "bash -c 'cd ~/; ./generate_data.sh 3000 54 192 "/data6/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.54.log 2>&1 < generate_data.54.log &'"
+ssh -n -f node11 "bash -c 'cd ~/; ./generate_data.sh 3000 55 192 "/data7/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.55.log 2>&1 < generate_data.55.log &'"
+ssh -n -f node11 "bash -c 'cd ~/; ./generate_data.sh 3000 56 192 "/data8/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.56.log 2>&1 < generate_data.56.log &'"
+ssh -n -f node11 "bash -c 'cd ~/; ./generate_data.sh 3000 57 192 "/data9/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.57.log 2>&1 < generate_data.57.log &'"
+ssh -n -f node11 "bash -c 'cd ~/; ./generate_data.sh 3000 58 192 "/data10/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.58.log 2>&1 < generate_data.58.log &'"
+ssh -n -f node11 "bash -c 'cd ~/; ./generate_data.sh 3000 59 192 "/data11/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.59.log 2>&1 < generate_data.59.log &'"
+ssh -n -f node11 "bash -c 'cd ~/; ./generate_data.sh 3000 60 192 "/data12/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.60.log 2>&1 < generate_data.60.log &'"
+ssh -n -f node12 "bash -c 'cd ~/; ./generate_data.sh 3000 61 192 "/data1/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.61.log 2>&1 < generate_data.61.log &'"
+ssh -n -f node12 "bash -c 'cd ~/; ./generate_data.sh 3000 62 192 "/data2/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.62.log 2>&1 < generate_data.62.log &'"
+ssh -n -f node12 "bash -c 'cd ~/; ./generate_data.sh 3000 63 192 "/data3/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.63.log 2>&1 < generate_data.63.log &'"
+ssh -n -f node12 "bash -c 'cd ~/; ./generate_data.sh 3000 64 192 "/data4/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.64.log 2>&1 < generate_data.64.log &'"
+ssh -n -f node12 "bash -c 'cd ~/; ./generate_data.sh 3000 65 192 "/data5/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.65.log 2>&1 < generate_data.65.log &'"
+ssh -n -f node12 "bash -c 'cd ~/; ./generate_data.sh 3000 66 192 "/data6/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.66.log 2>&1 < generate_data.66.log &'"
+ssh -n -f node12 "bash -c 'cd ~/; ./generate_data.sh 3000 67 192 "/data7/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.67.log 2>&1 < generate_data.67.log &'"
+ssh -n -f node12 "bash -c 'cd ~/; ./generate_data.sh 3000 68 192 "/data8/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.68.log 2>&1 < generate_data.68.log &'"
+ssh -n -f node12 "bash -c 'cd ~/; ./generate_data.sh 3000 69 192 "/data9/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.69.log 2>&1 < generate_data.69.log &'"
+ssh -n -f node12 "bash -c 'cd ~/; ./generate_data.sh 3000 70 192 "/data10/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.70.log 2>&1 < generate_data.70.log &'"
+ssh -n -f node12 "bash -c 'cd ~/; ./generate_data.sh 3000 71 192 "/data11/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.71.log 2>&1 < generate_data.71.log &'"
+ssh -n -f node12 "bash -c 'cd ~/; ./generate_data.sh 3000 72 192 "/data12/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.72.log 2>&1 < generate_data.72.log &'"
+ssh -n -f node14 "bash -c 'cd ~/; ./generate_data.sh 3000 73 192 "/data1/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.73.log 2>&1 < generate_data.73.log &'"
+ssh -n -f node14 "bash -c 'cd ~/; ./generate_data.sh 3000 74 192 "/data2/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.74.log 2>&1 < generate_data.74.log &'"
+ssh -n -f node14 "bash -c 'cd ~/; ./generate_data.sh 3000 75 192 "/data3/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.75.log 2>&1 < generate_data.75.log &'"
+ssh -n -f node14 "bash -c 'cd ~/; ./generate_data.sh 3000 76 192 "/data4/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.76.log 2>&1 < generate_data.76.log &'"
+ssh -n -f node14 "bash -c 'cd ~/; ./generate_data.sh 3000 77 192 "/data5/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.77.log 2>&1 < generate_data.77.log &'"
+ssh -n -f node14 "bash -c 'cd ~/; ./generate_data.sh 3000 78 192 "/data6/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.78.log 2>&1 < generate_data.78.log &'"
+ssh -n -f node14 "bash -c 'cd ~/; ./generate_data.sh 3000 79 192 "/data7/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.79.log 2>&1 < generate_data.79.log &'"
+ssh -n -f node14 "bash -c 'cd ~/; ./generate_data.sh 3000 80 192 "/data8/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.80.log 2>&1 < generate_data.80.log &'"
+ssh -n -f node14 "bash -c 'cd ~/; ./generate_data.sh 3000 81 192 "/data9/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.81.log 2>&1 < generate_data.81.log &'"
+ssh -n -f node14 "bash -c 'cd ~/; ./generate_data.sh 3000 82 192 "/data10/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.82.log 2>&1 < generate_data.82.log &'"
+ssh -n -f node14 "bash -c 'cd ~/; ./generate_data.sh 3000 83 192 "/data11/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.83.log 2>&1 < generate_data.83.log &'"
+ssh -n -f node14 "bash -c 'cd ~/; ./generate_data.sh 3000 84 192 "/data12/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.84.log 2>&1 < generate_data.84.log &'"
+ssh -n -f node15 "bash -c 'cd ~/; ./generate_data.sh 3000 85 192 "/data1/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.85.log 2>&1 < generate_data.85.log &'"
+ssh -n -f node15 "bash -c 'cd ~/; ./generate_data.sh 3000 86 192 "/data2/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.86.log 2>&1 < generate_data.86.log &'"
+ssh -n -f node15 "bash -c 'cd ~/; ./generate_data.sh 3000 87 192 "/data3/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.87.log 2>&1 < generate_data.87.log &'"
+ssh -n -f node15 "bash -c 'cd ~/; ./generate_data.sh 3000 88 192 "/data4/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.88.log 2>&1 < generate_data.88.log &'"
+ssh -n -f node15 "bash -c 'cd ~/; ./generate_data.sh 3000 89 192 "/data5/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.89.log 2>&1 < generate_data.89.log &'"
+ssh -n -f node15 "bash -c 'cd ~/; ./generate_data.sh 3000 90 192 "/data6/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.90.log 2>&1 < generate_data.90.log &'"
+ssh -n -f node15 "bash -c 'cd ~/; ./generate_data.sh 3000 91 192 "/data7/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.91.log 2>&1 < generate_data.91.log &'"
+ssh -n -f node15 "bash -c 'cd ~/; ./generate_data.sh 3000 92 192 "/data8/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.92.log 2>&1 < generate_data.92.log &'"
+ssh -n -f node15 "bash -c 'cd ~/; ./generate_data.sh 3000 93 192 "/data9/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.93.log 2>&1 < generate_data.93.log &'"
+ssh -n -f node15 "bash -c 'cd ~/; ./generate_data.sh 3000 94 192 "/data10/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.94.log 2>&1 < generate_data.94.log &'"
+ssh -n -f node15 "bash -c 'cd ~/; ./generate_data.sh 3000 95 192 "/data11/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.95.log 2>&1 < generate_data.95.log &'"
+ssh -n -f node15 "bash -c 'cd ~/; ./generate_data.sh 3000 96 192 "/data12/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.96.log 2>&1 < generate_data.96.log &'"
+ssh -n -f node16 "bash -c 'cd ~/; ./generate_data.sh 3000 97 192 "/data1/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.97.log 2>&1 < generate_data.97.log &'"
+ssh -n -f node16 "bash -c 'cd ~/; ./generate_data.sh 3000 98 192 "/data2/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.98.log 2>&1 < generate_data.98.log &'"
+ssh -n -f node16 "bash -c 'cd ~/; ./generate_data.sh 3000 99 192 "/data3/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.99.log 2>&1 < generate_data.99.log &'"
+ssh -n -f node16 "bash -c 'cd ~/; ./generate_data.sh 3000 100 192 "/data4/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.100.log 2>&1 < generate_data.100.log &'"
+ssh -n -f node16 "bash -c 'cd ~/; ./generate_data.sh 3000 101 192 "/data5/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.101.log 2>&1 < generate_data.101.log &'"
+ssh -n -f node16 "bash -c 'cd ~/; ./generate_data.sh 3000 102 192 "/data6/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.102.log 2>&1 < generate_data.102.log &'"
+ssh -n -f node16 "bash -c 'cd ~/; ./generate_data.sh 3000 103 192 "/data7/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.103.log 2>&1 < generate_data.103.log &'"
+ssh -n -f node16 "bash -c 'cd ~/; ./generate_data.sh 3000 104 192 "/data8/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.104.log 2>&1 < generate_data.104.log &'"
+ssh -n -f node16 "bash -c 'cd ~/; ./generate_data.sh 3000 105 192 "/data9/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.105.log 2>&1 < generate_data.105.log &'"
+ssh -n -f node16 "bash -c 'cd ~/; ./generate_data.sh 3000 106 192 "/data10/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.106.log 2>&1 < generate_data.106.log &'"
+ssh -n -f node16 "bash -c 'cd ~/; ./generate_data.sh 3000 107 192 "/data11/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.107.log 2>&1 < generate_data.107.log &'"
+ssh -n -f node16 "bash -c 'cd ~/; ./generate_data.sh 3000 108 192 "/data12/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.108.log 2>&1 < generate_data.108.log &'"
+ssh -n -f node17 "bash -c 'cd ~/; ./generate_data.sh 3000 109 192 "/data1/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.109.log 2>&1 < generate_data.109.log &'"
+ssh -n -f node17 "bash -c 'cd ~/; ./generate_data.sh 3000 110 192 "/data2/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.110.log 2>&1 < generate_data.110.log &'"
+ssh -n -f node17 "bash -c 'cd ~/; ./generate_data.sh 3000 111 192 "/data3/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.111.log 2>&1 < generate_data.111.log &'"
+ssh -n -f node17 "bash -c 'cd ~/; ./generate_data.sh 3000 112 192 "/data4/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.112.log 2>&1 < generate_data.112.log &'"
+ssh -n -f node17 "bash -c 'cd ~/; ./generate_data.sh 3000 113 192 "/data5/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.113.log 2>&1 < generate_data.113.log &'"
+ssh -n -f node17 "bash -c 'cd ~/; ./generate_data.sh 3000 114 192 "/data6/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.114.log 2>&1 < generate_data.114.log &'"
+ssh -n -f node17 "bash -c 'cd ~/; ./generate_data.sh 3000 115 192 "/data7/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.115.log 2>&1 < generate_data.115.log &'"
+ssh -n -f node17 "bash -c 'cd ~/; ./generate_data.sh 3000 116 192 "/data8/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.116.log 2>&1 < generate_data.116.log &'"
+ssh -n -f node17 "bash -c 'cd ~/; ./generate_data.sh 3000 117 192 "/data9/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.117.log 2>&1 < generate_data.117.log &'"
+ssh -n -f node17 "bash -c 'cd ~/; ./generate_data.sh 3000 118 192 "/data10/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.118.log 2>&1 < generate_data.118.log &'"
+ssh -n -f node17 "bash -c 'cd ~/; ./generate_data.sh 3000 119 192 "/data11/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.119.log 2>&1 < generate_data.119.log &'"
+ssh -n -f node17 "bash -c 'cd ~/; ./generate_data.sh 3000 120 192 "/data12/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.120.log 2>&1 < generate_data.120.log &'"
+ssh -n -f node18 "bash -c 'cd ~/; ./generate_data.sh 3000 121 192 "/data1/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.121.log 2>&1 < generate_data.121.log &'"
+ssh -n -f node18 "bash -c 'cd ~/; ./generate_data.sh 3000 122 192 "/data2/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.122.log 2>&1 < generate_data.122.log &'"
+ssh -n -f node18 "bash -c 'cd ~/; ./generate_data.sh 3000 123 192 "/data3/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.123.log 2>&1 < generate_data.123.log &'"
+ssh -n -f node18 "bash -c 'cd ~/; ./generate_data.sh 3000 124 192 "/data4/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.124.log 2>&1 < generate_data.124.log &'"
+ssh -n -f node18 "bash -c 'cd ~/; ./generate_data.sh 3000 125 192 "/data5/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.125.log 2>&1 < generate_data.125.log &'"
+ssh -n -f node18 "bash -c 'cd ~/; ./generate_data.sh 3000 126 192 "/data6/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.126.log 2>&1 < generate_data.126.log &'"
+ssh -n -f node18 "bash -c 'cd ~/; ./generate_data.sh 3000 127 192 "/data7/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.127.log 2>&1 < generate_data.127.log &'"
+ssh -n -f node18 "bash -c 'cd ~/; ./generate_data.sh 3000 128 192 "/data8/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.128.log 2>&1 < generate_data.128.log &'"
+ssh -n -f node18 "bash -c 'cd ~/; ./generate_data.sh 3000 129 192 "/data9/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.129.log 2>&1 < generate_data.129.log &'"
+ssh -n -f node18 "bash -c 'cd ~/; ./generate_data.sh 3000 130 192 "/data10/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.130.log 2>&1 < generate_data.130.log &'"
+ssh -n -f node18 "bash -c 'cd ~/; ./generate_data.sh 3000 131 192 "/data11/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.131.log 2>&1 < generate_data.131.log &'"
+ssh -n -f node18 "bash -c 'cd ~/; ./generate_data.sh 3000 132 192 "/data12/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.132.log 2>&1 < generate_data.132.log &'"
+ssh -n -f node19 "bash -c 'cd ~/; ./generate_data.sh 3000 133 192 "/data1/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.133.log 2>&1 < generate_data.133.log &'"
+ssh -n -f node19 "bash -c 'cd ~/; ./generate_data.sh 3000 134 192 "/data2/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.134.log 2>&1 < generate_data.134.log &'"
+ssh -n -f node19 "bash -c 'cd ~/; ./generate_data.sh 3000 135 192 "/data3/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.135.log 2>&1 < generate_data.135.log &'"
+ssh -n -f node19 "bash -c 'cd ~/; ./generate_data.sh 3000 136 192 "/data4/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.136.log 2>&1 < generate_data.136.log &'"
+ssh -n -f node19 "bash -c 'cd ~/; ./generate_data.sh 3000 137 192 "/data5/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.137.log 2>&1 < generate_data.137.log &'"
+ssh -n -f node19 "bash -c 'cd ~/; ./generate_data.sh 3000 138 192 "/data6/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.138.log 2>&1 < generate_data.138.log &'"
+ssh -n -f node19 "bash -c 'cd ~/; ./generate_data.sh 3000 139 192 "/data7/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.139.log 2>&1 < generate_data.139.log &'"
+ssh -n -f node19 "bash -c 'cd ~/; ./generate_data.sh 3000 140 192 "/data8/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.140.log 2>&1 < generate_data.140.log &'"
+ssh -n -f node19 "bash -c 'cd ~/; ./generate_data.sh 3000 141 192 "/data9/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.141.log 2>&1 < generate_data.141.log &'"
+ssh -n -f node19 "bash -c 'cd ~/; ./generate_data.sh 3000 142 192 "/data10/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.142.log 2>&1 < generate_data.142.log &'"
+ssh -n -f node19 "bash -c 'cd ~/; ./generate_data.sh 3000 143 192 "/data11/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.143.log 2>&1 < generate_data.143.log &'"
+ssh -n -f node19 "bash -c 'cd ~/; ./generate_data.sh 3000 144 192 "/data12/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.144.log 2>&1 < generate_data.144.log &'"
+ssh -n -f node21 "bash -c 'cd ~/; ./generate_data.sh 3000 145 192 "/data1/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.145.log 2>&1 < generate_data.145.log &'"
+ssh -n -f node21 "bash -c 'cd ~/; ./generate_data.sh 3000 146 192 "/data2/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.146.log 2>&1 < generate_data.146.log &'"
+ssh -n -f node21 "bash -c 'cd ~/; ./generate_data.sh 3000 147 192 "/data3/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.147.log 2>&1 < generate_data.147.log &'"
+ssh -n -f node21 "bash -c 'cd ~/; ./generate_data.sh 3000 148 192 "/data4/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.148.log 2>&1 < generate_data.148.log &'"
+ssh -n -f node21 "bash -c 'cd ~/; ./generate_data.sh 3000 149 192 "/data5/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.149.log 2>&1 < generate_data.149.log &'"
+ssh -n -f node21 "bash -c 'cd ~/; ./generate_data.sh 3000 150 192 "/data6/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.150.log 2>&1 < generate_data.150.log &'"
+ssh -n -f node21 "bash -c 'cd ~/; ./generate_data.sh 3000 151 192 "/data7/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.151.log 2>&1 < generate_data.151.log &'"
+ssh -n -f node21 "bash -c 'cd ~/; ./generate_data.sh 3000 152 192 "/data8/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.152.log 2>&1 < generate_data.152.log &'"
+ssh -n -f node21 "bash -c 'cd ~/; ./generate_data.sh 3000 153 192 "/data9/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.153.log 2>&1 < generate_data.153.log &'"
+ssh -n -f node21 "bash -c 'cd ~/; ./generate_data.sh 3000 154 192 "/data10/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.154.log 2>&1 < generate_data.154.log &'"
+ssh -n -f node21 "bash -c 'cd ~/; ./generate_data.sh 3000 155 192 "/data11/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.155.log 2>&1 < generate_data.155.log &'"
+ssh -n -f node21 "bash -c 'cd ~/; ./generate_data.sh 3000 156 192 "/data12/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.156.log 2>&1 < generate_data.156.log &'"
+ssh -n -f node22 "bash -c 'cd ~/; ./generate_data.sh 3000 157 192 "/data1/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.157.log 2>&1 < generate_data.157.log &'"
+ssh -n -f node22 "bash -c 'cd ~/; ./generate_data.sh 3000 158 192 "/data2/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.158.log 2>&1 < generate_data.158.log &'"
+ssh -n -f node22 "bash -c 'cd ~/; ./generate_data.sh 3000 159 192 "/data3/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.159.log 2>&1 < generate_data.159.log &'"
+ssh -n -f node22 "bash -c 'cd ~/; ./generate_data.sh 3000 160 192 "/data4/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.160.log 2>&1 < generate_data.160.log &'"
+ssh -n -f node22 "bash -c 'cd ~/; ./generate_data.sh 3000 161 192 "/data5/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.161.log 2>&1 < generate_data.161.log &'"
+ssh -n -f node22 "bash -c 'cd ~/; ./generate_data.sh 3000 162 192 "/data6/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.162.log 2>&1 < generate_data.162.log &'"
+ssh -n -f node22 "bash -c 'cd ~/; ./generate_data.sh 3000 163 192 "/data7/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.163.log 2>&1 < generate_data.163.log &'"
+ssh -n -f node22 "bash -c 'cd ~/; ./generate_data.sh 3000 164 192 "/data8/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.164.log 2>&1 < generate_data.164.log &'"
+ssh -n -f node22 "bash -c 'cd ~/; ./generate_data.sh 3000 165 192 "/data9/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.165.log 2>&1 < generate_data.165.log &'"
+ssh -n -f node22 "bash -c 'cd ~/; ./generate_data.sh 3000 166 192 "/data10/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.166.log 2>&1 < generate_data.166.log &'"
+ssh -n -f node22 "bash -c 'cd ~/; ./generate_data.sh 3000 167 192 "/data11/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.167.log 2>&1 < generate_data.167.log &'"
+ssh -n -f node22 "bash -c 'cd ~/; ./generate_data.sh 3000 168 192 "/data12/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.168.log 2>&1 < generate_data.168.log &'"
+ssh -n -f node24 "bash -c 'cd ~/; ./generate_data.sh 3000 169 192 "/data1/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.169.log 2>&1 < generate_data.169.log &'"
+ssh -n -f node24 "bash -c 'cd ~/; ./generate_data.sh 3000 170 192 "/data2/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.170.log 2>&1 < generate_data.170.log &'"
+ssh -n -f node24 "bash -c 'cd ~/; ./generate_data.sh 3000 171 192 "/data3/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.171.log 2>&1 < generate_data.171.log &'"
+ssh -n -f node24 "bash -c 'cd ~/; ./generate_data.sh 3000 172 192 "/data4/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.172.log 2>&1 < generate_data.172.log &'"
+ssh -n -f node24 "bash -c 'cd ~/; ./generate_data.sh 3000 173 192 "/data5/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.173.log 2>&1 < generate_data.173.log &'"
+ssh -n -f node24 "bash -c 'cd ~/; ./generate_data.sh 3000 174 192 "/data6/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.174.log 2>&1 < generate_data.174.log &'"
+ssh -n -f node24 "bash -c 'cd ~/; ./generate_data.sh 3000 175 192 "/data7/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.175.log 2>&1 < generate_data.175.log &'"
+ssh -n -f node24 "bash -c 'cd ~/; ./generate_data.sh 3000 176 192 "/data8/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.176.log 2>&1 < generate_data.176.log &'"
+ssh -n -f node24 "bash -c 'cd ~/; ./generate_data.sh 3000 177 192 "/data9/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.177.log 2>&1 < generate_data.177.log &'"
+ssh -n -f node24 "bash -c 'cd ~/; ./generate_data.sh 3000 178 192 "/data10/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.178.log 2>&1 < generate_data.178.log &'"
+ssh -n -f node24 "bash -c 'cd ~/; ./generate_data.sh 3000 179 192 "/data11/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.179.log 2>&1 < generate_data.179.log &'"
+ssh -n -f node24 "bash -c 'cd ~/; ./generate_data.sh 3000 180 192 "/data12/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.180.log 2>&1 < generate_data.180.log &'"
+ssh -n -f node25 "bash -c 'cd ~/; ./generate_data.sh 3000 181 192 "/data1/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.181.log 2>&1 < generate_data.181.log &'"
+ssh -n -f node25 "bash -c 'cd ~/; ./generate_data.sh 3000 182 192 "/data2/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.182.log 2>&1 < generate_data.182.log &'"
+ssh -n -f node25 "bash -c 'cd ~/; ./generate_data.sh 3000 183 192 "/data3/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.183.log 2>&1 < generate_data.183.log &'"
+ssh -n -f node25 "bash -c 'cd ~/; ./generate_data.sh 3000 184 192 "/data4/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.184.log 2>&1 < generate_data.184.log &'"
+ssh -n -f node25 "bash -c 'cd ~/; ./generate_data.sh 3000 185 192 "/data5/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.185.log 2>&1 < generate_data.185.log &'"
+ssh -n -f node25 "bash -c 'cd ~/; ./generate_data.sh 3000 186 192 "/data6/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.186.log 2>&1 < generate_data.186.log &'"
+ssh -n -f node25 "bash -c 'cd ~/; ./generate_data.sh 3000 187 192 "/data7/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.187.log 2>&1 < generate_data.187.log &'"
+ssh -n -f node25 "bash -c 'cd ~/; ./generate_data.sh 3000 188 192 "/data8/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.188.log 2>&1 < generate_data.188.log &'"
+ssh -n -f node25 "bash -c 'cd ~/; ./generate_data.sh 3000 189 192 "/data9/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.189.log 2>&1 < generate_data.189.log &'"
+ssh -n -f node25 "bash -c 'cd ~/; ./generate_data.sh 3000 190 192 "/data10/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.190.log 2>&1 < generate_data.190.log &'"
+ssh -n -f node25 "bash -c 'cd ~/; ./generate_data.sh 3000 191 192 "/data11/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.191.log 2>&1 < generate_data.191.log &'"
+ssh -n -f node25 "bash -c 'cd ~/; ./generate_data.sh 3000 192 192 "/data12/tpcds_parquet" "/user/impadmin/tpcds_parquet" > generate_data.192.log 2>&1 < generate_data.192.log &'"
+
+Now generating data.  This make take a while.
+Generating data...........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Done generating data
+
+/home/impadmin/impala-tpcds/03_ddl/rollout.sh
+impala-shell -i node11 -d default -f /home/impadmin/impala-tpcds/03_ddl/000.tpcds_parquet.tpcds_parquet.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `default`
+Query: drop database if exists tpcds_parquet cascade
+Query: create database tpcds_parquet
+
+Fetched 0 row(s) in 0.11s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/001.et_tpcds.call_center.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_call_center (
+    cc_call_center_sk int,
+    cc_call_center_id char(16),
+    cc_rec_start_date timestamp,
+    cc_rec_end_date string,
+    cc_closed_date_sk string,
+    cc_open_date_sk string,
+    cc_name varchar(50),
+    cc_class varchar(50),
+    cc_employees int,
+    cc_sq_ft int,
+    cc_hours char(20),
+    cc_manager varchar(40),
+    cc_mkt_id int,
+    cc_mkt_class char(50),
+    cc_mkt_desc varchar(100),
+    cc_market_manager varchar(40),
+    cc_division string,
+    cc_division_name varchar(50),
+    cc_company string,
+    cc_company_name char(50),
+    cc_street_number char(10),
+    cc_street_name varchar(60),
+    cc_street_type char(15),
+    cc_suite_number char(10),
+    cc_city varchar(60),
+    cc_county varchar(30),
+    cc_state string,
+    cc_zip char(10),
+    cc_country varchar(20),
+    cc_gmt_offset decimal(5,2),
+    cc_tax_percentage decimal(5,2)
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/call_center'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.05s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/002.et_tpcds.catalog_page.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_catalog_page (
+    cp_catalog_page_sk int ,
+    cp_catalog_page_id char(16) ,
+    cp_start_date_sk int,
+    cp_end_date_sk int,
+    cp_department varchar(50),
+    cp_catalog_number int,
+    cp_catalog_page_number int,
+    cp_description varchar(100),
+    cp_type varchar(100)
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/catalog_page'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.03s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/003.et_tpcds.catalog_returns.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_catalog_returns (
+    cr_returned_date_sk int,
+    cr_returned_time_sk int,
+    cr_item_sk int ,
+    cr_refunded_customer_sk int,
+    cr_refunded_cdemo_sk int,
+    cr_refunded_hdemo_sk int,
+    cr_refunded_addr_sk int,
+    cr_returning_customer_sk int,
+    cr_returning_cdemo_sk int,
+    cr_returning_hdemo_sk int,
+    cr_returning_addr_sk int,
+    cr_call_center_sk int,
+    cr_catalog_page_sk int,
+    cr_ship_mode_sk int,
+    cr_warehouse_sk int,
+    cr_reason_sk int,
+    cr_order_number int ,
+    cr_return_quantity int,
+    cr_return_amount decimal(7,2),
+    cr_return_tax decimal(7,2),
+    cr_return_amt_inc_tax decimal(7,2),
+    cr_fee decimal(7,2),
+    cr_return_ship_cost decimal(7,2),
+    cr_refunded_cash decimal(7,2),
+    cr_reversed_charge decimal(7,2),
+    cr_store_credit decimal(7,2),
+    cr_net_loss decimal(7,2)
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/catalog_returns'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/004.et_tpcds.catalog_sales.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_catalog_sales (
+    cs_sold_date_sk int,
+    cs_sold_time_sk int,
+    cs_ship_date_sk int,
+    cs_bill_customer_sk int,
+    cs_bill_cdemo_sk int,
+    cs_bill_hdemo_sk int,
+    cs_bill_addr_sk int,
+    cs_ship_customer_sk int,
+    cs_ship_cdemo_sk int,
+    cs_ship_hdemo_sk int,
+    cs_ship_addr_sk int,
+    cs_call_center_sk int,
+    cs_catalog_page_sk int,
+    cs_ship_mode_sk int,
+    cs_warehouse_sk int,
+    cs_item_sk int ,
+    cs_promo_sk int,
+    cs_order_number int ,
+    cs_quantity int,
+    cs_wholesale_cost decimal(7,2),
+    cs_list_price decimal(7,2),
+    cs_sales_price decimal(7,2),
+    cs_ext_discount_amt decimal(7,2),
+    cs_ext_sales_price decimal(7,2),
+    cs_ext_wholesale_cost decimal(7,2),
+    cs_ext_list_price decimal(7,2),
+    cs_ext_tax decimal(7,2),
+    cs_coupon_amt decimal(7,2),
+    cs_ext_ship_cost decimal(7,2),
+    cs_net_paid decimal(7,2),
+    cs_net_paid_inc_tax decimal(7,2),
+    cs_net_paid_inc_ship decimal(7,2),
+    cs_net_paid_inc_ship_tax decimal(7,2),
+    cs_net_profit decimal(7,2)
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/catalog_sales'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/005.et_tpcds.customer.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_customer (
+    c_customer_sk int ,
+    c_customer_id char(16) ,
+    c_current_cdemo_sk int,
+    c_current_hdemo_sk int,
+    c_current_addr_sk int,
+    c_first_shipto_date_sk int,
+    c_first_sales_date_sk int,
+    c_salutation char(10),
+    c_first_name char(20),
+    c_last_name char(30),
+    c_preferred_cust_flag char(1),
+    c_birth_day int,
+    c_birth_month int,
+    c_birth_year int,
+    c_birth_country varchar(20),
+    c_login char(13),
+    c_email_address char(50),
+    c_last_review_date char(10)
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/customer'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/006.et_tpcds.customer_address.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_customer_address (
+    ca_address_sk int ,
+    ca_address_id char(16) ,
+    ca_street_number char(10),
+    ca_street_name varchar(60),
+    ca_street_type char(15),
+    ca_suite_number char(10),
+    ca_city varchar(60),
+    ca_county varchar(30),
+    ca_state char(2),
+    ca_zip char(10),
+    ca_country varchar(20),
+    ca_gmt_offset decimal(5,2),
+    ca_location_type char(20)
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/customer_address'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/007.et_tpcds.customer_demographics.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_customer_demographics (
+    cd_demo_sk int ,
+    cd_gender char(1),
+    cd_marital_status char(1),
+    cd_education_status char(20),
+    cd_purchase_estimate int,
+    cd_credit_rating char(10),
+    cd_dep_count int,
+    cd_dep_employed_count int,
+    cd_dep_college_count int
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/customer_demographics'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.03s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/008.et_tpcds.date_dim.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_date_dim (
+    d_date_sk int ,
+    d_date_id char(16) ,
+    d_date timestamp,
+    d_month_seq int,
+    d_week_seq int,
+    d_quarter_seq int,
+    d_year int,
+    d_dow int,
+    d_moy int,
+    d_dom int,
+    d_qoy int,
+    d_fy_year int,
+    d_fy_quarter_seq int,
+    d_fy_week_seq int,
+    d_day_name char(9),
+    d_quarter_name char(6),
+    d_holiday char(1),
+    d_weekend char(1),
+    d_following_holiday char(1),
+    d_first_dom int,
+    d_last_dom int,
+    d_same_day_ly int,
+    d_same_day_lq int,
+    d_current_day char(1),
+    d_current_week char(1),
+    d_current_month char(1),
+    d_current_quarter char(1),
+    d_current_year char(1)
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/date_dim'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/010.et_tpcds.household_demographics.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_household_demographics (
+    hd_demo_sk int ,
+    hd_income_band_sk int,
+    hd_buy_potential char(15),
+    hd_dep_count int,
+    hd_vehicle_count int
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/household_demographics'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.03s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/011.et_tpcds.income_band.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_income_band (
+    ib_income_band_sk int ,
+    ib_lower_bound int,
+    ib_upper_bound int
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/income_band'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/012.et_tpcds.inventory.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_inventory (
+    inv_date_sk int ,
+    inv_item_sk int ,
+    inv_warehouse_sk int ,
+    inv_quantity_on_hand int
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/inventory'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.03s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/013.et_tpcds.item.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_item (
+    i_item_sk int ,
+    i_item_id char(16) ,
+    i_rec_start_date timestamp,
+    i_rec_end_date timestamp,
+    i_item_desc varchar(200),
+    i_current_price decimal(7,2),
+    i_wholesale_cost decimal(7,2),
+    i_brand_id int,
+    i_brand char(50),
+    i_class_id int,
+    i_class char(50),
+    i_category_id int,
+    i_category char(50),
+    i_manufact_id int,
+    i_manufact char(50),
+    i_size char(20),
+    i_formulation char(20),
+    i_color char(20),
+    i_units char(10),
+    i_container char(10),
+    i_manager_id int,
+    i_product_name char(50)
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/customer_address'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/014.et_tpcds.promotion.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_promotion (
+    p_promo_sk int ,
+    p_promo_id char(16) ,
+    p_start_date_sk int,
+    p_end_date_sk int,
+    p_item_sk int,
+    p_cost decimal(15,2),
+    p_response_target int,
+    p_promo_name char(50),
+    p_channel_dmail char(1),
+    p_channel_email char(1),
+    p_channel_catalog char(1),
+    p_channel_tv char(1),
+    p_channel_radio char(1),
+    p_channel_press char(1),
+    p_channel_event char(1),
+    p_channel_demo char(1),
+    p_channel_details varchar(100),
+    p_purpose char(15),
+    p_discount_active char(1)
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/promotion'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/015.et_tpcds.reason.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_reason (
+    r_reason_sk int ,
+    r_reason_id char(16) ,
+    r_reason_desc char(100)
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/customer_address'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.03s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/016.et_tpcds.ship_mode.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_ship_mode (
+    sm_ship_mode_sk int ,
+    sm_ship_mode_id char(16) ,
+    sm_type char(30),
+    sm_code char(10),
+    sm_carrier char(20),
+    sm_contract char(20)
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/ship_mode'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/017.et_tpcds.store.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_store (
+    s_store_sk int ,
+    s_store_id char(16) ,
+    s_rec_start_date timestamp,
+    s_rec_end_date timestamp,
+    s_closed_date_sk int,
+    s_store_name varchar(50),
+    s_number_employees int,
+    s_floor_space int,
+    s_hours char(20),
+    s_manager varchar(40),
+    s_market_id int,
+    s_geography_class varchar(100),
+    s_market_desc varchar(100),
+    s_market_manager varchar(40),
+    s_division_id int,
+    s_division_name varchar(50),
+    s_company_id int,
+    s_company_name varchar(50),
+    s_street_number varchar(10),
+    s_street_name varchar(60),
+    s_street_type char(15),
+    s_suite_number char(10),
+    s_city varchar(60),
+    s_county varchar(30),
+    s_state char(2),
+    s_zip char(10),
+    s_country varchar(20),
+    s_gmt_offset decimal(5,2),
+    s_tax_precentage decimal(5,2)
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/store'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/018.et_tpcds.store_returns.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_store_returns (
+    sr_returned_date_sk int,
+    sr_return_time_sk int,
+    sr_item_sk int ,
+    sr_customer_sk int,
+    sr_cdemo_sk int,
+    sr_hdemo_sk int,
+    sr_addr_sk int,
+    sr_store_sk int,
+    sr_reason_sk int,
+    sr_ticket_number bigint ,
+    sr_return_quantity int,
+    sr_return_amt decimal(7,2),
+    sr_return_tax decimal(7,2),
+    sr_return_amt_inc_tax decimal(7,2),
+    sr_fee decimal(7,2),
+    sr_return_ship_cost decimal(7,2),
+    sr_refunded_cash decimal(7,2),
+    sr_reversed_charge decimal(7,2),
+    sr_store_credit decimal(7,2),
+    sr_net_loss decimal(7,2)
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/store_returns'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/019.et_tpcds.store_sales.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_store_sales (
+    ss_sold_date_sk int,
+    ss_sold_time_sk int,
+    ss_item_sk int ,
+    ss_customer_sk int,
+    ss_cdemo_sk int,
+    ss_hdemo_sk int,
+    ss_addr_sk int,
+    ss_store_sk int,
+    ss_promo_sk int,
+    ss_ticket_number bigint ,
+    ss_quantity int,
+    ss_wholesale_cost decimal(7,2),
+    ss_list_price decimal(7,2),
+    ss_sales_price decimal(7,2),
+    ss_ext_discount_amt decimal(7,2),
+    ss_ext_sales_price decimal(7,2),
+    ss_ext_wholesale_cost decimal(7,2),
+    ss_ext_list_price decimal(7,2),
+    ss_ext_tax decimal(7,2),
+    ss_coupon_amt decimal(7,2),
+    ss_net_paid decimal(7,2),
+    ss_net_paid_inc_tax decimal(7,2),
+    ss_net_profit decimal(7,2)
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/store_sales'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/020.et_tpcds.time_dim.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_time_dim (
+    t_time_sk int ,
+    t_time_id char(16) ,
+    t_time int,
+    t_hour int,
+    t_minute int,
+    t_second int,
+    t_am_pm char(2),
+    t_shift char(20),
+    t_sub_shift char(20),
+    t_meal_time char(20)
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/time_dim'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.03s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/021.et_tpcds.warehouse.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_warehouse (
+    w_warehouse_sk int ,
+    w_warehouse_id char(16) ,
+    w_warehouse_name varchar(20),
+    w_warehouse_sq_ft int,
+    w_street_number char(10),
+    w_street_name varchar(60),
+    w_street_type char(15),
+    w_suite_number char(10),
+    w_city varchar(60),
+    w_county varchar(30),
+    w_state char(2),
+    w_zip char(10),
+    w_country varchar(20),
+    w_gmt_offset decimal(5,2)
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/warehouse'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/022.et_tpcds.web_page.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_web_page (
+    wp_web_page_sk int ,
+    wp_web_page_id char(16) ,
+    wp_rec_start_date timestamp,
+    wp_rec_end_date timestamp,
+    wp_creation_date_sk int,
+    wp_access_date_sk int,
+    wp_autogen_flag char(1),
+    wp_customer_sk int,
+    wp_url varchar(100),
+    wp_type char(50),
+    wp_char_count int,
+    wp_link_count int,
+    wp_image_count int,
+    wp_max_ad_count int
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/web_page'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/023.et_tpcds.web_returns.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_web_returns (
+    wr_returned_date_sk int,
+    wr_returned_time_sk int,
+    wr_item_sk int ,
+    wr_refunded_customer_sk int,
+    wr_refunded_cdemo_sk int,
+    wr_refunded_hdemo_sk int,
+    wr_refunded_addr_sk int,
+    wr_returning_customer_sk int,
+    wr_returning_cdemo_sk int,
+    wr_returning_hdemo_sk int,
+    wr_returning_addr_sk int,
+    wr_web_page_sk int,
+    wr_reason_sk int,
+    wr_order_number int ,
+    wr_return_quantity int,
+    wr_return_amt decimal(7,2),
+    wr_return_tax decimal(7,2),
+    wr_return_amt_inc_tax decimal(7,2),
+    wr_fee decimal(7,2),
+    wr_return_ship_cost decimal(7,2),
+    wr_refunded_cash decimal(7,2),
+    wr_reversed_charge decimal(7,2),
+    wr_account_credit decimal(7,2),
+    wr_net_loss decimal(7,2)
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/web_returns'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/024.et_tpcds.web_sales.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_web_sales (
+    ws_sold_date_sk int,
+    ws_sold_time_sk int,
+    ws_ship_date_sk int,
+    ws_item_sk int ,
+    ws_bill_customer_sk int,
+    ws_bill_cdemo_sk int,
+    ws_bill_hdemo_sk int,
+    ws_bill_addr_sk int,
+    ws_ship_customer_sk int,
+    ws_ship_cdemo_sk int,
+    ws_ship_hdemo_sk int,
+    ws_ship_addr_sk int,
+    ws_web_page_sk int,
+    ws_web_site_sk int,
+    ws_ship_mode_sk int,
+    ws_warehouse_sk int,
+    ws_promo_sk int,
+    ws_order_number int ,
+    ws_quantity int,
+    ws_wholesale_cost decimal(7,2),
+    ws_list_price decimal(7,2),
+    ws_sales_price decimal(7,2),
+    ws_ext_discount_amt decimal(7,2),
+    ws_ext_sales_price decimal(7,2),
+    ws_ext_wholesale_cost decimal(7,2),
+    ws_ext_list_price decimal(7,2),
+    ws_ext_tax decimal(7,2),
+    ws_coupon_amt decimal(7,2),
+    ws_ext_ship_cost decimal(7,2),
+    ws_net_paid decimal(7,2),
+    ws_net_paid_inc_tax decimal(7,2),
+    ws_net_paid_inc_ship decimal(7,2),
+    ws_net_paid_inc_ship_tax decimal(7,2),
+    ws_net_profit decimal(7,2)
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/web_sales'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/025.et_tpcds.web_site.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create EXTERNAL TABLE et_web_site (
+    web_site_sk int ,
+    web_site_id char(16) ,
+    web_rec_start_date timestamp,
+    web_rec_end_date timestamp,
+    web_name varchar(50),
+    web_open_date_sk int,
+    web_close_date_sk int,
+    web_class varchar(50),
+    web_manager varchar(40),
+    web_mkt_id int,
+    web_mkt_class varchar(50),
+    web_mkt_desc varchar(100),
+    web_market_manager varchar(40),
+    web_company_id int,
+    web_company_name char(50),
+    web_street_number char(10),
+    web_street_name varchar(60),
+    web_street_type char(15),
+    web_suite_number char(10),
+    web_city varchar(60),
+    web_county varchar(30),
+    web_state char(2),
+    web_zip char(10),
+    web_country varchar(20),
+    web_gmt_offset decimal(5,2),
+    web_tax_percentage decimal(5,2)
+)
+row format delimited fields terminated by '|'
+location '/user/impadmin/tpcds_parquet/web_site'
+tblproperties ('serialization.null.format'='')
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/026.tpcds.call_center.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE call_center LIKE et_call_center STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 3.89s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/027.tpcds.catalog_page.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE catalog_page LIKE et_catalog_page STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 3.57s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/028.tpcds.catalog_returns.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE catalog_returns (
+    cr_returned_time_sk int,
+    cr_item_sk int ,
+    cr_refunded_customer_sk int,
+    cr_refunded_cdemo_sk int,
+    cr_refunded_hdemo_sk int,
+    cr_refunded_addr_sk int,
+    cr_returning_customer_sk int,
+    cr_returning_cdemo_sk int,
+    cr_returning_hdemo_sk int,
+    cr_returning_addr_sk int,
+    cr_call_center_sk int,
+    cr_catalog_page_sk int,
+    cr_ship_mode_sk int,
+    cr_warehouse_sk int,
+    cr_reason_sk int,
+    cr_order_number int ,
+    cr_return_quantity int,
+    cr_return_amount decimal(7,2),
+    cr_return_tax decimal(7,2),
+    cr_return_amt_inc_tax decimal(7,2),
+    cr_fee decimal(7,2),
+    cr_return_ship_cost decimal(7,2),
+    cr_refunded_cash decimal(7,2),
+    cr_reversed_charge decimal(7,2),
+    cr_store_credit decimal(7,2),
+    cr_net_loss decimal(7,2)
+)
+PARTITIONED BY (cr_returned_date_sk int)
+STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/029.tpcds.catalog_sales.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE catalog_sales (
+    cs_sold_time_sk int,
+    cs_ship_date_sk int,
+    cs_bill_customer_sk int,
+    cs_bill_cdemo_sk int,
+    cs_bill_hdemo_sk int,
+    cs_bill_addr_sk int,
+    cs_ship_customer_sk int,
+    cs_ship_cdemo_sk int,
+    cs_ship_hdemo_sk int,
+    cs_ship_addr_sk int,
+    cs_call_center_sk int,
+    cs_catalog_page_sk int,
+    cs_ship_mode_sk int,
+    cs_warehouse_sk int,
+    cs_item_sk int ,
+    cs_promo_sk int,
+    cs_order_number int ,
+    cs_quantity int,
+    cs_wholesale_cost decimal(7,2),
+    cs_list_price decimal(7,2),
+    cs_sales_price decimal(7,2),
+    cs_ext_discount_amt decimal(7,2),
+    cs_ext_sales_price decimal(7,2),
+    cs_ext_wholesale_cost decimal(7,2),
+    cs_ext_list_price decimal(7,2),
+    cs_ext_tax decimal(7,2),
+    cs_coupon_amt decimal(7,2),
+    cs_ext_ship_cost decimal(7,2),
+    cs_net_paid decimal(7,2),
+    cs_net_paid_inc_tax decimal(7,2),
+    cs_net_paid_inc_ship decimal(7,2),
+    cs_net_paid_inc_ship_tax decimal(7,2),
+    cs_net_profit decimal(7,2)
+)
+PARTITIONED BY (cs_sold_date_sk int)
+STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/030.tpcds.customer.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE customer LIKE et_customer STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 4.68s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/031.tpcds.customer_address.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE customer_address LIKE et_customer_address STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 3.60s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/032.tpcds.customer_demographics.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE customer_demographics LIKE et_customer_demographics STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 3.59s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/033.tpcds.date_dim.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE date_dim LIKE et_date_dim STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 3.59s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/035.tpcds.household_demographics.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE household_demographics LIKE et_household_demographics STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 3.59s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/036.tpcds.income_band.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE income_band LIKE et_income_band STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 3.59s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/037.tpcds.inventory.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE inventory (
+    inv_item_sk int ,
+    inv_warehouse_sk int ,
+    inv_quantity_on_hand int
+)
+PARTITIONED BY (inv_date_sk int)
+STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/038.tpcds.item.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE item LIKE et_item STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 3.16s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/039.tpcds.promotion.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE promotion LIKE et_promotion STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 3.59s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/040.tpcds.reason.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE reason LIKE et_reason STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 3.59s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/041.tpcds.ship_mode.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE ship_mode LIKE et_ship_mode STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 3.60s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/042.tpcds.store.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE store LIKE et_store STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 3.60s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/043.tpcds.store_returns.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE store_returns (
+    sr_return_time_sk int,
+    sr_item_sk int ,
+    sr_customer_sk int,
+    sr_cdemo_sk int,
+    sr_hdemo_sk int,
+    sr_addr_sk int,
+    sr_store_sk int,
+    sr_reason_sk int,
+    sr_ticket_number bigint ,
+    sr_return_quantity int,
+    sr_return_amt decimal(7,2),
+    sr_return_tax decimal(7,2),
+    sr_return_amt_inc_tax decimal(7,2),
+    sr_fee decimal(7,2),
+    sr_return_ship_cost decimal(7,2),
+    sr_refunded_cash decimal(7,2),
+    sr_reversed_charge decimal(7,2),
+    sr_store_credit decimal(7,2),
+    sr_net_loss decimal(7,2)
+)
+PARTITIONED BY (sr_returned_date_sk int)
+STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/044.tpcds.store_sales.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE store_sales (
+    ss_sold_time_sk int,
+    ss_item_sk int ,
+    ss_customer_sk int,
+    ss_cdemo_sk int,
+    ss_hdemo_sk int,
+    ss_addr_sk int,
+    ss_store_sk int,
+    ss_promo_sk int,
+    ss_ticket_number bigint ,
+    ss_quantity int,
+    ss_wholesale_cost decimal(7,2),
+    ss_list_price decimal(7,2),
+    ss_sales_price decimal(7,2),
+    ss_ext_discount_amt decimal(7,2),
+    ss_ext_sales_price decimal(7,2),
+    ss_ext_wholesale_cost decimal(7,2),
+    ss_ext_list_price decimal(7,2),
+    ss_ext_tax decimal(7,2),
+    ss_coupon_amt decimal(7,2),
+    ss_net_paid decimal(7,2),
+    ss_net_paid_inc_tax decimal(7,2),
+    ss_net_profit decimal(7,2)
+)
+PARTITIONED BY (ss_sold_date_sk int)
+STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/045.tpcds.time_dim.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE time_dim LIKE et_time_dim STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 2.68s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/046.tpcds.warehouse.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE warehouse LIKE et_warehouse STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 3.60s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/047.tpcds.web_page.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE web_page LIKE et_web_page STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 3.59s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/048.tpcds.web_returns.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE web_returns (
+    wr_returned_time_sk int,
+    wr_item_sk int ,
+    wr_refunded_customer_sk int,
+    wr_refunded_cdemo_sk int,
+    wr_refunded_hdemo_sk int,
+    wr_refunded_addr_sk int,
+    wr_returning_customer_sk int,
+    wr_returning_cdemo_sk int,
+    wr_returning_hdemo_sk int,
+    wr_returning_addr_sk int,
+    wr_web_page_sk int,
+    wr_reason_sk int,
+    wr_order_number int ,
+    wr_return_quantity int,
+    wr_return_amt decimal(7,2),
+    wr_return_tax decimal(7,2),
+    wr_return_amt_inc_tax decimal(7,2),
+    wr_fee decimal(7,2),
+    wr_return_ship_cost decimal(7,2),
+    wr_refunded_cash decimal(7,2),
+    wr_reversed_charge decimal(7,2),
+    wr_account_credit decimal(7,2),
+    wr_net_loss decimal(7,2)
+)
+PARTITIONED BY (wr_returned_date_sk int)
+STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/049.tpcds.web_sales.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE web_sales (
+    ws_sold_time_sk int,
+    ws_ship_date_sk int,
+    ws_item_sk int ,
+    ws_bill_customer_sk int,
+    ws_bill_cdemo_sk int,
+    ws_bill_hdemo_sk int,
+    ws_bill_addr_sk int,
+    ws_ship_customer_sk int,
+    ws_ship_cdemo_sk int,
+    ws_ship_hdemo_sk int,
+    ws_ship_addr_sk int,
+    ws_web_page_sk int,
+    ws_web_site_sk int,
+    ws_ship_mode_sk int,
+    ws_warehouse_sk int,
+    ws_promo_sk int,
+    ws_order_number int ,
+    ws_quantity int,
+    ws_wholesale_cost decimal(7,2),
+    ws_list_price decimal(7,2),
+    ws_sales_price decimal(7,2),
+    ws_ext_discount_amt decimal(7,2),
+    ws_ext_sales_price decimal(7,2),
+    ws_ext_wholesale_cost decimal(7,2),
+    ws_ext_list_price decimal(7,2),
+    ws_ext_tax decimal(7,2),
+    ws_coupon_amt decimal(7,2),
+    ws_ext_ship_cost decimal(7,2),
+    ws_net_paid decimal(7,2),
+    ws_net_paid_inc_tax decimal(7,2),
+    ws_net_paid_inc_ship decimal(7,2),
+    ws_net_paid_inc_ship_tax decimal(7,2),
+    ws_net_profit decimal(7,2)
+)
+PARTITIONED BY (ws_sold_date_sk int)
+STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 0.04s
+impala-shell -i node11 -d tpcds_parquet -f /home/impadmin/impala-tpcds/03_ddl/050.tpcds.web_site.sql
+Starting Impala Shell without Kerberos authentication
+Connected to node11:21000
+Server version: impalad version 2.3.0-cdh5.5.2 RELEASE (build cc1125f10419a7269366f7f950f57b24b07acd64)
+Query: use `tpcds_parquet`
+Query: create TABLE web_site LIKE et_web_site STORED AS PARQUETFILE
+
+Fetched 0 row(s) in 2.68s
+/home/impadmin/impala-tpcds/04_load/rollout.sh
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/051.insert.call_center.sql
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/052.insert.catalog_page.sql
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/053.insert.catalog_returns.sql
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/054.insert.catalog_sales.sql
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/055.insert.customer.sql
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/056.insert.customer_address.sql
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/057.insert.customer_demographics.sql
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/058.insert.date_dim.sql
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/060.insert.household_demographics.sql
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/061.insert.income_band.sql
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/062.insert.inventory.sql
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/063.insert.item.sql
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/064.insert.promotion.sql
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/065.insert.reason.sql
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/066.insert.ship_mode.sql
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/067.insert.store.sql
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/068.insert.store_returns.sql
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/069.insert.store_sales.sql
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/070.insert.time_dim.sql
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/071.insert.warehouse.sql
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/072.insert.web_page.sql
+impala-shell -i node7 -d tpcds_parquet -f /home/impadmin/impala-tpcds/04_load/073.insert.web_returns.sql

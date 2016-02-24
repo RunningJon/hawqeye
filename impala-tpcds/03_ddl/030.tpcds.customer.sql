@@ -1,0 +1,1 @@
+CREATE TABLE customer LIKE et_customer STORED AS PARQUETFILE;
