@@ -61,3 +61,25 @@ log()
 
 	printf "$id|$schema_name.$table_name|$tuples|%02d:%02d:%02d.%03d\n" "$((S/3600%24))" "$((S/60%60))" "$((S%60))" "${M}" >> $LOCAL_PWD/log/$logfile
 }
+
+get_imp_details()
+{
+	#sets PARALLEL and IMP_HOST
+	if [ -f $LOCAL_PWD/dn.txt ]; then
+		local DN_COUNTER=$(cat $LOCAL_PWD/dn.txt | wc -l)
+		local RANDOM_COUNTER=$(( ( RANDOM % $DN_COUNTER )  + 1 ))
+		PARALLEL=$(($DN_COUNTER * $DSDGEN_THREADS_PER_NODE))
+
+		i="0"
+		for dn in $(cat $LOCAL_PWD/dn.txt); do
+			i=$(($i + 1))
+			if [ "$i" -eq "$RANDOM_COUNTER" ]; then
+				IMP_HOST="$dn"
+			fi
+		done
+	else
+		echo "$PWD/dn.txt not found!"
+		echo "Please enter all of the datanodes into this file and try again."
+		exit 1
+	fi
+}

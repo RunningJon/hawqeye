@@ -8,6 +8,9 @@ source $PWD/../functions.sh
 step=sql
 init_log $step
 
+#call external function to get IMP_HOST
+get_imp_details
+
 for i in $(ls $PWD/*.$QUERY_TYPE.*.sql); do
 	id=`echo $i | awk -F '.' '{print $1}'`
 	schema_name=`echo $i | awk -F '.' '{print $2}'`

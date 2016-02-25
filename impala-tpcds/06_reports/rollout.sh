@@ -52,6 +52,9 @@ create_tables()
 	done
 }
 
+#call external function to get IMP_HOST
+get_imp_details
+
 remove_old_files
 create_new_directories
 put_data

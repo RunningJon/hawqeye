@@ -9,6 +9,8 @@ source $PWD/../functions.sh
 step=load
 init_log $step
 
+#call external function to get IMP_HOST
+get_imp_details
 
 for i in $(ls $PWD/*.sql); do
 	start_log

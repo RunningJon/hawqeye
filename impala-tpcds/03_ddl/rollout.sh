@@ -9,6 +9,9 @@ source $PWD/../functions.sh
 step=ddl
 init_log $step
 
+#call external function to get IMP_HOST
+get_imp_details
+
 for i in $(ls $PWD/*.sql); do
 	#id=`echo $i | awk -F '.' '{print $1}'`
 	id=$(basename $i | awk -F '.' '{print $1}')

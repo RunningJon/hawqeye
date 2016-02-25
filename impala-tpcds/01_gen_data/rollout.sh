@@ -76,6 +76,8 @@ kill_orphaned_data_gen
 copy_generate_data
 remove_old_files
 create_new_directories
+#call external function to get PARALLEL
+get_imp_details
 gen_data
 
 echo ""
