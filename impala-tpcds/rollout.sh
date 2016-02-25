@@ -2,6 +2,12 @@
 
 set -e
 PWD=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+if [ ! -f "$PWD/tpcds-env.sh" ]; then
+	echo "cp $PWD/tpcds-env.sh.template $PWD/tpcds-env.sh"
+	cp $PWD/tpcds-env.sh.template $PWD/tpcds-env.sh
+fi
+
 source $PWD/functions.sh
 source $PWD/tpcds-env.sh
 
