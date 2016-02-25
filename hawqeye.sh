@@ -3,10 +3,18 @@ set -e
 
 PWD=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
+GIT_USERNAME=$1
+
+if [ "$GIT_USERNAME" == "" ]; then
+	echo "You must provide your github username"
+	echo "Example: ./hawqeye.sh jgronline@gmail.com"
+	exit 1
+fi
+
 MYCMD="hawqeye.sh"
 MYVAR="tpcds_variables.sh"
 REPO="hawqeye"
-REPO_URL="https://github.com/pivotalguru/hawqeye"
+REPO_URL="$GIT_USERNAME""@""https://github.com/pivotalguru/hawqeye"
 GIT_SSL_NO_VERIFY="true"
 ADMIN_USER=$(echo $USER)
 
