@@ -28,4 +28,3 @@ where d1.d_week_seq = d2.d_week_seq
 group by i_item_desc,w_warehouse_name,d1.d_week_seq
 order by total_cnt desc, i_item_desc, w_warehouse_name, d_week_seq
 limit 100;
--- end query 72 in stream 0 using template query72.tpl

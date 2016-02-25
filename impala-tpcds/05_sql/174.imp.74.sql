@@ -59,4 +59,3 @@ with year_total as (
            > case when t_s_firstyear.year_total > 0 then t_s_secyear.year_total / t_s_firstyear.year_total else null end
  order by 1,3,2
  limit 100;
--- end query 74 in stream 0 using template query74.tpl

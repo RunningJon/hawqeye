@@ -23,4 +23,3 @@ select  sum(case when ssci.customer_sk is not null and csci.customer_sk is null 
 from ssci full outer join csci on (ssci.customer_sk=csci.customer_sk
                                and ssci.item_sk = csci.item_sk)
 limit 100;
--- end query 97 in stream 0 using template query97.tpl

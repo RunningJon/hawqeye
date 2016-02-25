@@ -57,5 +57,3 @@ with my_customers as (
  group by segment
  order by segment, num_customers
  limit 100;
--- ) where rownum <= 100;
--- end query 54 in stream 0 using template query54.tpl

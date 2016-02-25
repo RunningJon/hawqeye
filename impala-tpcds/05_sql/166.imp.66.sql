@@ -221,4 +221,3 @@ select
        ,year
  order by w_warehouse_name
  limit 100;
--- end query 66 in stream 0 using template query66.tpl

@@ -40,5 +40,3 @@ select i_brand_id brand_id, i_brand brand,t_hour,t_minute,
  group by i_brand, i_brand_id,t_hour,t_minute
  order by ext_price desc, i_brand_id
  limit 100;
-
--- end query 71 in stream 0 using template query71.tpl

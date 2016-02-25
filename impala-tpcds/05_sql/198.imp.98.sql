@@ -28,4 +28,3 @@ order by
   i_item_id,
   i_item_desc,
   revenueratio;
---limit 1000; -- added limit
