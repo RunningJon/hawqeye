@@ -21,13 +21,30 @@ create_directories()
 
 cleanup()
 {
-	echo "rm -f $PWD/log/end_ddl.log"
-	rm -f $PWD/log/end_ddl.log
-	echo "rm -f $PWD/log/end_load.log"
-	rm -f $PWD/log/end_load.log
-	echo "rm -f $PWD/log/end_sql.log"
-	rm -f $PWD/log/end_sql.log
-
+	if [ "$compile" -eq "1" ]; then
+		echo "rm -f $PWD/log/end_compile.log"
+		rm -f $PWD/log/end_compile.log
+	fi
+	if [ "$gen_data" -eq "1" ]; then
+		echo "rm -f $PWD/log/end_gen_data.log"
+		rm -f $PWD/log/end_gen_data.log
+	fi
+	if [ "$ddl" -eq "1" ]; then
+		echo "rm -f $PWD/log/end_ddl.log"
+		rm -f $PWD/log/end_ddl.log
+	fi
+	if [ "$load" -eq "1" ]; then
+		echo "rm -f $PWD/log/end_load.log"
+		rm -f $PWD/log/end_load.log
+	fi
+	if [ "$sql" -eq "1" ]; then
+		echo "rm -f $PWD/log/end_sql.log"
+		rm -f $PWD/log/end_sql.log
+	fi
+	if [ "$reports" -eq "1" ]; then
+		echo "rm -f $PWD/log/end_reports.log"
+		rm -f $PWD/log/end_reports.log
+	fi
 }
 
 create_directories
