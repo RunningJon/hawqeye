@@ -14,7 +14,7 @@ fi
 MYCMD="hawqeye.sh"
 MYVAR="tpcds_variables.sh"
 REPO="hawqeye"
-REPO_URL="$GIT_USERNAME""@""https://github.com/pivotalguru/hawqeye"
+REPO_URL="https://$GIT_USERNAME@https://github.com/pivotalguru/hawqeye.git"
 GIT_SSL_NO_VERIFY="true"
 ADMIN_USER=$(echo $USER)
 
