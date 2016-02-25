@@ -1,3 +1,15 @@
 HAWQEYE is a test suite to compare HAWQ (Pivotal HDB) with other SQL on Hadoop products.  The tests include:
 1.  Impala TPC-DS
 
+Install:
+
+curl https://raw.githubusercontent.com/pivotalguru/hawqeye/master/hawqeye.sh > hawqeye.sh
+chmod 755 hawqeye.sh
+
+./hawqeye.sh
+
+Usage:
+Change directory to the test you wish to run and then execute rollout.sh.
+Example:
+cd impala-tpcds
+./rollout.sh
