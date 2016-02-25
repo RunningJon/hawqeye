@@ -3,15 +3,6 @@ set -e
 
 PWD=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-GEN_DATA_SCALE=$1
-if [ "$GEN_DATA_SCALE" == "" ]; then
-	echo "You must provide the scale as a parameter in terms of Gigabytes."
-	echo "Example: ./tpcds.sh 100"
-	echo "This will create 100 GB of data for this test."
-	exit 1
-fi
-QUIET=$2
-
 MYCMD="hawqeye.sh"
 MYVAR="tpcds_variables.sh"
 REPO="hawqeye"
