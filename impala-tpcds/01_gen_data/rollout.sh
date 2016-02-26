@@ -92,6 +92,11 @@ done
 
 echo "Done generating data"
 echo ""
+
+echo "Generate queries based on scale"
+cd $PWD
+$PWD/generate_queries.sh $GEN_DATA_SCALE
+
 log
 
 end_step $step
