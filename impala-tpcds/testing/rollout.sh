@@ -1,28 +1,20 @@
 #!/bin/bash
 
 set -e
-GEN_DATA_SCALE=$1
-number_sessions=$2
-SQL_VERSION=$3
-
-if [[ "$GEN_DATA_SCALE" == "" || "$number_sessions" == "" || "$SQL_VERSION" == "" ]]; then
-	echo "Error: you must provide the scale, the number of sessions, and SQL_VERSION as parameters."
-	echo "Example: ./rollout.sh 3000 5 tpcds"
-	echo "This will execute the TPC-DS queries for 3TB of data and 5 concurrent sessions that are dynamically"
-	echo "created with dsqgen.  The imp option will use the static queries and static order that is only valid for 5 sessions."
-	exit 1
-fi
-
-if [ "$SQL_VERSION" == "imp" ]; then 
-	if [ "$number_sessions" -ne "5" ]; then
-		echo "imp tests only supports 5 concurrent sessions."
-		exit 1
-	fi
-fi
 
 PWD=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source $PWD/../functions.sh
-source_bashrc
+source $PWD/../tpcds-env.sh
+
+check_multi_user_count()
+{
+	if [ "$SQL_VERSION" == "imp" ]; then 
+		if [ "$MULTI_USER_COUNT" -ne "5" ]; then
+			echo "imp tests only supports 5 concurrent sessions."
+			exit 1
+		fi
+	fi
+}
 
 get_impala_shell_count()
 {
@@ -34,8 +26,10 @@ get_file_count()
 	file_count=$(ls $PWD/../log/end_testing* 2> /dev/null | wc -l)
 }
 
+check_multi_user_count
 get_file_count
-if [ "$file_count" -ne "$number_sessions" ]; then
+
+if [ "$file_count" -ne "$MULTI_USER_COUNT" ]; then
 
 	rm -f $PWD/../log/end_testing_*.log
 	rm -f $PWD/../log/testing*.log
@@ -48,7 +42,7 @@ if [ "$file_count" -ne "$number_sessions" ]; then
 		#create each session's directory
 		sql_dir=$PWD/$session_id
 		echo "sql_dir: $sql_dir"
-		for i in $(seq 1 $number_sessions); do
+		for i in $(seq 1 $MULTI_USER_COUNT); do
 			sql_dir="$PWD"/"$session_id""$i"
 			echo "checking for directory $sql_dir"
 			if [ ! -d "$sql_dir" ]; then
@@ -60,8 +54,8 @@ if [ "$file_count" -ne "$number_sessions" ]; then
 		done
 
 		#Create queries
-		echo "$PWD/dsqgen -streams $number_sessions -input $PWD/query_templates/templates.lst -directory $PWD/query_templates -dialect pivotal -scale $GEN_DATA_SCALE -verbose y -output $PWD"
-		$PWD/dsqgen -streams $number_sessions -input $PWD/query_templates/templates.lst -directory $PWD/query_templates -dialect pivotal -scale $GEN_DATA_SCALE -verbose y -output $PWD
+		echo "$PWD/dsqgen -streams $MULTI_USER_COUNT -input $PWD/query_templates/templates.lst -directory $PWD/query_templates -dialect pivotal -scale $GEN_DATA_SCALE -verbose y -output $PWD"
+		$PWD/dsqgen -streams $MULTI_USER_COUNT -input $PWD/query_templates/templates.lst -directory $PWD/query_templates -dialect pivotal -scale $GEN_DATA_SCALE -verbose y -output $PWD
 
 		#move the query_x.sql file to the correct session directory
 		for i in $(ls $PWD/query_*.sql); do
@@ -75,7 +69,7 @@ if [ "$file_count" -ne "$number_sessions" ]; then
 		done
 	fi
 
-	for x in $(seq 1 $number_sessions); do
+	for x in $(seq 1 $MULTI_USER_COUNT); do
 		session_log=$PWD/../log/testing_session_$x.log
 		echo "$PWD/test.sh $GEN_DATA_SCALE $x $SQL_VERSION"
 		$PWD/test.sh $GEN_DATA_SCALE $x $SQL_VERSION > $session_log 2>&1 < $session_log &
@@ -103,7 +97,7 @@ if [ "$file_count" -ne "$number_sessions" ]; then
 
 	get_file_count
 
-	if [ "$file_count" -ne "$number_sessions" ]; then
+	if [ "$file_count" -ne "$MULTI_USER_COUNT" ]; then
 		echo "The number of successfully completed sessions is less than expected!"
 		echo "Please review the log files to determine which queries failed."
 		exit 1

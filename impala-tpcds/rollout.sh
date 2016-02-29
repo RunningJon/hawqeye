@@ -40,6 +40,10 @@ cleanup()
 	if [ "$sql" -eq "1" ]; then
 		echo "rm -f $PWD/log/end_sql.log"
 		rm -f $PWD/log/end_sql.log
+		echo "rm -f $PWD/log/end_testing_*.log"
+		rm -f $PWD/log/end_testing_*.log
+		echo "rm -f $PWD/log/testing*.log"
+		rm -f $PWD/log/testing*.log
 	fi
 	if [ "$reports" -eq "1" ]; then
 		echo "rm -f $PWD/log/end_reports.log"
@@ -54,3 +58,8 @@ for i in $(ls -d $PWD/0*); do
 	echo "$i/rollout.sh"
 	$i/rollout.sh
 done
+
+if [ "$MULTI_USER_TEST" == "true" ]; then
+	$PWD/testing/rollout.sh
+fi
+

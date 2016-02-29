@@ -9,7 +9,8 @@ FLATFILE_HDFS_REPORTS=/user/${USER}/reports
 GEN_DATA_SCALE=3000
 DSDGEN_THREADS_PER_NODE=12
 TPCDS_DBNAME=tpcds_parquet
-QUERY_TYPE="imp"
+SQL_VERSION="imp"
+MULTI_USER_COUNT="5"
 
 #if set to 1, rollout.sh will re-run this step.  
 #if set to 0, rollout.sh will skip this step if it has successfully completed already.
