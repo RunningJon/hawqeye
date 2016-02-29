@@ -7,7 +7,7 @@ GIT_USERNAME=$1
 
 if [ "$GIT_USERNAME" == "" ]; then
 	echo "You must provide your github username"
-	echo "Example: ./hawqeye.sh jgronline@gmail.com"
+	echo "Example: ./hawqeye.sh pivotalguru"
 	exit 1
 fi
 
