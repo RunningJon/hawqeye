@@ -71,8 +71,8 @@ if [ "$file_count" -ne "$MULTI_USER_COUNT" ]; then
 
 	for x in $(seq 1 $MULTI_USER_COUNT); do
 		session_log=$PWD/../log/testing_session_$x.log
-		echo "$PWD/test.sh $GEN_DATA_SCALE $x $SQL_VERSION"
-		$PWD/test.sh $GEN_DATA_SCALE $x $SQL_VERSION > $session_log 2>&1 < $session_log &
+		echo "$PWD/test.sh $x"
+		$PWD/test.sh $x > $session_log 2>&1 < $session_log &
 	done
 
 	sleep 2
