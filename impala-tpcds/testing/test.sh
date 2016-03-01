@@ -19,6 +19,9 @@ step=testing_$session_id
 
 init_log $step
 
+#call external function to get IMP_HOST
+get_imp_details
+
 if [ "$SQL_VERSION" != "tpcds" ]; then
 	sql_dir=$PWD/$SQL_VERSION/$session_id
 else
@@ -60,11 +63,10 @@ for i in $(ls $sql_dir/*.sql); do
 	schema_name=$session_id
 	table_name=$(basename $i | awk -F '.' '{print $3}')
 
-	echo "psql -A -q -t -P pager=off -v ON_ERROR_STOP=ON -f $i | wc -l"
-	tuples=$(psql -A -q -t -P pager=off -v ON_ERROR_STOP=ON -f $i | wc -l; exit ${PIPESTATUS[0]})
-	#remove the extra line that \timing adds
-	tuples=$(($tuples-1))
+	echo "impala-shell -i $IMP_HOST -d $TPCDS_DBNAME -f $i"
+	tuples=$(impala-shell -i $IMP_HOST -d $TPCDS_DBNAME -f $i | wc -l)
 	log $tuples
+
 done
 
 end_step $step

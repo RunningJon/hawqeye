@@ -18,8 +18,6 @@ for i in $(ls $PWD/*.$SQL_VERSION.*.sql); do
 
 	start_log
 	tuples=$(impala-shell -i $IMP_HOST -d $TPCDS_DBNAME -f $i | wc -l)
-	#impala-shell -i $IMP_HOST -d $TPCDS_DBNAME -f $i 
-	#tuples="0"
 	log $tuples
 done
 end_step $step
