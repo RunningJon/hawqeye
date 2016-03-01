@@ -53,11 +53,11 @@ create_tables()
 
 #call external function to get IMP_HOST
 get_imp_details
+create_tables
 
 remove_old_files
 create_new_directories
 put_data
-create_tables
 
 echo "********************************************************************************"
 echo "Generate Data"

@@ -13,7 +13,7 @@ remove_old_files()
 
 create_new_directories()
 {
-	echo "hdfs dfs -mkdir ${FLATFILE_HDFS_REPORTS}'"
+	echo "hdfs dfs -mkdir ${FLATFILE_HDFS_REPORTS}"
 	hdfs dfs -mkdir ${FLATFILE_HDFS_REPORTS}
 
 	for t in sql; do
@@ -60,9 +60,9 @@ view_reports()
 
 #call external function to get IMP_HOST
 get_imp_details
+create_tables
 
 remove_old_files
 create_new_directories
 put_data
-create_tables
 view_reports
