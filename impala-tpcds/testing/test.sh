@@ -4,20 +4,16 @@ set -e
 
 PWD=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source $PWD/../functions.sh
+source $PWD/../tpcds-env.sh
 
-GEN_DATA_SCALE=$1
-session_id=$2
-SQL_VERSION=$3
+session_id=$1
 
-if [[ "$GEN_DATA_SCALE" == "" || "$session_id" == "" || "$SQL_VERSION" == "" ]]; then
-	echo "Error: you must provide the scale, the session id, and SQL_VERSION as parameters."
-	echo "Example: ./rollout.sh 3000 5 tpcds"
-	echo "This will execute the TPC-DS queries for 3TB of data for session 5 that are dynamically."
-	echo "created with dsqgen."
+if [ "$session_id" == "" ]; then
+	echo "Error: you must provide the session id as a parameter."
+	echo "Example: ./test.sh 3"
+	echo "This will execute the session 3 queries."
 	exit 1
 fi
-
-source_bashrc
 
 step=testing_$session_id
 
