@@ -29,7 +29,6 @@ create_new_directories()
 
 put_data()
 {
-
 	for t in compile_tpcds gen_data ddl load sql; do
 		TARGET_PATH=$FLATFILE_HDFS_REPORTS"/"$t
 		echo "hdfs dfs -put $PWD/../log/rollout_$t.log $TARGET_PATH"
