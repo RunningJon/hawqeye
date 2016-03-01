@@ -22,8 +22,8 @@ init_log $step
 #call external function to get IMP_HOST
 get_imp_details
 
-if [ "$SQL_VERSION" != "tpcds" ]; then
-	sql_dir=$PWD/$SQL_VERSION/$session_id
+if [ "$QUERY_TYPE" != "tpcds" ]; then
+	sql_dir=$PWD/$QUERY_TYPE/$session_id
 else
 	sql_dir=$PWD/$session_id
 	#going from 1 base to 0 base
