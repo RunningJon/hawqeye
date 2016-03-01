@@ -8,7 +8,7 @@ source $PWD/../tpcds-env.sh
 
 check_multi_user_count()
 {
-	if [ "$SQL_VERSION" == "imp" ]; then 
+	if [ "$QUERY_TYPE" == "imp" ]; then 
 		if [ "$MULTI_USER_COUNT" -ne "5" ]; then
 			echo "imp tests only supports 5 concurrent sessions."
 			exit 1
@@ -34,8 +34,8 @@ if [ "$file_count" -ne "$MULTI_USER_COUNT" ]; then
 	rm -f $PWD/../log/end_testing_*.log
 	rm -f $PWD/../log/testing*.log
 
-	if [ "$SQL_VERSION" == "imp" ]; then
-		echo "Using static $SQL_VERSION queries"
+	if [ "$QUERY_TYPE" == "imp" ]; then
+		echo "Using static $QUERY_TYPE queries"
 	else
 		rm -f $PWD/query_*.sql
 
