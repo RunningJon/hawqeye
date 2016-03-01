@@ -7,29 +7,29 @@ source $PWD/../tpcds-env.sh
 
 remove_old_files()
 {
-	echo "hdfs dfs -rm -r -f -skipTrash ${FLATFILE_HDFS_REPORTS}"
-	hdfs dfs -rm -r -f -skipTrash ${FLATFILE_HDFS_REPORTS}
+	echo "hdfs dfs -rm -r -f -skipTrash ${FLATFILE_HDFS_TESTING}"
+	hdfs dfs -rm -r -f -skipTrash ${FLATFILE_HDFS_TESTING}
 }
 
 create_new_directories()
 {
-	echo "hdfs dfs -mkdir ${FLATFILE_HDFS_REPORTS}"
-	hdfs dfs -mkdir ${FLATFILE_HDFS_REPORTS}
+	echo "hdfs dfs -mkdir ${FLATFILE_HDFS_TESTING}"
+	hdfs dfs -mkdir ${FLATFILE_HDFS_TESTING}
 
 	for t in sql; do
-		echo "hdfs dfs -mkdir ${FLATFILE_HDFS_REPORTS}/$t"
-		hdfs dfs -mkdir ${FLATFILE_HDFS_REPORTS}/$t
+		echo "hdfs dfs -mkdir ${FLATFILE_HDFS_TESTING}/$t"
+		hdfs dfs -mkdir ${FLATFILE_HDFS_TESTING}/$t
 	done
 
-	echo "hdfs dfs -chmod -R 777 ${FLATFILE_HDFS_REPORTS}"
-	hdfs dfs -chmod -R 777 ${FLATFILE_HDFS_REPORTS}
+	echo "hdfs dfs -chmod -R 777 ${FLATFILE_HDFS_TESTING}"
+	hdfs dfs -chmod -R 777 ${FLATFILE_HDFS_TESTING}
 
 }
 
 put_data()
 {
 	for t in sql; do
-		TARGET_PATH=$FLATFILE_HDFS_REPORTS"/"$t
+		TARGET_PATH=$FLATFILE_HDFS_TESTING"/"$t
 		echo "hdfs dfs -put $PWD/../log/rollout_$t.log $TARGET_PATH"
 		hdfs dfs -put $PWD/../log/rollout_$t.log $TARGET_PATH
 	done
@@ -54,7 +54,7 @@ view_reports()
 {
 	for i in $(ls $PWD/*.sql | grep report); do
 		echo "impala-shell -i $IMP_HOST -d testing -f $i"
-		impala-shell -i $IMP_HOST -d testing -f $i
+		impala-shell -i $IMP_HOST -d testing -f $i -B --quiet 2> /dev/null
 	done
 }
 
