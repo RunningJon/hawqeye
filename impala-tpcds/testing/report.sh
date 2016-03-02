@@ -28,10 +28,10 @@ create_new_directories()
 
 put_data()
 {
-	for t in sql; do
-		TARGET_PATH=$FLATFILE_HDFS_TESTING"/"$t
-		echo "hdfs dfs -put $PWD/../log/rollout_$t.log $TARGET_PATH"
-		hdfs dfs -put $PWD/../log/rollout_$t.log $TARGET_PATH
+	for t in $(seq 1 $MULTI_USER_COUNT); do
+		TARGET_PATH=$FLATFILE_HDFS_TESTING"/sql"
+		echo "hdfs dfs -put $PWD/../log/rollout_testing_$t.log $TARGET_PATH"
+		hdfs dfs -put $PWD/../log/rollout_testing_$t.log $TARGET_PATH
 	done
 }
 
