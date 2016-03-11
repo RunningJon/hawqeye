@@ -30,7 +30,8 @@ select iss.i_brand_id brand_id
      ,date_dim d1
  where ss_item_sk = iss.i_item_sk
    and ss_sold_date_sk = d1.d_date_sk
-   and ss_sold_date_sk between 2451180 and 2452275
+   --removed Cloudera cheat
+   --and ss_sold_date_sk between 2451180 and 2452275
    and d1.d_year between 1999 AND 1999 + 2
  union all
  select ics.i_brand_id brand_id
@@ -41,7 +42,8 @@ select iss.i_brand_id brand_id
      ,date_dim d2
  where cs_item_sk = ics.i_item_sk
    and cs_sold_date_sk = d2.d_date_sk
-   and cs_sold_date_sk between 2451180 and 2452275
+   --removed Cloudera cheat
+   --and cs_sold_date_sk between 2451180 and 2452275
    and d2.d_year between 1999 AND 1999 + 2
 ) as q1
 group by brand_id, class_id, category_id
@@ -59,7 +61,8 @@ union all
      ,date_dim d3
  where ws_item_sk = iws.i_item_sk
    and ws_sold_date_sk = d3.d_date_sk
-   and ws_sold_date_sk between 2451180 and 2452275
+   --removed Cloudera cheat
+   --and ws_sold_date_sk between 2451180 and 2452275
    and d3.d_year between 1999 AND 1999 + 2
 ) as q5
 group by brand_id, class_id, category_id
@@ -79,7 +82,8 @@ where ((q6.c4 - case when (q6.c3 >= 0) then q6.c3 else -(q6.c3) end) >= 2)
            ,date_dim
        where ss_sold_date_sk = d_date_sk
          and d_year between 1999 and 2001 
-         and ss_sold_date_sk between 2451180 and 2452275
+         --removed Cloudera cheat
+         --and ss_sold_date_sk between 2451180 and 2452275
        union all 
        select cs_quantity quantity 
              ,cs_list_price list_price
@@ -87,14 +91,16 @@ where ((q6.c4 - case when (q6.c3 >= 0) then q6.c3 else -(q6.c3) end) >= 2)
            ,date_dim
        where cs_sold_date_sk = d_date_sk
          and d_year between 1998 and 2000 
-         and cs_sold_date_sk between 2450815 and 2451910
+         --removed Cloudera cheat
+         --and cs_sold_date_sk between 2450815 and 2451910
        union all
        select ws_quantity quantity
              ,ws_list_price list_price
        from web_sales
            ,date_dim
        where ws_sold_date_sk = d_date_sk
-         and ws_sold_date_sk between 2450815 and 2451910
+         --removed Cloudera cheat
+         --and ws_sold_date_sk between 2450815 and 2451910
          and d_year between 1998 and 1998 + 2) x)
 ,
   results AS
@@ -112,7 +118,8 @@ select * from (
        where ss_item_sk in (select ss_item_sk from cross_items)
          and ss_item_sk = i_item_sk
          and ss_sold_date_sk = d_date_sk
-         and ss_sold_date_sk between 2451850 and 2451879
+         --removed Cloudera cheat
+         --and ss_sold_date_sk between 2451850 and 2451879
          and d_year = 1998+2 
          and d_moy = 11
        group by i_brand_id,i_class_id,i_category_id ) a1
@@ -132,7 +139,8 @@ select * from (
        where cs_item_sk in (select ss_item_sk from cross_items)
          and cs_item_sk = i_item_sk
          and cs_sold_date_sk = d_date_sk
-         and cs_sold_date_sk between 2451850 and 2451879
+         --removed Cloudera cheat
+         --and cs_sold_date_sk between 2451850 and 2451879
          and d_year = 1998+2
          and d_moy = 11
        group by i_brand_id,i_class_id,i_category_id ) a1
@@ -154,7 +162,8 @@ select * from (
        where ws_item_sk in (select ss_item_sk from cross_items)
          and ws_item_sk = i_item_sk
          and ws_sold_date_sk = d_date_sk
-         and ws_sold_date_sk between 2451850 and 2451879
+         --removed Cloudera cheat
+         --and ws_sold_date_sk between 2451850 and 2451879
          and d_year = 1998+2
          and d_moy = 11
        group by i_brand_id,i_class_id,i_category_id ) a1
@@ -212,7 +221,8 @@ select iss.i_brand_id brand_id
      ,date_dim d1
  where ss_item_sk = iss.i_item_sk
    and ss_sold_date_sk = d1.d_date_sk
-   and ss_sold_date_sk between 2451180 and 2452275
+   --removed Cloudera cheat
+   --and ss_sold_date_sk between 2451180 and 2452275
    and d1.d_year between 1999 AND 1999 + 2
  union all
  select ics.i_brand_id brand_id
@@ -223,7 +233,8 @@ select iss.i_brand_id brand_id
      ,date_dim d2
  where cs_item_sk = ics.i_item_sk
    and cs_sold_date_sk = d2.d_date_sk
-   and cs_sold_date_sk between 2451180 and 2452275
+   --removed Cloudera cheat
+   --and cs_sold_date_sk between 2451180 and 2452275
    and d2.d_year between 1999 AND 1999 + 2
 ) as q1
 group by brand_id, class_id, category_id
@@ -241,7 +252,8 @@ union all
      ,date_dim d3
  where ws_item_sk = iws.i_item_sk
    and ws_sold_date_sk = d3.d_date_sk
-   and ws_sold_date_sk between 2451180 and 2452275
+   --removed Cloudera cheat
+   --and ws_sold_date_sk between 2451180 and 2452275
    and d3.d_year between 1999 AND 1999 + 2
 ) as q5
 group by brand_id, class_id, category_id
@@ -261,7 +273,8 @@ where ((q6.c4 - case when (q6.c3 >= 0) then q6.c3 else -(q6.c3) end) >= 2)
            ,date_dim
        where ss_sold_date_sk = d_date_sk
          and d_year between 1998 and 1998 + 2
-         and ss_sold_date_sk between 2450815 and 2451910
+         --removed Cloudera cheat
+         --and ss_sold_date_sk between 2450815 and 2451910
        union all
        select cs_quantity quantity
              ,cs_list_price list_price
@@ -269,14 +282,16 @@ where ((q6.c4 - case when (q6.c3 >= 0) then q6.c3 else -(q6.c3) end) >= 2)
            ,date_dim
        where cs_sold_date_sk = d_date_sk
          and d_year between 1998 and 1998 + 2
-         and cs_sold_date_sk between 2450815 and 2451910
+         --removed Cloudera cheat
+         --and cs_sold_date_sk between 2450815 and 2451910
        union all
        select ws_quantity quantity
              ,ws_list_price list_price
        from web_sales
            ,date_dim
        where ws_sold_date_sk = d_date_sk
-         and ws_sold_date_sk between 2450815 and 2451910
+         --removed Cloudera cheat
+         --and ws_sold_date_sk between 2450815 and 2451910
          and d_year between 1998 and 1998 + 2) x)
   select  * from
  (

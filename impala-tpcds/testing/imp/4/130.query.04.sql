@@ -15,7 +15,8 @@ with year_total as (
      ,date_dim
  where c_customer_sk = ss_customer_sk
    and ss_sold_date_sk = d_date_sk
-   and ss_sold_date_sk between 2451180 and 2451910
+   --removed Cloudera cheat
+   --and ss_sold_date_sk between 2451180 and 2451910
  group by c_customer_id
          ,c_first_name
          ,c_last_name
@@ -40,7 +41,8 @@ with year_total as (
      ,date_dim
  where c_customer_sk = cs_bill_customer_sk
    and cs_sold_date_sk = d_date_sk
-   and cs_sold_date_sk between 2451180 and 2451910
+   --removed Cloudera cheat
+   --and cs_sold_date_sk between 2451180 and 2451910
  group by c_customer_id
          ,c_first_name
          ,c_last_name
@@ -65,7 +67,8 @@ union all
      ,date_dim
  where c_customer_sk = ws_bill_customer_sk
    and ws_sold_date_sk = d_date_sk
-   and ws_sold_date_sk between 2451180 and 2451910
+   --removed Cloudera cheat
+   --and ws_sold_date_sk between 2451180 and 2451910
  group by c_customer_id
          ,c_first_name
          ,c_last_name

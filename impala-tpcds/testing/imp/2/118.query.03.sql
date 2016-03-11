@@ -14,7 +14,9 @@ where
   and item.i_manufact_id = 436
   and dt.d_moy = 12
   -- partition key filters
-  and ( 
+/*
+--removed Cloudera cheat
+  and (
 ss_sold_date_sk between 2415355 and 2415385
 or ss_sold_date_sk between 2415720 and 2415750
 or ss_sold_date_sk between 2416085 and 2416115
@@ -215,6 +217,7 @@ or ss_sold_date_sk between 2486944 and 2486974
 or ss_sold_date_sk between 2487309 and 2487339
 or ss_sold_date_sk between 2487674 and 2487704
 or ss_sold_date_sk between 2488039 and 2488069
+*/
 )
 group by
   dt.d_year,

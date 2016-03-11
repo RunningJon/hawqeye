@@ -1,5 +1,5 @@
 -- start query 29 in stream 0 using template query29.tpl
-select * from (select
+select straight_join * from (select
      i_item_id
     ,i_item_desc
     ,s_store_id
@@ -9,9 +9,9 @@ select * from (select
     ,stddev_samp(cs_quantity)        as catalog_sales_quantity
  from
     store_sales
-    join store_returns on   (ss_customer_sk         = sr_customer_sk
+    join [shuffle] store_returns on   (ss_customer_sk         = sr_customer_sk
  and ss_item_sk             = sr_item_sk
- and ss_ticket_number       = sr_ticket_number and sr_returned_date_sk between 2450905 and 2451026)
+ and ss_ticket_number       = sr_ticket_number /* --removed Cloudera cheat and sr_returned_date_sk between 2450905 and 2451026 */ )
    ,catalog_sales
    ,date_dim             d1
    ,date_dim             d2
@@ -21,7 +21,8 @@ select * from (select
  where
      d1.d_moy               = 4
  and d1.d_year              = 1998
- and ss_sold_date_sk between 2450905 and 2450934
+ --removed Cloudera cheat
+ --and ss_sold_date_sk between 2450905 and 2450934
  and d1.d_date_sk           = ss_sold_date_sk
  and i_item_sk              = ss_item_sk
  and s_store_sk             = ss_store_sk
@@ -29,12 +30,14 @@ select * from (select
 -- and ss_item_sk             = sr_item_sk
 -- and ss_ticket_number       = sr_ticket_number
  and sr_returned_date_sk    = d2.d_date_sk
- and sr_returned_date_sk between 2450905 and 2451026
+ --removed Cloudera cheat
+ --and sr_returned_date_sk between 2450905 and 2451026
  and d2.d_moy               between 4 and  4 + 3
  and d2.d_year              = 1998
  and sr_customer_sk         = cs_bill_customer_sk
  and sr_item_sk             = cs_item_sk
- and cs_sold_date_sk between 2450815 and 2451910
+ --removed Cloudera cheat
+ --and cs_sold_date_sk between 2450815 and 2451910
  and cs_sold_date_sk        = d3.d_date_sk
  and d3.d_year              in (1998,1998+1,1998+2)
  group by

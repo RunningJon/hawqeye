@@ -1,6 +1,6 @@
 -- start query 24 in stream 0 using template query24.tpl
 with ssales as
-(select c_last_name
+(select STRAIGHT_JOIN c_last_name
 ,c_first_name
 ,s_store_name
 ,ca_state
@@ -33,7 +33,7 @@ group by c_last_name
 ,s_store_name
 ,ca_state
 ,s_state
-,item.i_color
+,i_color
 ,i_current_price
 ,i_manager_id
 ,i_units
@@ -56,7 +56,7 @@ from ssales
 where a1.paid > a2.paid2
 ;
 with ssales as
-(select c_last_name
+(select STRAIGHT_JOIN c_last_name
 ,c_first_name
 ,s_store_name
 ,ca_state

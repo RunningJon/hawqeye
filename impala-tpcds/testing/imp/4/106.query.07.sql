@@ -22,7 +22,8 @@ where
   and (p_channel_email = 'N'
     or p_channel_event = 'N')
   and d_year = 1998
-  and ss_sold_date_sk between 2450815 and 2451179 -- partition key filter
+  --removed Cloudera cheat
+  --and ss_sold_date_sk between 2450815 and 2451179 -- partition key filter
 group by
   i_item_id
 order by

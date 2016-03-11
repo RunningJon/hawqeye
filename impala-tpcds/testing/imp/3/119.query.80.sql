@@ -11,9 +11,10 @@
      item,
      promotion
  where ss_sold_date_sk = d_date_sk
-       and ss_sold_date_sk between 2451767 and 2451797
+       --removed Cloudera cheat
+       --and ss_sold_date_sk between 2451767 and 2451797
        and d_date between cast('2000-08-10' as timestamp)
-                  and (cast('2000-08-10' as timestamp) +  '30 days'::interval)
+                  and (cast('2000-08-10' as timestamp) +  interval 30 days)
        and ss_store_sk = s_store_sk
        and ss_item_sk = i_item_sk
        and i_current_price > 50
@@ -33,9 +34,10 @@
      item,
      promotion
  where cs_sold_date_sk = d_date_sk
-       and cs_sold_date_sk between 2451767 and 2451797
+       --removed Cloudera cheat
+       --and cs_sold_date_sk between 2451767 and 2451797
        and d_date between cast('2000-08-10' as timestamp)
-                  and (cast('2000-08-10' as timestamp) + '30 days'::interval)
+                  and (cast('2000-08-10' as timestamp) + interval  30 days)
         and cs_catalog_page_sk = cp_catalog_page_sk
        and cs_item_sk = i_item_sk
        and i_current_price > 50
@@ -55,9 +57,10 @@ group by cp_catalog_page_id)
      item,
      promotion
  where ws_sold_date_sk = d_date_sk
-       and ws_sold_date_sk between 2451767 and 2451797
+       --removed Cloudera cheat
+       --and ws_sold_date_sk between 2451767 and 2451797
        and d_date between cast('2000-08-10' as timestamp)
-                  and (cast('2000-08-10' as timestamp) +  '30 days'::interval)
+                  and (cast('2000-08-10' as timestamp) +  interval 30 days)
         and ws_web_site_sk = web_site_sk
        and ws_item_sk = i_item_sk
        and i_current_price > 50
@@ -73,21 +76,21 @@ results as
         , sum(profit) as profit
  from 
  (select 'store channel' as channel
-        , 'store' || store_id as id
+        , concat('store' , store_id) as id
         , sales
         , sreturns
         , profit
  from   ssr
  union all
  select 'catalog channel' as channel
-        , 'catalog_page' || catalog_page_id as id
+        , concat('catalog_page' , catalog_page_id) as id
         , sales
         , sreturns
         , profit
  from  csr
  union all
  select 'web channel' as channel
-        , 'web_site' || web_site_id as id
+        , concat('web_site' , web_site_id) as id
         , sales
         , sreturns
         , profit

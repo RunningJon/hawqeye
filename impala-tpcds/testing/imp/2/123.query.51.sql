@@ -7,7 +7,8 @@ select
 from web_sales
     ,date_dim
 where ws_sold_date_sk=d_date_sk
-  and ws_sold_date_sk between 2451453 and 2451818
+  --removed Cloudera cheat
+  --and ws_sold_date_sk between 2451453 and 2451818
   and d_month_seq between 1197 and 1197+11
   and ws_item_sk is not NULL
 group by ws_item_sk, d_date
@@ -26,7 +27,8 @@ select
 from store_sales
     ,date_dim
 where ss_sold_date_sk=d_date_sk
-  and ss_sold_date_sk between 2451453 and 2451818
+  --removed Cloudera cheat
+  --and ss_sold_date_sk between 2451453 and 2451818
   and d_month_seq between 1197 and 1197+11
   and ss_item_sk is not NULL
 group by ss_item_sk, d_date

@@ -4,7 +4,8 @@ select ss_customer_sk customer_sk
       ,ss_item_sk item_sk
 from store_sales,date_dim
 where ss_sold_date_sk = d_date_sk
-  and ss_sold_date_sk between 2451605 and 2451969
+  --removed Cloudera cheat
+  --and ss_sold_date_sk between 2451605 and 2451969
   and d_month_seq between 1202 and 1202 + 11
 group by ss_customer_sk
         ,ss_item_sk),
@@ -13,7 +14,8 @@ csci as(
       ,cs_item_sk item_sk
 from catalog_sales,date_dim
 where cs_sold_date_sk = d_date_sk
-  and cs_sold_date_sk between 2451605 and 2451969
+  --removed Cloudera cheat
+  --and cs_sold_date_sk between 2451605 and 2451969
   and d_month_seq between 1202 and 1202 + 11
 group by cs_bill_customer_sk
         ,cs_item_sk)
@@ -23,4 +25,3 @@ select  sum(case when ssci.customer_sk is not null and csci.customer_sk is null 
 from ssci full outer join csci on (ssci.customer_sk=csci.customer_sk
                                and ssci.item_sk = csci.item_sk)
 limit 100;
--- end query 97 in stream 0 using template query97.tpl

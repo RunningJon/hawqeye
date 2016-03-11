@@ -52,7 +52,8 @@ cross_sales as
   WHERE  
 	 ss_store_sk = s_store_sk AND
          ss_sold_date_sk = d1.d_date_sk AND
-         ss_sold_date_sk between 2451180 and 2451910 AND
+         --removed Cloudera cheat
+         --ss_sold_date_sk between 2451180 and 2451910 AND
          ss_customer_sk = c_customer_sk AND
          ss_cdemo_sk= cd1.cd_demo_sk AND
          ss_hdemo_sk = hd1.hd_demo_sk AND
@@ -121,5 +122,3 @@ order by cs1.product_name
        ,cs1.store_name
        ,cs2.cnt
 limit 100;
-
--- end query 64 in stream 0 using template query64.tpl;

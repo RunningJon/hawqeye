@@ -52,7 +52,7 @@ select
         ,w_county
         ,w_state
         ,w_country
-        ,'DIAMOND' || ',' || 'ZOUROS' as ship_carriers
+        ,concat('DIAMOND'  , ',' , 'ZOUROS') as ship_carriers
        ,d_year as year
         ,sum(case when d_moy = 1
                 then ws_ext_sales_price* ws_quantity else 0 end) as jan_sales
@@ -111,7 +111,8 @@ select
      where
             ws_warehouse_sk =  w_warehouse_sk
         and ws_sold_date_sk = d_date_sk
-        and ws_sold_date_sk between 2451180 and 2451544
+        --removed Cloudera cheat
+        --and ws_sold_date_sk between 2451180 and 2451544
         and ws_sold_time_sk = t_time_sk
         and ws_ship_mode_sk = sm_ship_mode_sk
         and d_year = 1999
@@ -134,7 +135,8 @@ select
         ,w_county
         ,w_state
         ,w_country
-        ,'DIAMOND' || ',' || 'ZOUROS' as ship_carriers
+        ,concat('DIAMOND'  , ',' , 'ZOUROS') as ship_carriers
+        -- ,'DIAMOND' || ',' || 'ZOUROS' as ship_carriers
        ,d_year as year
         ,sum(case when d_moy = 1
                 then cs_sales_price* cs_quantity else 0 end) as jan_sales
@@ -193,7 +195,8 @@ select
      where
             cs_warehouse_sk =  w_warehouse_sk
         and cs_sold_date_sk = d_date_sk
-        and cs_sold_date_sk between 2451180 and 2451544
+        --removed Cloudera cheat
+        --and cs_sold_date_sk between 2451180 and 2451544
         and cs_sold_time_sk = t_time_sk
         and cs_ship_mode_sk = sm_ship_mode_sk
         and d_year = 1999
@@ -220,4 +223,3 @@ select
        ,year
  order by w_warehouse_name
  limit 100;
--- end query 66 in stream 0 using template query66.tpl
