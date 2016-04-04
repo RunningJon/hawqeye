@@ -5,6 +5,9 @@ PWD=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 source $PWD/../tpcds-env.sh
 source $PWD/../functions.sh
+step=single_user_reports
+
+init_log $step
 
 remove_old_files()
 {
@@ -80,3 +83,5 @@ echo "Queries"
 echo "********************************************************************************"
 impala-shell -i $IMP_HOST -d reports -f $PWD/queries_report.sql -B --quiet 2> /dev/null
 echo ""
+
+end_step $step

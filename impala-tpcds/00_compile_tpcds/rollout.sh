@@ -18,9 +18,9 @@ make_tpc()
 copy_tpc()
 {
 	cp $PWD/tools/dsqgen ../*gen_data/
-	cp $PWD/tools/dsqgen ../testing/
+	cp $PWD/tools/dsqgen ../*multi_user/
 	cp $PWD/tools/tpcds.idx ../*gen_data/
-	cp $PWD/tools/tpcds.idx ../testing/
+	cp $PWD/tools/tpcds.idx ../*multi_user/
 
 	#copy the compiled dsdgen program to the datanodes
 	for i in $(cat $PWD/../dn.txt); do
@@ -32,9 +32,9 @@ copy_tpc()
 copy_queries()
 {
 	rm -rf $PWD/../*_gen_data/query_templates
-	rm -rf $PWD/../testing/query_templates
+	rm -rf $PWD/../$multi_user/query_templates
 	cp -R query_templates $PWD/../*_gen_data/
-	cp -R query_templates $PWD/../testing/
+	cp -R query_templates $PWD/../*multi_user/
 }
 
 step=compile_tpcds
