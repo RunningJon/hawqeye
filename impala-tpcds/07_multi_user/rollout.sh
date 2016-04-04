@@ -10,7 +10,7 @@ check_multi_user_count()
 {
 	if [ "$MULTI_USER_COUNT" -eq "0" ]; then
 		echo "$MULTI_USER_COUNT set at 0 so exiting..."
-		exit 1
+		exit 0
 	fi
 
 	if [ "$QUERY_TYPE" == "imp" ]; then 
