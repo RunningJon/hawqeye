@@ -10,7 +10,7 @@ FLATFILE_HDFS_TESTING=/user/${USER}/testing
 GEN_DATA_SCALE=3000
 DSDGEN_THREADS_PER_NODE=12
 TPCDS_DBNAME=tpcds_parquet
-SQL_VERSION="imp"
+SQL_VERSION="tpcds"
 MULTI_USER_COUNT="5"
 
 #if set to 1, rollout.sh will re-run this step.  
@@ -21,3 +21,4 @@ ddl="1"
 load="1"
 sql="1"
 reports="1"
+multi_user="1"

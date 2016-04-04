@@ -6,6 +6,9 @@ PWD=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 if [ ! -f "$PWD/tpcds-env.sh" ]; then
 	echo "cp $PWD/tpcds-env.sh.template $PWD/tpcds-env.sh"
 	cp $PWD/tpcds-env.sh.template $PWD/tpcds-env.sh
+	echo "First execution!"
+	echo "Review the tpcds-env.sh file and then run again."
+	exit 1
 fi
 
 source $PWD/functions.sh
@@ -49,6 +52,10 @@ cleanup()
 		echo "rm -f $PWD/log/end_reports.log"
 		rm -f $PWD/log/end_reports.log
 	fi
+	if [ "$multi_user" -eq "1" ]; then
+		echo "rm -f $PWD/log/end_testing*.log"
+		rm -f $PWD/log/end_testing*.log
+	fi
 }
 
 create_directories
@@ -58,8 +65,3 @@ for i in $(ls -d $PWD/0*); do
 	echo "$i/rollout.sh"
 	$i/rollout.sh
 done
-
-if [ "$MULTI_USER_TEST" == "true" ]; then
-	$PWD/testing/rollout.sh
-fi
-

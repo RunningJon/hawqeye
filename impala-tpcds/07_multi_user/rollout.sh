@@ -8,6 +8,11 @@ source $PWD/../tpcds-env.sh
 
 check_multi_user_count()
 {
+	if [ "$MULTI_USER_COUNT" -eq "0" ]; then
+		echo "$MULTI_USER_COUNT set at 0 so exiting..."
+		exit 1
+	fi
+
 	if [ "$QUERY_TYPE" == "imp" ]; then 
 		if [ "$MULTI_USER_COUNT" -ne "5" ]; then
 			echo "imp tests only supports 5 concurrent sessions."
@@ -54,6 +59,8 @@ if [ "$file_count" -ne "$MULTI_USER_COUNT" ]; then
 		done
 
 		#Create queries
+		echo "cd $PWD"
+		cd $PWD	
 		echo "$PWD/dsqgen -streams $MULTI_USER_COUNT -input $PWD/query_templates/templates.lst -directory $PWD/query_templates -dialect impala -scale $GEN_DATA_SCALE -verbose y -output $PWD"
 		$PWD/dsqgen -streams $MULTI_USER_COUNT -input $PWD/query_templates/templates.lst -directory $PWD/query_templates -dialect impala -scale $GEN_DATA_SCALE -verbose y -output $PWD
 

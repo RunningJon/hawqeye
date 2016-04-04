@@ -15,7 +15,7 @@ for i in $(ps -ef | grep impala-shell | grep -v grep | awk -F ' ' '{print $2}');
 	if [ "$duration" -ge "$max_duration" ]; then
 		echo "duration: $duration so killing $i"
 		echo "process details:"
-		ps -ef | grep impala-shell | grep -v grep
+		ps -ef | grep impala-shell | grep $i | grep -v grep
 		kill $i
 	fi
 done

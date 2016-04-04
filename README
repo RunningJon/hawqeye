@@ -3,9 +3,9 @@ HAWQEYE is a test suite to compare HAWQ (Pivotal HDB) with other SQL on Hadoop p
 
 Install:
 Download hawqeye.sh from github.
-curl --user <your_github_username> "https://raw.githubusercontent.com/pivotalguru/hawqeye/master/hawqeye.sh" > hawqeye.sh
-chmod 755 hawqeye.sh
-./hawqeye.sh
+curl --user <your_github_username> "https://raw.githubusercontent.com/pivotalguru/hawqeye/master/hawqeye.sh" > update_repo.sh
+chmod 755 update_repo.sh
+./update_repo.sh <your_github_username>
 
 Usage:
 Change directory to the test you wish to run and then execute rollout.sh.
