@@ -217,8 +217,8 @@ or ss_sold_date_sk between 2486944 and 2486974
 or ss_sold_date_sk between 2487309 and 2487339
 or ss_sold_date_sk between 2487674 and 2487704
 or ss_sold_date_sk between 2488039 and 2488069
-*/
 )
+*/
 group by
   dt.d_year,
   item.i_brand,
