@@ -43,14 +43,10 @@ cleanup()
 	if [ "$sql" -eq "1" ]; then
 		echo "rm -f $PWD/log/end_sql.log"
 		rm -f $PWD/log/end_sql.log
-		echo "rm -f $PWD/log/end_testing_*.log"
-		rm -f $PWD/log/end_testing_*.log
-		echo "rm -f $PWD/log/testing*.log"
-		rm -f $PWD/log/testing*.log
 	fi
 	if [ "$reports" -eq "1" ]; then
-		echo "rm -f $PWD/log/end_reports.log"
-		rm -f $PWD/log/end_reports.log
+		echo "rm -f $PWD/log/end_single_user_reports.log"
+		rm -f $PWD/log/end_single_user_reports.log
 	fi
 	if [ "$multi_user" -eq "1" ]; then
 		echo "rm -f $PWD/log/end_testing*.log"
