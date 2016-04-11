@@ -23,7 +23,7 @@ init_log $step
 get_imp_details
 
 if [ "$SQL_VERSION" != "tpcds" ]; then
-	sql_dir=$PWD/$QUERY_TYPE/$session_id
+	sql_dir=$PWD/$SQL_VERSION/$session_id
 else
 	sql_dir=$PWD/$session_id
 	#going from 1 base to 0 base

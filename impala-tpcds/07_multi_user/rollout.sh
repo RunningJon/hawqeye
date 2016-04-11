@@ -13,7 +13,7 @@ check_multi_user_count()
 		exit 0
 	fi
 
-	if [ "$QUERY_TYPE" == "imp" ]; then 
+	if [ "$SQL_VERSION" == "imp" ]; then 
 		if [ "$MULTI_USER_COUNT" -ne "5" ]; then
 			echo "imp tests only supports 5 concurrent sessions."
 			exit 1
@@ -39,8 +39,8 @@ if [ "$file_count" -ne "$MULTI_USER_COUNT" ]; then
 	rm -f $PWD/../log/end_testing_*.log
 	rm -f $PWD/../log/testing*.log
 
-	if [ "$QUERY_TYPE" == "imp" ]; then
-		echo "Using static $QUERY_TYPE queries"
+	if [ "$SQL_VERSION" == "imp" ]; then
+		echo "Using static $SQL_VERSION queries"
 	else
 		rm -f $PWD/query_*.sql
 
