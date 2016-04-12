@@ -66,8 +66,8 @@ for i in $(ls $sql_dir/*.sql); do
 	schema_name=$session_id
 	table_name=$(basename $i | awk -F '.' '{print $3}')
 
-	echo "impala-shell -i $IMP_HOST -d $TPCDS_DBNAME -f $i"
-	tuples=$(impala-shell -i $IMP_HOST -d $TPCDS_DBNAME -f $i | wc -l)
+	echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $i"
+	tuples=$(beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $i | wc -l; exit ${PIPESTATUS[0]})
 	log $tuples
 
 done
