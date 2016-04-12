@@ -4,12 +4,12 @@ set -e
 
 LOCAL_PWD=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-FLATFILE_HDFS_ROOT=/user/${USER}/tpcds_parquet
+FLATFILE_HDFS_ROOT=/user/${USER}/tpcds_hive
 FLATFILE_HDFS_REPORTS=/user/${USER}/reports
 FLATFILE_HDFS_TESTING=/user/${USER}/testing
 GEN_DATA_SCALE=3000
 DSDGEN_THREADS_PER_NODE=12
-TPCDS_DBNAME=tpcds_parquet
+TPCDS_DBNAME=tpcds_hive
 SQL_VERSION="hive"
 MULTI_USER_COUNT="5"
 HIVE_HOSTNAME="localhost"
