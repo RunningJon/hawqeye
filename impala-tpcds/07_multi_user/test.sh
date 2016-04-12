@@ -66,9 +66,52 @@ for i in $(ls $sql_dir/*.sql); do
 	schema_name=$session_id
 	table_name=$(basename $i | awk -F '.' '{print $3}')
 
-	echo "impala-shell -i $IMP_HOST -d $TPCDS_DBNAME -f $i"
-	tuples=$(impala-shell -i $IMP_HOST -d $TPCDS_DBNAME -f $i | wc -l)
-	log $tuples
+	run_query="1"
+	oom_count="0"
+	while [ "$run_query" -eq "1" ]; do
+		echo "impala-shell -i $IMP_HOST -d $TPCDS_DBNAME -f $i --quiet -c"
+		impala-shell -i $IMP_HOST -d $TPCDS_DBNAME -f $i --quiet -c > /tmp/impala_shell_$session_id.log 2>&1 
+
+		error_count=$(grep ERROR /tmp/impala_shell_$session_id.log | wc -l)
+		oom_count=$(grep Memory /tmp/impala_shell_$session_id.log | wc -l)
+
+		if [ "$SQL_VERSION" == "tpcds" ]; then
+			#tpc-ds queries will fail because Impala doesn't support the syntax.  Continue with these queries and don't retry
+			if [ "$oom_count" -gt "0" ]; then
+				grep Memory /tmp/impala_shell_$session_id.log
+				tuples="0"
+			else
+				if [ "$error_count" -gt "0" ]; then
+					grep ERROR /tmp/impala_shell_$session_id.log 
+					tuples="0"
+				else
+					tuples=$(cat /tmp/impala_shell_$session_id.log | wc -l)
+				fi
+			fi
+			run_query="0"
+			log $tuples
+		else
+			#running the Cloudera imp queries so retry on failed	
+			if [ "$oom_count" -gt "0" ]; then
+				#query ran but ran out of memory.  Don't retry
+				grep Memory /tmp/impala_shell_$session_id.log
+				tuples="0"
+				run_query="0"
+				log $tuples
+			else
+				if [ "$error_count" -gt "0" ]; then
+					# there was an error which was likely due to a connect timeout.  wait 5 seconds and try again
+					grep ERROR /tmp/impala_shell_$session_id.log 
+					run_query="1"
+					sleep 5
+				else
+					tuples=$(cat /tmp/impala_shell_$session_id.log | wc -l)
+					run_query="0"
+					log $tuples
+				fi
+			fi
+		fi
+	done
 
 done
 

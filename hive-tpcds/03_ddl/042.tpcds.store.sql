@@ -1,0 +1,1 @@
+CREATE TABLE store LIKE et_store STORED AS PARQUET TBLPROPERTIES ("orc.compress"="SNAPPY");

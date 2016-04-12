@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -e
+
+LOCAL_PWD=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+FLATFILE_HDFS_ROOT=/user/${USER}/tpcds_parquet
+FLATFILE_HDFS_REPORTS=/user/${USER}/reports
+FLATFILE_HDFS_TESTING=/user/${USER}/testing
+GEN_DATA_SCALE=3000
+DSDGEN_THREADS_PER_NODE=12
+TPCDS_DBNAME=tpcds_parquet
+SQL_VERSION="hive"
+MULTI_USER_COUNT="5"
+
+#if set to 1, rollout.sh will re-run this step.  
+#if set to 0, rollout.sh will skip this step if it has successfully completed already.
+compile="0"
+gen_data="0"
+ddl="1"
+load="1"
+sql="1"
+reports="1"
+multi_user="1"

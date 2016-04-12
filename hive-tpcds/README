@@ -1,0 +1,56 @@
+1. Create a user on every host such as "hiveadmin".
+2. Create and exchange keys for hiveadmin for all hosts.
+3. After extracting this installer, create a dn.txt file in the impala-tpcds directory with an entry for every data node where Impala is installed.
+4. Edit tpcds-env.sh to set the variables you want.
+4. On every datanode, create a "/datax/" directory with 1 through $DSDGEN_THREADS_PER_NODE which is set in tpcds-env.sh.  This is where data will reside and symbolic links also work.
+5. On every datanode, create a sub-directory named "/datax/$TPCDS_DBNAME"
+
+Example:
+
+for i in $(seq 1 $DSDGEN_THREADS_PER_NODE); do
+	echo "mkdir -p /data$i/$TPCDS_DBNAME"
+	mkdir -p /data$i/$TPCDS_DBNAME
+done
+
+6. Create a /user/hiveadmin directory in hdfs
+su - hdfs
+hdfs dfs -mkdir /user/hiveadmin
+hdfs dfs -chown hiveadmin /user/hiveadmin
+
+7. You may have to edit your core-site.xml file to set the default namenode if you are using a node that isn't a data node.
+
+Example:
+vi /etc/hadoop/conf/core-site.xml
+<configuration>
+  <property>
+    <name>fs.defaultFS</name>
+    <value>hdfs://node33.gphd.local:8020</value>
+  </property>
+</configuration>
+
+8. Set "Allow all partitions to be Dynamic" to "nonstrict" in the Hive config in Ambari.  
+hive.exec.dynamic.partition.mode=nonstrict
+hive.exec.max.dynamic.partitions.pernode=10000
+hive.exec.max.dynamic.partitions=10000
+hive.tez.container.size=2048 MB
+hive.optimize.reducededuplication.min.reducer=1
+
+9.
+mapreduce.reduce.shuffle.input.buffer.percent=0.5
+mapreduce.reduce.input.buffer.percent=0.2
+mapreduce.map.java.opts=-Xmx2800m
+mapreduce.reduce.java.opts=-Xmx3800m
+mapreduce.map.memory.mb=3072
+mapreduce.reduce.memory.mb=4096
+
+10.
+Client Heap Size=7857 MB
+
+11. Run rollout.sh to run the entire TPC-DS bencmark.
+
+Example:
+./rollout.sh
+
+Example to run in the background:
+
+./rollout.sh > tpcds.log 2>&1 < tpcds.log &

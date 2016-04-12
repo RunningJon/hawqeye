@@ -1,4 +1,4 @@
-1. Create a user on every host such as "impadmin".
+1. Create the user "impadmin" on every host.  It MUST be impadmin because Impala doesn't support passing variables to SQL scripts yet!!!
 2. Create and exchange keys for impadmin for all hosts.
 3. After extracting this installer, create a dn.txt file in the impala-tpcds directory with an entry for every data node where Impala is installed.
 4. Edit tpcds-env.sh to set the variables you want.

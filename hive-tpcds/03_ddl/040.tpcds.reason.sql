@@ -1,0 +1,1 @@
+CREATE TABLE reason LIKE et_reason STORED AS PARQUET TBLPROPERTIES ("orc.compress"="SNAPPY");
