@@ -77,7 +77,7 @@ copy_generate_data
 remove_old_files
 create_new_directories
 #call external function to get PARALLEL
-get_imp_details
+get_parallel
 gen_data
 
 echo ""
@@ -92,10 +92,6 @@ done
 
 echo "Done generating data"
 echo ""
-
-echo "Generate queries based on scale"
-cd $PWD
-$PWD/generate_queries.sh $GEN_DATA_SCALE
 
 log
 

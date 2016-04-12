@@ -62,3 +62,15 @@ log()
 	printf "$id|$schema_name.$table_name|$tuples|%02d:%02d:%02d.%03d\n" "$((S/3600%24))" "$((S/60%60))" "$((S%60))" "${M}" >> $LOCAL_PWD/log/$logfile
 }
 
+get_parallel()
+{
+	#sets PARALLEL
+	if [ -f $LOCAL_PWD/dn.txt ]; then
+		local DN_COUNTER=$(cat $LOCAL_PWD/dn.txt | wc -l)
+		PARALLEL=$(($DN_COUNTER * $DSDGEN_THREADS_PER_NODE))
+	else
+		echo "$PWD/dn.txt not found!"
+		echo "Please enter all of the datanodes into this file and try again."
+		exit 1
+	fi
+}
