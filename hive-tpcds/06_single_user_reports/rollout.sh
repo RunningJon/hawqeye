@@ -45,12 +45,12 @@ create_tables()
 		id=$(basename $i | awk -F '.' '{print $1}')
 
 		if [ "$id" == "00" ]; then
-			echo "beeline -u jdbc:hive2://localhost:10000 -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $i -hivevar user=$USER"
-			beeline -u jdbc:hive2://localhost:10000 -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $i -hivevar user=$USER
+			echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000 -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $i -hivevar user=$USER"
+			beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000 -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $i -hivevar user=$USER
 
 		else
-			echo "beeline -u jdbc:hive2://localhost:10000/reports -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $i -hivevar user=$USER"
-			beeline -u jdbc:hive2://localhost:10000/reports -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $i -hivevar user=$USER
+			echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/reports -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $i -hivevar user=$USER"
+			beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/reports -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $i -hivevar user=$USER
 		fi
 	done
 }
@@ -64,20 +64,20 @@ put_data
 echo "********************************************************************************"
 echo "Generate Data"
 echo "********************************************************************************"
-echo "beeline -u jdbc:hive2://localhost:10000/reports -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $PWD/gen_data_report.sql"
-beeline -u jdbc:hive2://localhost:10000/reports -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $PWD/gen_data_report.sql 2> /dev/null
+echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/reports -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $PWD/gen_data_report.sql"
+beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/reports -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $PWD/gen_data_report.sql 2> /dev/null
 echo ""
 echo "********************************************************************************"
 echo "Data Loads"
 echo "********************************************************************************"
-echo "beeline -u jdbc:hive2://localhost:10000/reports -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $PWD/loads_report.sql"
-beeline -u jdbc:hive2://localhost:10000/reports -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $PWD/loads_report.sql 2> /dev/null
+echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/reports -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $PWD/loads_report.sql"
+beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/reports -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $PWD/loads_report.sql 2> /dev/null
 echo ""
 echo "********************************************************************************"
 echo "Queries"
 echo "********************************************************************************"
-echo "beeline -u jdbc:hive2://localhost:10000/reports -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $PWD/queries_report.sql"
-beeline -u jdbc:hive2://localhost:10000/reports -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $PWD/queries_report.sql 2> /dev/null
+echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/reports -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $PWD/queries_report.sql"
+beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/reports -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $PWD/queries_report.sql 2> /dev/null
 echo ""
 
 end_step $step

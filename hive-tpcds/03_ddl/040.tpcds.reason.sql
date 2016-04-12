@@ -1,1 +1,1 @@
-CREATE TABLE reason LIKE et_reason STORED AS PARQUET TBLPROPERTIES ("orc.compress"="SNAPPY");
+CREATE TABLE reason LIKE et_reason STORED AS ORC TBLPROPERTIES ("orc.compress"="ZLIB");

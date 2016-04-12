@@ -27,4 +27,4 @@ CREATE TABLE catalog_returns (
     cr_net_loss float
 )
 PARTITIONED BY (cr_returned_date_sk int)
-STORED AS PARQUET TBLPROPERTIES ("orc.compress"="SNAPPY");
+STORED AS ORC TBLPROPERTIES ("orc.compress"="ZLIB");

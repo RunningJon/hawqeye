@@ -1,1 +1,1 @@
-CREATE TABLE income_band LIKE et_income_band STORED AS PARQUET TBLPROPERTIES ("orc.compress"="SNAPPY");
+CREATE TABLE income_band LIKE et_income_band STORED AS ORC TBLPROPERTIES ("orc.compress"="ZLIB");

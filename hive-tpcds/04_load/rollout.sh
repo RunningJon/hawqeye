@@ -16,10 +16,10 @@ for i in $(ls $PWD/*.sql); do
 	schema_name=`echo $i | awk -F '.' '{print $2}'`
 	table_name=`echo $i | awk -F '.' '{print $3}'`
 
-	echo "beeline -u jdbc:hive2://localhost:10000/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i"
+	echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i"
 	#output shows the number of rows per partition so loop through output and sum the rows per table
 	tuples="0"
-	for c in $(beeline -u jdbc:hive2://localhost:10000/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i 2>&1 | grep numRows | awk -F ' ' '{print $7}' | awk -F '=' '{print $2}' | awk -F ',' '{print $1}'; exit ${PIPESTATUS[0]}); do
+	for c in $(beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i 2>&1 | grep numRows | awk -F ' ' '{print $7}' | awk -F '=' '{print $2}' | awk -F ',' '{print $1}'; exit ${PIPESTATUS[0]}); do
 		tuples=$(($tuples + $c))
 	done
 

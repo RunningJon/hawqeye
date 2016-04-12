@@ -23,4 +23,4 @@ CREATE TABLE store_sales (
     ss_net_profit float
 )
 PARTITIONED BY (ss_sold_date_sk int)
-STORED AS PARQUET TBLPROPERTIES ("orc.compress"="SNAPPY");
+STORED AS ORC TBLPROPERTIES ("orc.compress"="ZLIB");

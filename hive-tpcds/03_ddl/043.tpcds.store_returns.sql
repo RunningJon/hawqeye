@@ -20,4 +20,4 @@ CREATE TABLE store_returns (
     sr_net_loss float
 )
 PARTITIONED BY (sr_returned_date_sk int)
-STORED AS PARQUET TBLPROPERTIES ("orc.compress"="SNAPPY");
+STORED AS ORC TBLPROPERTIES ("orc.compress"="ZLIB");

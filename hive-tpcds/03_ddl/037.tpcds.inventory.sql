@@ -4,4 +4,4 @@ CREATE TABLE inventory (
     inv_quantity_on_hand int
 )
 PARTITIONED BY (inv_date_sk int)
-STORED AS PARQUET TBLPROPERTIES ("orc.compress"="SNAPPY");
+STORED AS ORC TBLPROPERTIES ("orc.compress"="ZLIB");

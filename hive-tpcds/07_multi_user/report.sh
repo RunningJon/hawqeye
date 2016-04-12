@@ -41,11 +41,11 @@ create_tables()
 		id=$(basename $i | awk -F '.' '{print $1}')
 
 		if [ "$id" == "00" ]; then
-			echo "beeline -u jdbc:hive2://localhost:10000 -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i -hivevar user=$USER"
-			beeline -u jdbc:hive2://localhost:10000 -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i -hivevar user=$USER
+			echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000 -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i -hivevar user=$USER"
+			beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000 -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i -hivevar user=$USER
 		else
-			echo "beeline -u jdbc:hive2://localhost:10000/testing -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i -hivevar user=$USER"
-			beeline -u jdbc:hive2://localhost:10000/testing -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i -hivevar user=$USER
+			echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/testing -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i -hivevar user=$USER"
+			beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/testing -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i -hivevar user=$USER
 		fi
 	done
 }
@@ -53,8 +53,8 @@ create_tables()
 view_reports()
 {
 	for i in $(ls $PWD/*.sql | grep report); do
-		echo "beeline -u jdbc:hive2://localhost:10000/testing -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i"
-		beeline -u jdbc:hive2://localhost:10000/testing -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i
+		echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/testing -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i"
+		beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/testing -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i
 	done
 }
 

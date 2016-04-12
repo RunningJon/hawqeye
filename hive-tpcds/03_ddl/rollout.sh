@@ -16,11 +16,11 @@ for i in $(ls $PWD/*.sql); do
 	table_name=`echo $i | awk -F '.' '{print $3}'`
 	start_log
 	if [ "$id" == "000" ]; then
-		echo "beeline -u jdbc:hive2://localhost:10000 -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i"
-		beeline -u jdbc:hive2://localhost:10000 -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i
+		echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000 -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i"
+		beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000 -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i
 	else
-		echo "beeline -u jdbc:hive2://localhost:10000/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i"
-		beeline -u jdbc:hive2://localhost:10000/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i
+		echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i"
+		beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i
 	fi
 	log
 done

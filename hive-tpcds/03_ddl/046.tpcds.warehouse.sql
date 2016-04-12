@@ -1,1 +1,1 @@
-CREATE TABLE warehouse LIKE et_warehouse STORED AS PARQUET TBLPROPERTIES ("orc.compress"="SNAPPY");
+CREATE TABLE warehouse LIKE et_warehouse STORED AS ORC TBLPROPERTIES ("orc.compress"="ZLIB");
