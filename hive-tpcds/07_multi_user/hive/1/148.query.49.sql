@@ -74,7 +74,8 @@ select
                          and cs_sold_date_sk = d_date_sk
                          and d_year = 2000
                          and d_moy = 12
-			 and cs_sold_date between '2000-12-01' and '2000-12-31'
+                         --cs_sold_date doesn't exist
+			 --and cs_sold_date between '2000-12-01' and '2000-12-31'
                  group by cs.cs_item_sk
  	) in_cat
  ) catalog
