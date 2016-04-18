@@ -69,46 +69,70 @@ for i in $(ls $sql_dir/*.sql); do
 	run_query="1"
 	oom_count="0"
 	while [ "$run_query" -eq "1" ]; do
-		echo "impala-shell -i $IMP_HOST -d $TPCDS_DBNAME -f $i --quiet -c"
-		impala-shell -i $IMP_HOST -d $TPCDS_DBNAME -f $i --quiet -c > /tmp/impala_shell_$session_id.log 2>&1 
+		query_log_file="/tmp/test_""$session_id""_""$table_name"".log"
+		echo "impala-shell -i $IMP_HOST -d $TPCDS_DBNAME -f $i --quiet"
+		impala-shell -i $IMP_HOST -d $TPCDS_DBNAME -f $i --quiet > $query_log_file 2>&1 || true
 
-		error_count=$(grep ERROR /tmp/impala_shell_$session_id.log | wc -l)
-		oom_count=$(grep Memory /tmp/impala_shell_$session_id.log | wc -l)
+		# these are known errors that Impala will have under heavy load.  When this happens, retry to run the query
+		error_state_store_count=$(grep "Waiting for catalog update from the StateStore" $query_log_file | wc -l)
+		error_connect_timeout_count=$(grep "Error connecting: TTransportException" $query_log_file | wc -l)
+		error_communicate_impalad_count=$(grep "Error communicating with impalad" $query_log_file | wc -l)
+		error_connection_reset_count=$(grep "Socket error 104: Connection reset by peer" $query_log_file | wc -l)
 
-		if [ "$SQL_VERSION" == "tpcds" ]; then
-			#tpc-ds queries will fail because Impala doesn't support the syntax.  Continue with these queries and don't retry
-			if [ "$oom_count" -gt "0" ]; then
-				grep Memory /tmp/impala_shell_$session_id.log
-				tuples="0"
-			else
-				if [ "$error_count" -gt "0" ]; then
-					grep ERROR /tmp/impala_shell_$session_id.log 
-					tuples="0"
-				else
-					tuples=$(cat /tmp/impala_shell_$session_id.log | wc -l)
-				fi
-			fi
+		# out of memory error happens on queries under heavy load.  Continue with these queries.
+		oom_count=$(grep "Memory limit exceeded" $query_log_file | wc -l)
+
+		if [ "$oom_count" -gt "0" ]; then
+			#query ran but ran out of memory.  Don't retry
+			grep "Memory limit exceeded" $query_log_file
+			tuples="0"
 			run_query="0"
 			log $tuples
 		else
-			#running the Cloudera imp queries so retry on failed	
-			if [ "$oom_count" -gt "0" ]; then
-				#query ran but ran out of memory.  Don't retry
-				grep Memory /tmp/impala_shell_$session_id.log
-				tuples="0"
-				run_query="0"
-				log $tuples
-			else
-				if [ "$error_count" -gt "0" ]; then
-					# there was an error which was likely due to a connect timeout.  wait 5 seconds and try again
-					grep ERROR /tmp/impala_shell_$session_id.log 
+			if [[ "$error_state_store_count" -gt "0" || "$error_connect_timeout_count" -gt "0" || "$error_communicate_impalad_count" -gt "0" || "$error_connection_reset_count" -gt "0" ]]; then
+
+				#Wait 5 seconds and try again
+				#Print the error message and continue
+				if [ "$error_state_store_count" -gt "0" ]; then
+					grep "Waiting for catalog update from the StateStore" $query_log_file 
+				fi
+
+				if [ "$error_connect_timeout_count" -gt "0" ]; then 
+					grep "Error connecting: TTransportException" $query_log_file
+				fi
+
+				if [ "$error_communicate_impalad_count" -gt "0" ]; then 
+					grep "Error communicating with impalad" $query_log_file
+				fi
+
+				if [ "$error_connection_reset_count" -gt "0" ]; then 
+					grep "Socket error 104: Connection reset by peer" $query_log_file
+				fi
+
+				#capture the execution time and if too long, then don't retry
+				if [ "$OSVERSION" == "Linux" ]; then
+					current_t="$(($(date +%s%N)-T))"
+					# seconds
+					current_s="$((current_t/1000000000))"
+				else
+					#must be OSX which doesn't have nano-seconds
+					current_s="$(($(date +%s)-T))"
+				fi
+
+				#give up after hitting the long_running_timeout
+				if [ "$current_s" -ge "$LONG_RUNNING_TIMEOUT" ]; then
+					echo "Long running timeout exceeded."
+					run_query="0"
+					tuples="0"
+					log $tuples
+				else
 					run_query="1"
 					sleep 5
-				else
-					tuples=$(cat /tmp/impala_shell_$session_id.log | wc -l)
-					run_query="0"
-					log $tuples
 				fi
+			else
+				tuples=$(cat $query_log_file | wc -l)
+				run_query="0"
+				log $tuples
 			fi
 		fi
 	done

@@ -13,6 +13,9 @@ TPCDS_DBNAME=tpcds_parquet
 SQL_VERSION="tpcds"
 MULTI_USER_COUNT="5"
 
+#6 hours
+LONG_RUNNING_TIMEOUT="21600"
+
 #if set to 1, rollout.sh will re-run this step.  
 #if set to 0, rollout.sh will skip this step if it has successfully completed already.
 compile="0"
