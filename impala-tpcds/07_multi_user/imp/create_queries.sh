@@ -2,7 +2,7 @@
 set -e
 PWD=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-number_of_queries="5"
+number_of_queries="10"
 
 create_files()
 {
@@ -22,7 +22,7 @@ create_files()
 	done
 }
 
-for d in $(seq 1 5); do
+for d in $(seq 1 10); do
 	echo "rm -f $PWD/$d/*"
 	rm -f $PWD/$d/*
 done

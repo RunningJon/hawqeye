@@ -14,8 +14,8 @@ check_multi_user_count()
 	fi
 
 	if [ "$SQL_VERSION" == "imp" ]; then 
-		if [ "$MULTI_USER_COUNT" -ne "5" ]; then
-			echo "imp tests only supports 5 concurrent sessions."
+		if [ "$MULTI_USER_COUNT" -gt "10" ]; then
+			echo "imp tests only supports 10 or less concurrent sessions."
 			exit 1
 		fi
 	fi
