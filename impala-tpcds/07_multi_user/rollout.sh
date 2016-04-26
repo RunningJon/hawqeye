@@ -38,6 +38,7 @@ if [ "$file_count" -ne "$MULTI_USER_COUNT" ]; then
 
 	rm -f $PWD/../log/end_testing_*.log
 	rm -f $PWD/../log/testing*.log
+	rm -f /tmp/test_*.log
 
 	if [ "$SQL_VERSION" == "imp" ]; then
 		echo "Using static $SQL_VERSION queries"
