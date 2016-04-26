@@ -77,30 +77,6 @@ repo_init()
 	fi
 }
 
-script_check()
-{
-	### Make sure the repo doesn't have a newer version of this script. ###
-	echo "############################################################################"
-	echo "Make sure this script is up to date."
-	echo "############################################################################"
-	echo ""
-	# Must be executed after the repo has been pulled
-	local d=`diff $PWD/$MYCMD $PWD/$REPO/$MYCMD | wc -l`
-
-	if [ "$d" -eq "0" ]; then
-		echo "$MYCMD script is up to date so continuing."
-		echo ""
-	else
-		echo "$MYCMD script is NOT up to date."
-		echo ""
-		cp $PWD/$REPO/$MYCMD $PWD/$MYCMD
-		echo "After this script completes, restart the $MYCMD with this command:"
-		echo "./$MYCMD"
-		exit 1
-	fi
-
-}
-
 echo_variables()
 {
 	echo "############################################################################"
@@ -117,7 +93,6 @@ echo_variables()
 
 yum_checks
 repo_init
-script_check
 echo_variables
 
 echo "Done!"
