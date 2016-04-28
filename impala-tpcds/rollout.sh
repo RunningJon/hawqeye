@@ -43,6 +43,8 @@ cleanup()
 	if [ "$sql" -eq "1" ]; then
 		echo "rm -f $PWD/log/end_sql.log"
 		rm -f $PWD/log/end_sql.log
+		echo "rm -f $PWD/log/one_session_*.log"
+		rm -f $PWD/log/one_session_*.log
 	fi
 	if [ "$reports" -eq "1" ]; then
 		echo "rm -f $PWD/log/end_single_user_reports.log"
