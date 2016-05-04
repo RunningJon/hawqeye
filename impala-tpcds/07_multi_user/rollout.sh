@@ -23,7 +23,7 @@ check_multi_user_count()
 
 get_impala_shell_count()
 {
-	impala_shell_count=$(ps -ef | grep impala-shell | grep multi_user | grep -v grep | wc -l)
+	impala_shell_count=$(ps -ef | grep test.sh | grep multi_user | grep -v grep | wc -l)
 }
 
 get_file_count()
