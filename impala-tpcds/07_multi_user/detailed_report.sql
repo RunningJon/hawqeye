@@ -4,11 +4,11 @@ sum(session_2) as session_2,
 sum(session_3) as session_3,
 sum(session_4) as session_4,
 sum(session_5) as session_5,
-sum(session_5) as session_6,
-sum(session_5) as session_7,
-sum(session_5) as session_8,
-sum(session_5) as session_9,
-sum(session_5) as session_10
+sum(session_6) as session_6,
+sum(session_7) as session_7,
+sum(session_8) as session_8,
+sum(session_9) as session_9,
+sum(session_10) as session_10
 from	(
 	select substring(description, instr(description, '.') + 1) as query_id, 
 	case when substring(description, 1, instr(description, '.') - 1) = '1' then unix_timestamp(cast(concat('1970-01-01 ', cast(duration as string)) as timestamp)) else 0 end as session_1,
