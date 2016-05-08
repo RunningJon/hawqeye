@@ -8,7 +8,7 @@ source $PWD/../functions.sh
 step=sql
 init_log $step
 
-#call external function to get IMP_HOST
+# call external function to get IMP_HOST
 get_imp_details
 
 for i in $(ls $PWD/*.$SQL_VERSION.*.sql); do
@@ -35,11 +35,14 @@ for i in $(ls $PWD/*.$SQL_VERSION.*.sql); do
 		warning_unreachable_impalad=$(grep "Cancelled due to unreachable impalad" $query_log_file | wc -l)
 		error_econnreset=$(grep "ECONNRESET" $query_log_file | wc -l)
 
+		# check for any error because there might be one that is not expected
+		error_count=$(grep -i error $query_log_file | wc -l)
+
 		# out of memory error happens on queries under heavy load.  Continue with these queries.
 		oom_count=$(grep "Memory limit exceeded" $query_log_file | wc -l)
 
 		if [ "$oom_count" -gt "0" ]; then
-			#query ran but ran out of memory.  Don't retry
+			# query ran but ran out of memory.  Don't retry
 			grep "Memory limit exceeded" $query_log_file
 			tuples="0"
 			run_query="0"
@@ -47,8 +50,8 @@ for i in $(ls $PWD/*.$SQL_VERSION.*.sql); do
 		else
 			if [[ "$error_state_store_count" -gt "0" || "$error_connect_timeout_count" -gt "0" || "$error_communicate_impalad_count" -gt "0" || "$error_connection_reset_count" -gt "0" || "$error_connection_refused_count" -gt "0" || "$warning_unreachable_impalad" -gt "0" || "$error_econnreset" -gt "0" ]]; then
 
-				#Wait 5 seconds and try again
-				#Print the error message and continue
+				# Wait 5 seconds and try again
+				# Print the error message and continue
 				if [ "$error_state_store_count" -gt "0" ]; then
 					grep "Waiting for catalog update from the StateStore" $query_log_file
 				fi
@@ -77,16 +80,22 @@ for i in $(ls $PWD/*.$SQL_VERSION.*.sql); do
 					grep "ECONNRESET" $query_log_file
 				fi
 
-				#capture the execution time and if too long, then don't retry
+				# check for unexpected errors
+				if [[ "$error_state_store_count" -eq "0" && "$error_connect_timeout_count" -eq "0" && "$error_communicate_impalad_count" -eq "0" && "$error_connection_reset_count" -eq "0" && "$error_connection_refused_count" -eq "0" && "$warning_unreachable_impalad" -eq "0" && "$error_econnreset" -eq "0" && "$error_count" -gt "0" ]]; then
+					echo "Unexpected error!"
+					grep -i error $query_log_file
+				fi
+
+				# capture the execution time and if too long, then don't retry
 				if [ "$OSVERSION" == "Linux" ]; then
 					current_t="$(($(date +%s%N)-T))"
 					# seconds
 					current_s="$((current_t/1000000000))"
 				else
-					#must be OSX which doesn't have nano-seconds
+					# must be OSX which doesn't have nano-seconds
 					current_s="$(($(date +%s)-T))"
 				fi
-				#give up after hitting the long_running_timeout
+				# give up after hitting the long_running_timeout
 				if [ "$current_s" -ge "$LONG_RUNNING_TIMEOUT" ]; then
 					echo "Long running timeout exceeded."
 					run_query="0"
