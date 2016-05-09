@@ -32,7 +32,8 @@ for i in $(ls $PWD/*.$SQL_VERSION.*.sql); do
 		error_communicate_impalad_count=$(grep "Error communicating with impalad" $query_log_file | wc -l)
 		error_connection_reset_count=$(grep "Socket error 104: Connection reset by peer" $query_log_file | wc -l)
 		error_connection_refused_count=$(grep "Connection refused" $query_log_file | wc -l)
-		warning_unreachable_impalad=$(grep "Cancelled due to unreachable impalad" $query_log_file | wc -l)
+		error_unreachable_impalad=$(grep "Cancelled due to unreachable impalad" $query_log_file | wc -l)
+		error_syntax=$(grep "Syntax error" $query_log_file | wc -l)
 		error_econnreset=$(grep "ECONNRESET" $query_log_file | wc -l)
 
 		# check for any error because there might be one that is not expected
@@ -41,14 +42,21 @@ for i in $(ls $PWD/*.$SQL_VERSION.*.sql); do
 		# out of memory error happens on queries under heavy load.  Continue with these queries.
 		oom_count=$(grep "Memory limit exceeded" $query_log_file | wc -l)
 
-		if [ "$oom_count" -gt "0" ]; then
-			# query ran but ran out of memory.  Don't retry
-			grep "Memory limit exceeded" $query_log_file
+		if [[ "$oom_count" -gt "0" || "$error_syntax" -gt "0" ]]; then
+			# query ran but ran out of memory or unsupported syntax.  Don't retry.
+			if [ "$oom_count" -gt "0" ]; then
+				grep "Memory limit exceeded" $query_log_file
+			fi
+
+			if [ "$error_syntax" -gt "0" ]; then
+				grep "Syntax error" $query_log_file
+			fi
+
 			tuples="0"
 			run_query="0"
 			log $tuples
 		else
-			if [[ "$error_state_store_count" -gt "0" || "$error_connect_timeout_count" -gt "0" || "$error_communicate_impalad_count" -gt "0" || "$error_connection_reset_count" -gt "0" || "$error_connection_refused_count" -gt "0" || "$warning_unreachable_impalad" -gt "0" || "$error_econnreset" -gt "0" ]]; then
+			if [[ "$error_state_store_count" -gt "0" || "$error_connect_timeout_count" -gt "0" || "$error_communicate_impalad_count" -gt "0" || "$error_connection_reset_count" -gt "0" || "$error_connection_refused_count" -gt "0" || "$error_unreachable_impalad" -gt "0" || "$error_econnreset" -gt "0" ]]; then
 
 				# Wait 5 seconds and try again
 				# Print the error message and continue
@@ -72,7 +80,7 @@ for i in $(ls $PWD/*.$SQL_VERSION.*.sql); do
 					grep "Connection refused" $query_log_file
 				fi
 
-				if [ "$warning_unreachable_impalad" -gt "0" ]; then
+				if [ "$error_unreachable_impalad" -gt "0" ]; then
 					grep "Cancelled due to unreachable impalad" $query_log_file
 				fi
 
@@ -81,7 +89,7 @@ for i in $(ls $PWD/*.$SQL_VERSION.*.sql); do
 				fi
 
 				# check for unexpected errors
-				if [[ "$error_state_store_count" -eq "0" && "$error_connect_timeout_count" -eq "0" && "$error_communicate_impalad_count" -eq "0" && "$error_connection_reset_count" -eq "0" && "$error_connection_refused_count" -eq "0" && "$warning_unreachable_impalad" -eq "0" && "$error_econnreset" -eq "0" && "$error_count" -gt "0" ]]; then
+				if [[ "$error_state_store_count" -eq "0" && "$error_connect_timeout_count" -eq "0" && "$error_communicate_impalad_count" -eq "0" && "$error_connection_reset_count" -eq "0" && "$error_connection_refused_count" -eq "0" && "$error_unreachable_impalad" -eq "0" && "$error_econnreset" -eq "0" && "$error_count" -gt "0" ]]; then
 					echo "Unexpected error!"
 					grep -i error $query_log_file
 				fi
