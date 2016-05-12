@@ -33,7 +33,7 @@ for i in $(ls $PWD/*.$SQL_VERSION.*.sql); do
 		error_connection_reset_count=$(grep "Socket error 104: Connection reset by peer" $query_log_file | wc -l)
 		error_connection_refused_count=$(grep "Connection refused" $query_log_file | wc -l)
 		error_unreachable_impalad=$(grep "Cancelled due to unreachable impalad" $query_log_file | wc -l)
-		error_syntax=$(grep "Syntax error" $query_log_file | wc -l)
+		error_syntax=$(grep "ERROR: AnalysisException" $query_log_file | wc -l)
 		error_econnreset=$(grep "ECONNRESET" $query_log_file | wc -l)
 
 		# check for any error because there might be one that is not expected
@@ -49,7 +49,7 @@ for i in $(ls $PWD/*.$SQL_VERSION.*.sql); do
 			fi
 
 			if [ "$error_syntax" -gt "0" ]; then
-				grep "Syntax error" $query_log_file
+				grep "ERROR: AnalysisException" $query_log_file
 			fi
 
 			tuples="0"
