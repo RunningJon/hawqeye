@@ -60,7 +60,7 @@ for i in $(ls $PWD/*.$SQL_VERSION.*.sql); do
 			if [ "$oom_count" -gt "0" ]; then
 				grep "Memory limit exceeded" $query_log_file
 			fi
-			if [ "$unsupported_alias" -gt "0" ]; then=
+			if [ "$unsupported_alias" -gt "0" ]; then
 				grep "Encountered: RETURNS" $query_log_file
 			fi
 			if [ "$unsupported_subquery_one_row" -gt "0" ]; then
