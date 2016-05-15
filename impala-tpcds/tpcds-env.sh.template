@@ -3,7 +3,7 @@
 set -e
 
 LOCAL_PWD=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-
+OSVERSION=`uname`
 FLATFILE_HDFS_ROOT=/user/${USER}/tpcds_parquet
 FLATFILE_HDFS_REPORTS=/user/${USER}/reports
 FLATFILE_HDFS_TESTING=/user/${USER}/testing
