@@ -127,7 +127,7 @@ for i in $(ls $PWD/*.$SQL_VERSION.*.sql); do
 					grep "Sender timed out waiting for receiver fragment instance" $query_log_file
 				fi
 				# check for unexpected errors
-				if [[ "$error_state_store_count" -eq "0" && "$error_connect_timeout_count" -eq "0" && "$error_communicate_impalad_count" -eq "0" && "$error_connection_reset_count" -eq "0" && "$error_connection_refused_count" -eq "0" && "$error_unreachable_impalad" -eq "0" && "$error_econnreset" -eq "0" && "$error_sender_timeout" -eq "0" && "$error_count" -gt "0" ]]; then
+				if [[ "$error_state_store_count" -eq "0" && "$error_connect_timeout_count" -eq "0" && "$error_communicate_impalad_count" -eq "0" && "$error_connection_reset_count" -eq "0" && "$error_connection_refused_count" -eq "0" && "$error_unreachable_impalad" -eq "0" && "$error_econnreset" -eq "0" && "$error_sender_timeout" -eq "0" && "$oom_count" -eq "0" && "$unsupported_alias" -eq "0" && "$unsupported_subquery_one_row" -eq "0" && "$unsupported_intersect" -eq "0" && "$unsupported_subquery_select_list" -eq "0" && "$unsupported_subquery_in_or" -eq "0" && "$unsupported_rollup" -eq "0" && "$unsupported_subquery_having" -eq "0" && "$unsupported_grouping" -eq "0" && "$unsupported_correlated_predicates" -eq "0" && "$unsupported_return_type" -eq "0" && "$unsupported_except" -eq "0" && "$error_count" -gt "0" ]]; then
 					echo "Unexpected error!"
 					grep -i error $query_log_file
 				fi
