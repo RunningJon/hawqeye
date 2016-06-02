@@ -14,4 +14,4 @@ CREATE EXTERNAL TABLE et_customer_address (
     ca_location_type string
 )
 row format delimited fields terminated by '|'
-location '/user/hiveadmin/tpcds_parquet/customer_address';
+location '/user/hiveadmin/tpcds_hive/customer_address';

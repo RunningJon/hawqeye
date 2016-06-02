@@ -10,4 +10,4 @@ CREATE EXTERNAL TABLE et_catalog_page (
     cp_type string
 )
 row format delimited fields terminated by '|'
-location '/user/hiveadmin/tpcds_parquet/catalog_page';
+location '/user/hiveadmin/tpcds_hive/catalog_page';

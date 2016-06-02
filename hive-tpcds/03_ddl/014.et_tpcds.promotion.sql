@@ -20,4 +20,4 @@ CREATE EXTERNAL TABLE et_promotion (
     p_discount_active string
 )
 row format delimited fields terminated by '|'
-location '/user/hiveadmin/tpcds_parquet/promotion';
+location '/user/hiveadmin/tpcds_hive/promotion';

@@ -7,4 +7,4 @@ CREATE EXTERNAL TABLE et_ship_mode (
     sm_contract string
 )
 row format delimited fields terminated by '|'
-location '/user/hiveadmin/tpcds_parquet/ship_mode';
+location '/user/hiveadmin/tpcds_hive/ship_mode';

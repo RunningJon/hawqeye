@@ -10,4 +10,4 @@ CREATE EXTERNAL TABLE et_customer_demographics (
     cd_dep_college_count int
 )
 row format delimited fields terminated by '|'
-location '/user/hiveadmin/tpcds_parquet/customer_demographics';
+location '/user/hiveadmin/tpcds_hive/customer_demographics';

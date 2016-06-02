@@ -35,4 +35,4 @@ CREATE EXTERNAL TABLE et_web_sales (
     ws_net_profit float
 )
 row format delimited fields terminated by '|'
-location '/user/hiveadmin/tpcds_parquet/web_sales';
+location '/user/hiveadmin/tpcds_hive/web_sales';

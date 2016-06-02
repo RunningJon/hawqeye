@@ -11,4 +11,4 @@ CREATE EXTERNAL TABLE et_time_dim (
     t_meal_time string
 )
 row format delimited fields terminated by '|'
-location '/user/hiveadmin/tpcds_parquet/time_dim';
+location '/user/hiveadmin/tpcds_hive/time_dim';

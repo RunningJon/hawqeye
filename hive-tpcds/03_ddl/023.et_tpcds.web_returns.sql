@@ -25,4 +25,4 @@ CREATE EXTERNAL TABLE et_web_returns (
     wr_net_loss float
 )
 row format delimited fields terminated by '|'
-location '/user/hiveadmin/tpcds_parquet/web_returns';
+location '/user/hiveadmin/tpcds_hive/web_returns';

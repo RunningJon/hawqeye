@@ -29,4 +29,4 @@ CREATE EXTERNAL TABLE et_date_dim (
     d_current_year string
 )
 row format delimited fields terminated by '|'
-location '/user/hiveadmin/tpcds_parquet/date_dim';
+location '/user/hiveadmin/tpcds_hive/date_dim';

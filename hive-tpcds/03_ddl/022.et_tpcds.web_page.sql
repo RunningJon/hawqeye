@@ -15,4 +15,4 @@ CREATE EXTERNAL TABLE et_web_page (
     wp_max_ad_count int
 )
 row format delimited fields terminated by '|'
-location '/user/hiveadmin/tpcds_parquet/web_page';
+location '/user/hiveadmin/tpcds_hive/web_page';

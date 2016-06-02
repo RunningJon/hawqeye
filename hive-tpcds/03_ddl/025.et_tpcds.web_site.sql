@@ -27,4 +27,4 @@ CREATE EXTERNAL TABLE et_web_site (
     web_tax_percentage float
 )
 row format delimited fields terminated by '|'
-location '/user/hiveadmin/tpcds_parquet/web_site';
+location '/user/hiveadmin/tpcds_hive/web_site';

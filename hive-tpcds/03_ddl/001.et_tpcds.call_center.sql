@@ -32,4 +32,4 @@ CREATE EXTERNAL TABLE et_call_center (
     cc_tax_percentage float
 )
 row format delimited fields terminated by '|'
-location '/user/hiveadmin/tpcds_parquet/call_center';
+location '/user/hiveadmin/tpcds_hive/call_center';

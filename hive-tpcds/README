@@ -1,15 +1,66 @@
-1. Create a user on every host such as "hiveadmin".
-2. Create and exchange keys for hiveadmin for all hosts.
-3. After extracting this installer, create a dn.txt file in the impala-tpcds directory with an entry for every data node where Impala is installed.
+1. Create and exchange keys for hiveadmin for all hosts.
+
+Example script:
+
+#!/bin/bash
+set -e
+
+username=hiveadmin
+
+rm -f key_node*
+rm -f authorized_keys
+
+for i in $(cat hive_hosts.txt); do
+        echo $i
+        counter=$(ssh $i "grep hiveadmin /etc/passwd | wc -l")
+        if [ "$counter" -gt "0" ]; then
+                ssh $i "userdel $username"
+        fi
+        ssh $i "useradd $username"
+        ssh $i "echo $username:changeme | chpasswd"
+        ssh $username@$i "ssh-keygen -f ~/.ssh/id_rsa -N ''"
+        echo "scp $i:/home/$username/.ssh/id_rsa.pub key_$i"
+        scp $i:/home/$username/.ssh/id_rsa.pub key_$i
+done
+
+echo "" > authorized_keys
+
+for k in $(ls key_*); do
+        echo "cat $k >> authorized_keys"
+        cat $k >> authorized_keys
+done
+
+for i in $(cat hive_hosts.txt); do
+        echo "scp authorized_keys $username@$i:/home/$username/.ssh/"
+        scp authorized_keys $username@$i:/home/$username/.ssh/
+done
+
+rm -f key_node*
+rm -f authorized_keys
+
+2. After extracting this installer, create a dn.txt file in the hive-tpcds directory with an entry for every data node.
+3. Run rollout.sh which will create tpcds-env.sh.
 4. Edit tpcds-env.sh to set the variables you want.
 4. On every datanode, create a "/datax/" directory with 1 through $DSDGEN_THREADS_PER_NODE which is set in tpcds-env.sh.  This is where data will reside and symbolic links also work.
 5. On every datanode, create a sub-directory named "/datax/$TPCDS_DBNAME"
 
 Example:
 
-for i in $(seq 1 $DSDGEN_THREADS_PER_NODE); do
-	echo "mkdir -p /data$i/$TPCDS_DBNAME"
-	mkdir -p /data$i/$TPCDS_DBNAME
+#!/bin/bash
+set -e
+
+DSDGEN_THREADS_PER_NODE="12"
+TPCDS_DBNAME="tpcds_hive"
+TPCDS_USERNAME="hiveadmin"
+
+for i in $(cat dn.txt); do
+	echo $i
+	for x in $(seq 1 $DSDGEN_THREADS_PER_NODE); do
+		echo "mkdir -p /data$x/$TPCDS_DBNAME"
+		ssh $i "mkdir -p /data$x/$TPCDS_DBNAME"
+		echo "chown $TPCDS_USERNAME /data$x/$TPCDS_DBNAME"
+		ssh $i "chown $TPCDS_USERNAME /data$x/$TPCDS_DBNAME"
+	done
 done
 
 6. Create a /user/hiveadmin directory in hdfs
@@ -32,16 +83,16 @@ vi /etc/hadoop/conf/core-site.xml
 hive.exec.dynamic.partition.mode=nonstrict
 hive.exec.max.dynamic.partitions.pernode=10000
 hive.exec.max.dynamic.partitions=10000
-hive.tez.container.size=2048 MB
+hive.tez.container.size=2048 MB  
 hive.optimize.reducededuplication.min.reducer=1
 
 9.
 mapreduce.reduce.shuffle.input.buffer.percent=0.5
 mapreduce.reduce.input.buffer.percent=0.2
-mapreduce.map.java.opts=-Xmx2800m
-mapreduce.reduce.java.opts=-Xmx3800m
-mapreduce.map.memory.mb=3072
-mapreduce.reduce.memory.mb=4096
+mapreduce.map.java.opts=-Xmx2800m (leave if existing value is larger)
+mapreduce.reduce.java.opts=-Xmx3800m (leave if existing value is larger)
+mapreduce.map.memory.mb=3072 (leave if existing value is larger)
+mapreduce.reduce.memory.mb=4096 (leave if existing value is larger)
 
 10.
 Client Heap Size=7857 MB

@@ -24,4 +24,4 @@ CREATE EXTERNAL TABLE et_store_sales (
     ss_net_profit float
 )
 row format delimited fields terminated by '|'
-location '/user/hiveadmin/tpcds_parquet/store_sales';
+location '/user/hiveadmin/tpcds_hive/store_sales';

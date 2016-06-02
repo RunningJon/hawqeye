@@ -30,4 +30,4 @@ CREATE EXTERNAL TABLE et_store (
     s_tax_precentage float
 )
 row format delimited fields terminated by '|'
-location '/user/hiveadmin/tpcds_parquet/store';
+location '/user/hiveadmin/tpcds_hive/store';

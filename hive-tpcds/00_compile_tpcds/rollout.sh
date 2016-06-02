@@ -3,6 +3,7 @@ set -e
 
 PWD=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source $PWD/../functions.sh
+source $PWD/../tpcds-env.sh
 
 make_tpc()
 {
@@ -29,7 +30,7 @@ copy_tpc()
 step=compile_tpcds
 init_log $step
 start_log
-schema_name="tpcds_parquet"
+schema_name="$TPCDS_DBNAME"
 table_name="compile"
 
 make_tpc

@@ -6,4 +6,4 @@ CREATE EXTERNAL TABLE et_household_demographics (
     hd_vehicle_count int
 )
 row format delimited fields terminated by '|'
-location '/user/hiveadmin/tpcds_parquet/household_demographics';
+location '/user/hiveadmin/tpcds_hive/household_demographics';

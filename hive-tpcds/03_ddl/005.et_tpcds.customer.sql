@@ -19,4 +19,4 @@ CREATE EXTERNAL TABLE et_customer (
     c_last_review_date string
 )
 row format delimited fields terminated by '|'
-location '/user/hiveadmin/tpcds_parquet/customer';
+location '/user/hiveadmin/tpcds_hive/customer';

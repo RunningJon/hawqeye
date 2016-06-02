@@ -4,4 +4,4 @@ CREATE EXTERNAL TABLE et_income_band (
     ib_upper_bound int
 )
 row format delimited fields terminated by '|'
-location '/user/hiveadmin/tpcds_parquet/income_band';
+location '/user/hiveadmin/tpcds_hive/income_band';

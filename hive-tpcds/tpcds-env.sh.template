@@ -9,6 +9,7 @@ FLATFILE_HDFS_REPORTS=/user/${USER}/reports
 FLATFILE_HDFS_TESTING=/user/${USER}/testing
 GEN_DATA_SCALE=3000
 DSDGEN_THREADS_PER_NODE=12
+# do not change TPCDS_DBNAME as it is hard coded in the DDL section
 TPCDS_DBNAME=tpcds_hive
 SQL_VERSION="hive"
 MULTI_USER_COUNT="5"

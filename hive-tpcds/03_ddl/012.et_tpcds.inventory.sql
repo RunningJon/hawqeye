@@ -5,4 +5,4 @@ CREATE EXTERNAL TABLE et_inventory (
     inv_quantity_on_hand int
 )
 row format delimited fields terminated by '|'
-location '/user/hiveadmin/tpcds_parquet/inventory';
+location '/user/hiveadmin/tpcds_hive/inventory';

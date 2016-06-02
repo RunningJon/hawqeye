@@ -15,4 +15,4 @@ CREATE EXTERNAL TABLE et_warehouse (
     w_gmt_offset float
 )
 row format delimited fields terminated by '|'
-location '/user/hiveadmin/tpcds_parquet/warehouse';
+location '/user/hiveadmin/tpcds_hive/warehouse';

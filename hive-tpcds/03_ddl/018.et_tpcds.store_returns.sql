@@ -21,4 +21,4 @@ CREATE EXTERNAL TABLE et_store_returns (
     sr_net_loss float
 )
 row format delimited fields terminated by '|'
-location '/user/hiveadmin/tpcds_parquet/store_returns';
+location '/user/hiveadmin/tpcds_hive/store_returns';
