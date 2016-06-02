@@ -16,13 +16,13 @@ get_count_generate_data()
 
 kill_orphaned_data_gen()
 {
-        for i in $(cat $PWD/../dn.txt); do
-                echo "$i:kill any orphaned processes"
-                for k in $(ssh $i "ps -ef | grep dsdgen | grep -v grep" | awk -F ' ' '{print $2}'); do
-                        echo killing $k
-                        ssh $i "kill $k"
-                done
-        done
+	for i in $(cat $PWD/../dn.txt); do
+		echo "$i:kill any orphaned processes"
+		for k in $(ssh $i "ps -ef | grep dsdgen | grep -v grep" | awk -F ' ' '{print $2}'); do
+			echo killing $k
+			ssh $i "kill $k"
+		done
+	done
 }
 
 copy_generate_data()

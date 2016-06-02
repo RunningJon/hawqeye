@@ -18,7 +18,10 @@ kill_orphaned_data_gen()
 {
 	for i in $(cat $PWD/../dn.txt); do
 		echo "$i:kill any orphaned processes"
-		ssh -n -f $i "bash -c 'for x in $(ps -ef | grep dsdgen | grep -v grep | awk -F ' ' '{print $2}'); do echo "killing $x"; kill $x; done'"
+		for k in $(ssh $i "ps -ef | grep dsdgen | grep -v grep" | awk -F ' ' '{print $2}'); do
+			echo killing $k
+			ssh $i "kill $k"
+		done
 	done
 }
 
