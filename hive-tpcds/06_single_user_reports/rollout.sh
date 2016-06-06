@@ -68,6 +68,12 @@ echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/reports -n ${USER} -d org.apa
 beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/reports -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $PWD/gen_data_report.sql 2> /dev/null
 echo ""
 echo "********************************************************************************"
+echo "Analyze tables"
+echo "********************************************************************************"
+echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/reports -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $PWD/analyze_report.sql"
+beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/reports -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $PWD/analyze_report.sql 2> /dev/null
+echo ""
+echo "********************************************************************************"
 echo "Data Loads"
 echo "********************************************************************************"
 echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/reports -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $PWD/loads_report.sql"
