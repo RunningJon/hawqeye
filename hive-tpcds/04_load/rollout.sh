@@ -12,9 +12,9 @@ init_log $step
 for i in $(ls $PWD/*.sql); do
 	start_log
 
-	id=`echo $i | awk -F '.' '{print $1}'`
-	schema_name=`echo $i | awk -F '.' '{print $2}'`
-	table_name=`echo $i | awk -F '.' '{print $3}'`
+	id=$(echo $i | awk -F '.' '{print $1}')
+	schema_name=$(echo $i | awk -F '.' '{print $2}')
+	table_name=$(echo $i | awk -F '.' '{print $3}')
 
 	echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i"
 	#output shows the number of rows per partition so loop through output and sum the rows per table
@@ -34,6 +34,19 @@ for i in $(ls $PWD/*.sql); do
 done
 
 #analyze
-#hive.stats.autogather=true
+for i in $(ls $PWD/*.sql); do
+	start_log
+
+	id=$(echo $i | awk -F '.' '{print $1}')
+	schema_name=$(echo $i | awk -F '.' '{print $2}')
+	table_name=$(echo $i | awk -F '.' '{print $3}')
+
+	echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver -e \"ANALYZE TABLE $schema_name.$table_name\" COMPUTE STATISTICS FOR COLUMNS"
+	beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver -e "ANALYZE TABLE $schema_name.$table_name COMPUTE STATISTICS FOR COLUMNS"
+	tuples="0"
+
+	log $tuples
+	
+done
 
 end_step $step
