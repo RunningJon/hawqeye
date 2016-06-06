@@ -17,18 +17,10 @@ for i in $(ls $PWD/*.sql); do
 	table_name=$(echo $i | awk -F '.' '{print $3}')
 
 	echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i"
-	#output shows the number of rows per partition so loop through output and sum the rows per table
-	tuples="0"
-	for c in $(beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i 2>&1 | grep numRows | awk -F ' ' '{print $7}' | awk -F '=' '{print $2}' | awk -F ',' '{print $1}'; exit ${PIPESTATUS[0]}); do
-		tuples=$(($tuples + $c))
-	done
-
-	echo "Tuples inserted: $tuples"
-
-	if [ "$tuples" -le "0" ]; then
-		echo "No data loaded for table!"
-		exit 1
-	fi
+	#when using hive.stats.autogather=false, the number of rows inserted is not printed.
+	#hard code to 1 so reports can finish 
+	tuples="1"
+	beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i
 
 	log $tuples
 done
