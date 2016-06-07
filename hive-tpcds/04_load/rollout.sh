@@ -33,8 +33,8 @@ for i in $(ls $PWD/*.sql); do
 	schema_name=$(echo $i | awk -F '.' '{print $2}')
 	table_name=$(echo $i | awk -F '.' '{print $3}')
 
-	echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver -e \"ANALYZE TABLE $schema_name.$table_name\" COMPUTE STATISTICS FOR COLUMNS"
-	beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver -e "ANALYZE TABLE $schema_name.$table_name COMPUTE STATISTICS FOR COLUMNS"
+	echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver -e \"ANALYZE TABLE $TPCDS_DBNAME.$table_name COMPUTE STATISTICS FOR COLUMNS\""
+	beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver -e "ANALYZE TABLE $TPCDS_DBNAME.$table_name COMPUTE STATISTICS FOR COLUMNS"
 	tuples="0"
 
 	log $tuples
