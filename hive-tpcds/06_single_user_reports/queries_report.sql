@@ -1,6 +1,5 @@
---SELECT split_part(description, '.', 2) AS id,
 SELECT substring(description, instr(description, '.') + 1) as id,
-tuples, 
-unix_timestamp(cast(concat('1970-01-01 ', cast(duration as string)) as timestamp)) as duration
+unix_timestamp(cast(concat('1970-01-01 ', cast(duration as string)) as timestamp)) - unix_timestamp(cast('1970-01-01 00:00:00' as timestamp)) as duration
 FROM sql_queries
-ORDER BY id; 
+WHERE tuples > 0
+ORDER BY 1;
