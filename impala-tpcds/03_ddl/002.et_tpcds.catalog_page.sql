@@ -1,6 +1,6 @@
 CREATE EXTERNAL TABLE et_catalog_page (
     cp_catalog_page_sk int ,
-    cp_catalog_page_id char(16) ,
+    cp_catalog_page_id varchar(16) ,
     cp_start_date_sk int,
     cp_end_date_sk int,
     cp_department varchar(50),

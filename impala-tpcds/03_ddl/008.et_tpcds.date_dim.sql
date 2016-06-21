@@ -1,6 +1,6 @@
 CREATE EXTERNAL TABLE et_date_dim (
     d_date_sk int ,
-    d_date_id char(16) ,
+    d_date_id varchar(16) ,
     d_date timestamp,
     d_month_seq int,
     d_week_seq int,
@@ -13,8 +13,8 @@ CREATE EXTERNAL TABLE et_date_dim (
     d_fy_year int,
     d_fy_quarter_seq int,
     d_fy_week_seq int,
-    d_day_name char(9),
-    d_quarter_name char(6),
+    d_day_name varchar(9),
+    d_quarter_name varchar(6),
     d_holiday char(1),
     d_weekend char(1),
     d_following_holiday char(1),
