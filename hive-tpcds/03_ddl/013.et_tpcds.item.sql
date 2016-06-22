@@ -23,4 +23,4 @@ CREATE EXTERNAL TABLE et_item (
     i_product_name string
 )
 row format delimited fields terminated by '|'
-location '/user/hiveadmin/tpcds_hive/customer_address';
+location '/user/hiveadmin/tpcds_hive/item';

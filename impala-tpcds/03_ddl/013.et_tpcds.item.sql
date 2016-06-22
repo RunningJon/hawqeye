@@ -23,6 +23,6 @@ CREATE EXTERNAL TABLE et_item (
     i_product_name varchar(50)
 )
 row format delimited fields terminated by '|'
-location '/user/impadmin/tpcds_parquet/customer_address'
+location '/user/impadmin/tpcds_parquet/item'
 tblproperties ('serialization.null.format'='')
 ;
