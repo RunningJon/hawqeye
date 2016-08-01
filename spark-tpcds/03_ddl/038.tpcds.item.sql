@@ -1,0 +1,1 @@
+CREATE TABLE item LIKE et_item STORED AS ORC TBLPROPERTIES ("orc.compress"="ZLIB");

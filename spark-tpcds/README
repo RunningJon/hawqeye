@@ -1,0 +1,105 @@
+1. Exchange keys for user spark for all hosts.
+
+Example script as user root:
+
+#!/bin/bash
+set -e
+
+username=spark
+
+rm -f key_*
+rm -f authorized_keys
+
+for i in $(cat spark_hosts.txt); do
+	echo $i
+	echo "ssh -t $i \"if [ ! -d /home/$username/.ssh ]; then mkdir /home/$username/.ssh; fi\""
+	ssh -t $i "if [ ! -d /home/$username/.ssh ]; then mkdir /home/$username/.ssh; fi"
+	echo "ssh -t $i \"sudo ssh-keygen -t rsa -N '' -f /home/$username/.ssh/id_rsa\""
+	ssh -t $i "ssh-keygen -t rsa -N '' -f /home/$username/.ssh/id_rsa"
+
+	echo "scp $i:/home/$username/.ssh/id_rsa.pub key_$i"
+	scp $i:/home/$username/.ssh/id_rsa.pub key_$i
+done
+
+echo "" > authorized_keys
+
+for k in $(ls key_*); do
+	echo "cat $k >> authorized_keys"
+	cat $k >> authorized_keys
+done
+
+for i in $(cat spark_hosts.txt); do
+	echo "scp authorized_keys $i:/home/$username/.ssh/"
+	scp authorized_keys $i:/home/$username/.ssh/
+	echo "ssh -t $i \"chown $username:$username -R /home/$username/.ssh\""
+	ssh -t $i "chown $username:$username -R /home/$username/.ssh"
+done
+
+rm -f key_*
+rm -f authorized_keys
+
+2. After extracting this installer, create a dn.txt file in the spark-tpcds directory with an entry for every data node.
+3. Run rollout.sh which will create tpcds-env.sh.
+4. Edit tpcds-env.sh to set the variables you want.
+4. On every datanode, create a "/datax/" directory with 1 through $DSDGEN_THREADS_PER_NODE which is set in tpcds-env.sh.  This is where data will reside and symbolic links also work.
+5. On every datanode, create a sub-directory named "/datax/$TPCDS_DBNAME"
+
+Example script with user root:
+
+#!/bin/bash
+set -e
+
+DSDGEN_THREADS_PER_NODE="12"
+TPCDS_DBNAME="tpcds_spark"
+TPCDS_USERNAME="spark"
+
+for i in $(cat dn.txt); do
+	echo $i
+	for x in $(seq 1 $DSDGEN_THREADS_PER_NODE); do
+		echo "mkdir -p /data$x/$TPCDS_DBNAME"
+		ssh $i "mkdir -p /data$x/$TPCDS_DBNAME"
+		echo "chown $TPCDS_USERNAME /data$x/$TPCDS_DBNAME"
+		ssh $i "chown $TPCDS_USERNAME /data$x/$TPCDS_DBNAME"
+	done
+done
+
+6. You may have to edit your core-site.xml file to set the default namenode if you are using a node that isn't a data node.
+
+Example:
+vi /etc/hadoop/conf/core-site.xml
+<configuration>
+  <property>
+    <name>fs.defaultFS</name>
+    <value>hdfs://node33.gphd.local:8020</value>
+  </property>
+</configuration>
+
+8. Set "Allow all partitions to be Dynamic" to "nonstrict" in the Hive config in Ambari.  
+Repeat this for the custom override for Spark.
+hive.exec.dynamic.partition.mode=nonstrict
+hive.exec.max.dynamic.partitions.pernode=10000
+hive.exec.max.dynamic.partitions=10000
+hive.tez.container.size=2048 MB
+hive.optimize.reducededuplication.min.reducer=1
+hive.stats.autogather=false
+
+9.
+mapreduce.reduce.shuffle.input.buffer.percent=0.5
+mapreduce.reduce.input.buffer.percent=0.2
+mapreduce.map.java.opts=-Xmx2800m (leave if existing value is larger)
+mapreduce.reduce.java.opts=-Xmx3800m (leave if existing value is larger)
+mapreduce.map.memory.mb=3072 (leave if existing value is larger)
+mapreduce.reduce.memory.mb=4096 (leave if existing value is larger)
+
+10.
+Hive client Heap Size=7857 MB
+
+
+11. Run rollout.sh to run the entire TPC-DS bencmark.
+
+Example:
+./rollout.sh
+
+Example to run in the background:
+
+./rollout.sh > tpcds.log 2>&1 < tpcds.log &
