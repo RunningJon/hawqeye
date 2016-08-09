@@ -5,6 +5,12 @@ PWD=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source $PWD/../functions.sh
 source $PWD/../tpcds-env.sh
 
+if [ "$HIVE2" == "true" ]; then
+	MYPORT="$HIVE2_PORT"
+else
+	MYPORT="$HIVE_PORT"
+fi
+
 remove_old_files()
 {
 	echo "hdfs dfs -rm -r -f -skipTrash ${FLATFILE_HDFS_TESTING}"
@@ -41,11 +47,11 @@ create_tables()
 		id=$(basename $i | awk -F '.' '{print $1}')
 
 		if [ "$id" == "00" ]; then
-			echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000 -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i -hivevar user=$USER"
-			beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000 -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i -hivevar user=$USER
+			echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:$HIVE_PORT -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i -hivevar user=$USER"
+			beeline -u jdbc:hive2://$HIVE_HOSTNAME:$HIVE_PORT -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i -hivevar user=$USER
 		else
-			echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/testing -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i -hivevar user=$USER"
-			beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/testing -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i -hivevar user=$USER
+			echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:$HIVE_PORT/testing -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i -hivevar user=$USER"
+			beeline -u jdbc:hive2://$HIVE_HOSTNAME:$HIVE_PORT/testing -n ${USER} -d org.apache.hive.jdbc.HiveDriver -f $i -hivevar user=$USER
 		fi
 	done
 }
@@ -53,8 +59,8 @@ create_tables()
 view_reports()
 {
 	for i in $(ls $PWD/*.sql | grep report); do
-		echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/testing -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=tsv2 -f $i"
-		beeline -u jdbc:hive2://$HIVE_HOSTNAME:10000/testing -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=tsv2 -f $i
+		echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:$MYPORT/testing -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=tsv2 -f $i"
+		beeline -u jdbc:hive2://$HIVE_HOSTNAME:$MYPORT/testing -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=tsv2 -f $i
 	done
 }
 

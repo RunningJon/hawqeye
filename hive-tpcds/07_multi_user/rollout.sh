@@ -9,7 +9,7 @@ source $PWD/../tpcds-env.sh
 check_multi_user_count()
 {
 	if [ "$MULTI_USER_COUNT" -eq "0" ]; then
-		echo "$MULTI_USER_COUNT set at 0 so exiting..."
+		echo "MULTI_USER_COUNT set at 0 so exiting..."
 		exit 0
 	fi
 

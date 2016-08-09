@@ -14,6 +14,9 @@ TPCDS_DBNAME=tpcds_hive
 SQL_VERSION="hive"
 MULTI_USER_COUNT="5"
 HIVE_HOSTNAME="localhost"
+HIVE2="true"
+HIVE_PORT="10000"
+HIVE2_PORT="10500"
 
 #if set to 1, rollout.sh will re-run this step.  
 #if set to 0, rollout.sh will skip this step if it has successfully completed already.
