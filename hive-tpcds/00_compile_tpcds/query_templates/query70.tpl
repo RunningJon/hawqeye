@@ -64,7 +64,7 @@
                      ) tmp1 
                where ranking <= 5
              )
- group by rollup(s_state,s_county)
+ group by s_state,s_county with rollup
 ) as sub
  order by
    lochierarchy desc

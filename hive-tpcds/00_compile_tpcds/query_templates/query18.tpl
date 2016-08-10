@@ -64,7 +64,7 @@
        d_year = [YEAR] and
        ca_state in ('[STATE.1]','[STATE.2]','[STATE.3]'
                    ,'[STATE.4]','[STATE.5]','[STATE.6]','[STATE.7]')
- group by rollup (i_item_id, ca_country, ca_state, ca_county)
+ group by i_item_id, ca_country, ca_state, ca_county with rollup
  order by ca_country,
         ca_state, 
         ca_county,

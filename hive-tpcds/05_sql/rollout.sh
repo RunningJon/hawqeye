@@ -20,6 +20,7 @@ for i in $(ls $PWD/*.$SQL_VERSION.*.sql); do
 	table_name=`echo $i | awk -F '.' '{print $3}'`
 
 	start_log
+
 	echo "beeline -u jdbc:hive2://$HIVE_HOSTNAME:$MYPORT/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $i"
 	tuples=$(beeline -u jdbc:hive2://$HIVE_HOSTNAME:$MYPORT/$TPCDS_DBNAME -n ${USER} -d org.apache.hive.jdbc.HiveDriver --outputformat=csv2 --showHeader=false -f $i | wc -l; exit ${PIPESTATUS[0]})
 

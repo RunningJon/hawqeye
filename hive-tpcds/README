@@ -99,6 +99,11 @@ Client Heap Size=7857 MB
 
 11. Run rollout.sh to run the entire TPC-DS bencmark.
 
+12. Add this to the hiveadmin .bashrc file
+export HADOOP_CLIENT_OPTS="-Djline.terminal=jline.UnsupportedTerminal"
+
+without this, beeline will fail if running in the background.  Strange bug.
+
 Example:
 ./rollout.sh
 

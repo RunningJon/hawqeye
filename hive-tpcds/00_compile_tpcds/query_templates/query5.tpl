@@ -62,8 +62,8 @@
      date_dim,
      store
  where date_sk = d_date_sk
-       and d_date between cast('[SALES_DATE]' as timestamp) 
-                  and (cast('[SALES_DATE]' as timestamp) +  interval 14 days)
+       and d_date between '[SALES_DATE]'
+                  and (date_add('[SALES_DATE]', 14))
        and store_sk = s_store_sk
  group by s_store_id)
  ,
@@ -93,8 +93,8 @@
      date_dim,
      catalog_page
  where date_sk = d_date_sk
-       and d_date between cast('[SALES_DATE]' as timestamp)
-                  and (cast('[SALES_DATE]' as timestamp) +  interval 14 days)
+       and d_date between '[SALES_DATE]' 
+                  and (date_add('[SALES_DATE]', 14))
        and page_sk = cp_catalog_page_sk
  group by cp_catalog_page_id)
  ,
@@ -126,8 +126,8 @@
      date_dim,
      web_site
  where date_sk = d_date_sk
-       and d_date between cast('[SALES_DATE]' as timestamp)
-                  and (cast('[SALES_DATE]' as timestamp) +  interval 14 days)
+       and d_date between '[SALES_DATE]'
+                  and (date_add('[SALES_DATE]', 14))
        and wsr_web_site_sk = web_site_sk
  group by web_site_id)
  [_LIMITA] select [_LIMITB] channel
@@ -137,27 +137,27 @@
         , sum(profit) as profit
  from 
  (select 'store channel' as channel
-        , 'store' || s_store_id as id
+        , concat('store', s_store_id) as id
         , sales
         , returns
         , (profit - profit_loss) as profit
  from   ssr
  union all
  select 'catalog channel' as channel
-        , 'catalog_page' || cp_catalog_page_id as id
+        , concat('catalog_page', cp_catalog_page_id) as id
         , sales
         , returns
         , (profit - profit_loss) as profit
  from  csr
  union all
  select 'web channel' as channel
-        , 'web_site' || web_site_id as id
+        , concat('web_site', web_site_id) as id
         , sales
         , returns
         , (profit - profit_loss) as profit
  from   wsr
  ) x
- group by rollup (channel, id)
+ group by channel, id with rollup
  order by channel
          ,id
  [_LIMITC];

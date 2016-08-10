@@ -65,7 +65,7 @@
  and s_store_sk  = ss_store_sk
  and s_state in ('[STATE_A]','[STATE_B]','[STATE_C]','[STATE_D]',
                  '[STATE_E]','[STATE_F]','[STATE_G]','[STATE_H]')
- group by rollup(i_category,i_class)
+ group by i_category,i_class with rollup
 ) as sub
  order by
    lochierarchy desc

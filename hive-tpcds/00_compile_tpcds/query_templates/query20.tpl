@@ -45,14 +45,14 @@
        ,sum(cs_ext_sales_price) as itemrevenue 
        ,sum(cs_ext_sales_price)*100/sum(sum(cs_ext_sales_price)) over
            (partition by i_class) as revenueratio
- from	catalog_sales
+ from catalog_sales
      ,item 
      ,date_dim
  where cs_item_sk = i_item_sk 
    and i_category in ('[CATEGORY.1]', '[CATEGORY.2]', '[CATEGORY.3]')
    and cs_sold_date_sk = d_date_sk
- and d_date between cast('[SDATE]' as timestamp) 
- 				and (cast('[SDATE]' as timestamp) + interval 30 days)
+ and d_date between '[SDATE]'
+ 				and (date_add('[SDATE]', 30))
  group by i_item_id
          ,i_item_desc 
          ,i_category

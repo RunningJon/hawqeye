@@ -9,11 +9,18 @@ FLATFILE_HDFS_REPORTS=/user/${USER}/reports
 FLATFILE_HDFS_TESTING=/user/${USER}/testing
 GEN_DATA_SCALE=3000
 DSDGEN_THREADS_PER_NODE=12
+
 # do not change TPCDS_DBNAME as it is hard coded in the DDL section
 TPCDS_DBNAME=tpcds_hive
+
+# Only hive version is currently supported
 SQL_VERSION="hive"
 MULTI_USER_COUNT="5"
+
+#Be sure to change this to the correct hostname
 HIVE_HOSTNAME="localhost"
+
+# Configure Hive with LLAP if you want to set HIVE2 to true
 HIVE2="true"
 HIVE_PORT="10000"
 HIVE2_PORT="10500"
