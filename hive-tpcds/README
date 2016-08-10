@@ -79,31 +79,15 @@ vi /etc/hadoop/conf/core-site.xml
   </property>
 </configuration>
 
-8. Set "Allow all partitions to be Dynamic" to "nonstrict" in the Hive config in Ambari.  
-hive.exec.dynamic.partition.mode=nonstrict
-hive.exec.max.dynamic.partitions.pernode=10000
-hive.exec.max.dynamic.partitions=10000
-hive.tez.container.size=2048 MB  
-hive.optimize.reducededuplication.min.reducer=1
+8. Set Ambari according to Google Drive Doc
+https://drive.google.com/open?id=1sATI700SjplbLdbVx1vuq1G8Xiqrv1wmouwxsiTSwS8
 
-9.
-mapreduce.reduce.shuffle.input.buffer.percent=0.5
-mapreduce.reduce.input.buffer.percent=0.2
-mapreduce.map.java.opts=-Xmx2800m (leave if existing value is larger)
-mapreduce.reduce.java.opts=-Xmx3800m (leave if existing value is larger)
-mapreduce.map.memory.mb=3072 (leave if existing value is larger)
-mapreduce.reduce.memory.mb=4096 (leave if existing value is larger)
-
-10.
-Client Heap Size=7857 MB
-
-11. Run rollout.sh to run the entire TPC-DS bencmark.
-
-12. Add this to the hiveadmin .bashrc file
+9. Add this to the hiveadmin .bashrc file
 export HADOOP_CLIENT_OPTS="-Djline.terminal=jline.UnsupportedTerminal"
 
 without this, beeline will fail if running in the background.  Strange bug.
 
+10. Run rollout.sh to run the entire TPC-DS bencmark.
 Example:
 ./rollout.sh
 
