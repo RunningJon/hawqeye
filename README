@@ -1,8 +1,13 @@
 HAWQEYE is a test suite to compare HAWQ (Pivotal HDB) with other SQL on Hadoop products.  The tests include:
 1.  Impala TPC-DS
 2.  Hive TPC-DS (only the Hive version of the queries is supported)
+3.  Spark (in development and not complete).
 
-Install:
+Please read all of the instructions in this README before continuing.
+
+***********************************************************************************************************************************************
+** Install 
+***********************************************************************************************************************************************
 Download hawqeye.sh from github.
 curl --user <your_github_username> "https://raw.githubusercontent.com/pivotalguru/hawqeye/master/hawqeye.sh" > update_repo.sh
 chmod 755 update_repo.sh
@@ -13,3 +18,254 @@ Change directory to the test you wish to run and then execute rollout.sh.
 Example:
 cd impala-tpcds
 ./rollout.sh
+
+***********************************************************************************************************************************************
+** Hive TPC-DS 
+***********************************************************************************************************************************************
+Configuration steps:
+1. ssh to the Hive2 and Hive Interactive host.  Create a file called "hive_hosts.txt" which contains an entry for every host in the cluster.
+
+2. Execute the following script as root:
+
+Example script:
+
+#!/bin/bash
+set -e
+
+username=hiveadmin
+
+rm -f key_node*
+rm -f authorized_keys
+
+for i in $(cat hive_hosts.txt); do
+        echo $i
+        counter=$(ssh $i "grep hiveadmin /etc/passwd | wc -l")
+        if [ "$counter" -gt "0" ]; then
+                ssh $i "userdel $username"
+        fi
+        ssh $i "useradd $username"
+        ssh $i "echo $username:changeme | chpasswd"
+        ssh $username@$i "ssh-keygen -f ~/.ssh/id_rsa -N ''"
+        echo "scp $i:/home/$username/.ssh/id_rsa.pub key_$i"
+        scp $i:/home/$username/.ssh/id_rsa.pub key_$i
+done
+
+echo "" > authorized_keys
+
+for k in $(ls key_*); do
+        echo "cat $k >> authorized_keys"
+        cat $k >> authorized_keys
+done
+
+for i in $(cat hive_hosts.txt); do
+        echo "scp authorized_keys $username@$i:/home/$username/.ssh/"
+        scp authorized_keys $username@$i:/home/$username/.ssh/
+done
+
+rm -f key_node*
+rm -f authorized_keys
+
+3. Still as root, create a file named dn.txt which contains an entry for every data node in the cluster.
+4. Run the following script:
+#!/bin/bash
+set -e
+
+DSDGEN_THREADS_PER_NODE="12"
+TPCDS_DBNAME="tpcds_hive"
+TPCDS_USERNAME="hiveadmin"
+
+for i in $(cat dn.txt); do
+	echo $i
+	for x in $(seq 1 $DSDGEN_THREADS_PER_NODE); do
+		echo "mkdir -p /data$x/$TPCDS_DBNAME"
+		ssh $i "mkdir -p /data$x/$TPCDS_DBNAME"
+		echo "chown $TPCDS_USERNAME /data$x/$TPCDS_DBNAME"
+		ssh $i "chown $TPCDS_USERNAME /data$x/$TPCDS_DBNAME"
+	done
+done
+
+5. Create a /user/hiveadmin directory in hdfs
+su - hdfs
+hdfs dfs -mkdir /user/hiveadmin
+hdfs dfs -chown hiveadmin /user/hiveadmin
+exit
+
+6. ssh to the Host where Hive Interactive and Hive2 server has been installed as "hiveadmin"
+su - hiveadmin
+
+7. Download hawqeye.sh from github with the following commands:
+curl --user <your_github_username> "https://raw.githubusercontent.com/pivotalguru/hawqeye/master/hawqeye.sh" > update_repo.sh
+chmod 755 update_repo.sh
+./update_repo.sh <your_github_username>
+8. Run rollout.sh which will create tpcds-env.sh.
+cd hawqeye/hive-tpcds/
+./rollout.sh
+9. Edit tpcds-env.sh to set the variables you want.
+10. Create a dn.txt file in the hive-tpcds directory with an entry for every data node.
+
+11. Set Ambari according to Google Drive Doc
+https://drive.google.com/open?id=1sATI700SjplbLdbVx1vuq1G8Xiqrv1wmouwxsiTSwS8
+
+12. Add this to the hiveadmin .bashrc file
+export HADOOP_CLIENT_OPTS="-Djline.terminal=jline.UnsupportedTerminal"
+
+without this, beeline will fail if running in the background.  Strange bug.
+
+12. Run rollout.sh to run the entire TPC-DS bencmark.
+Example:
+./rollout.sh
+
+Example to run in the background:
+
+./rollout.sh > tpcds.log 2>&1 < tpcds.log &
+
+***********************************************************************************************************************************************
+** Impala TPC-DS 
+***********************************************************************************************************************************************
+1. Create the user "impadmin" on every host.  It MUST be impadmin because Impala doesn't support passing variables to SQL scripts yet!!!
+2. Create and exchange keys for impadmin for all hosts.
+3. After extracting this installer, create a dn.txt file in the impala-tpcds directory with an entry for every data node where Impala is installed.
+4. Edit tpcds-env.sh to set the variables you want.
+4. On every datanode, create a "/datax/" directory with 1 through $DSDGEN_THREADS_PER_NODE which is set in tpcds-env.sh.  This is where data will reside and symbolic links also work.
+5. On every datanode, create a sub-directory named "/datax/$TPCDS_DBNAME"
+
+Example:
+
+for i in $(seq 1 $DSDGEN_THREADS_PER_NODE); do
+	echo "mkdir -p /data$i/$TPCDS_DBNAME"
+	mkdir -p /data$i/$TPCDS_DBNAME
+done
+
+6. Create a /user/impadmin directory in hdfs
+su - hdfs
+hdfs dfs -mkdir /user/impadmin
+hdfs dfs -chown impadmin /user/impadmin
+
+7. You may have to edit your core-site.xml file to set the default namenode if you are using a node that isn't a data node.
+
+Example:
+vi /etc/hadoop/conf/core-site.xml
+<configuration>
+  <property>
+    <name>fs.defaultFS</name>
+    <value>hdfs://node33.gphd.local:8020</value>
+  </property>
+</configuration>
+
+8. Run rollout.sh to run the entire TPC-DS bencmark.
+
+Example:
+./rollout.sh
+
+Example to run in the background:
+
+./rollout.sh > tpcds.log 2>&1 < tpcds.log &
+***********************************************************************************************************************************************
+** Spark TPC-DS 
+***********************************************************************************************************************************************
+Note: Scripts for Spark are not complete.  Do not use yet.
+1. Exchange keys for user spark for all hosts.
+
+Example script as user root:
+
+#!/bin/bash
+set -e
+
+username=spark
+
+rm -f key_*
+rm -f authorized_keys
+
+for i in $(cat spark_hosts.txt); do
+	echo $i
+	echo "ssh -t $i \"if [ ! -d /home/$username/.ssh ]; then mkdir /home/$username/.ssh; fi\""
+	ssh -t $i "if [ ! -d /home/$username/.ssh ]; then mkdir /home/$username/.ssh; fi"
+	echo "ssh -t $i \"sudo ssh-keygen -t rsa -N '' -f /home/$username/.ssh/id_rsa\""
+	ssh -t $i "ssh-keygen -t rsa -N '' -f /home/$username/.ssh/id_rsa"
+
+	echo "scp $i:/home/$username/.ssh/id_rsa.pub key_$i"
+	scp $i:/home/$username/.ssh/id_rsa.pub key_$i
+done
+
+echo "" > authorized_keys
+
+for k in $(ls key_*); do
+	echo "cat $k >> authorized_keys"
+	cat $k >> authorized_keys
+done
+
+for i in $(cat spark_hosts.txt); do
+	echo "scp authorized_keys $i:/home/$username/.ssh/"
+	scp authorized_keys $i:/home/$username/.ssh/
+	echo "ssh -t $i \"chown $username:$username -R /home/$username/.ssh\""
+	ssh -t $i "chown $username:$username -R /home/$username/.ssh"
+done
+
+rm -f key_*
+rm -f authorized_keys
+
+2. After extracting this installer, create a dn.txt file in the spark-tpcds directory with an entry for every data node.
+3. Run rollout.sh which will create tpcds-env.sh.
+4. Edit tpcds-env.sh to set the variables you want.
+4. On every datanode, create a "/datax/" directory with 1 through $DSDGEN_THREADS_PER_NODE which is set in tpcds-env.sh.  This is where data will reside and symbolic links also work.
+5. On every datanode, create a sub-directory named "/datax/$TPCDS_DBNAME"
+
+Example script with user root:
+
+#!/bin/bash
+set -e
+
+DSDGEN_THREADS_PER_NODE="12"
+TPCDS_DBNAME="tpcds_spark"
+TPCDS_USERNAME="spark"
+
+for i in $(cat dn.txt); do
+	echo $i
+	for x in $(seq 1 $DSDGEN_THREADS_PER_NODE); do
+		echo "mkdir -p /data$x/$TPCDS_DBNAME"
+		ssh $i "mkdir -p /data$x/$TPCDS_DBNAME"
+		echo "chown $TPCDS_USERNAME /data$x/$TPCDS_DBNAME"
+		ssh $i "chown $TPCDS_USERNAME /data$x/$TPCDS_DBNAME"
+	done
+done
+
+6. You may have to edit your core-site.xml file to set the default namenode if you are using a node that isn't a data node.
+
+Example:
+vi /etc/hadoop/conf/core-site.xml
+<configuration>
+  <property>
+    <name>fs.defaultFS</name>
+    <value>hdfs://node33.gphd.local:8020</value>
+  </property>
+</configuration>
+
+8. Set "Allow all partitions to be Dynamic" to "nonstrict" in the Hive config in Ambari.  
+Repeat this for the custom override for Spark.
+hive.exec.dynamic.partition.mode=nonstrict
+hive.exec.max.dynamic.partitions.pernode=10000
+hive.exec.max.dynamic.partitions=10000
+hive.tez.container.size=2048 MB
+hive.optimize.reducededuplication.min.reducer=1
+hive.stats.autogather=false
+
+9.
+mapreduce.reduce.shuffle.input.buffer.percent=0.5
+mapreduce.reduce.input.buffer.percent=0.2
+mapreduce.map.java.opts=-Xmx2800m (leave if existing value is larger)
+mapreduce.reduce.java.opts=-Xmx3800m (leave if existing value is larger)
+mapreduce.map.memory.mb=3072 (leave if existing value is larger)
+mapreduce.reduce.memory.mb=4096 (leave if existing value is larger)
+
+10.
+Hive client Heap Size=7857 MB
+
+
+11. Run rollout.sh to run the entire TPC-DS bencmark.
+
+Example:
+./rollout.sh
+
+Example to run in the background:
+
+./rollout.sh > tpcds.log 2>&1 < tpcds.log &
