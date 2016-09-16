@@ -152,7 +152,9 @@ vi /etc/hadoop/conf/core-site.xml
   </property>
 </configuration>
 
-8. Run rollout.sh to run the entire TPC-DS bencmark.
+8. Create a cron job to kill long running queries.  Review the crontab.txt file and use crontab -e to install it.
+
+9. Run rollout.sh to run the entire TPC-DS bencmark.
 
 Example:
 ./rollout.sh

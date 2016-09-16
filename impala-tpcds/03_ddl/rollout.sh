@@ -8,6 +8,7 @@ source $PWD/../functions.sh
 
 step=ddl
 init_log $step
+log_status="success"
 
 #call external function to get IMP_HOST
 get_imp_details

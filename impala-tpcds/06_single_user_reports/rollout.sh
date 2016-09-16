@@ -6,6 +6,7 @@ PWD=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source $PWD/../tpcds-env.sh
 source $PWD/../functions.sh
 step=single_user_reports
+log_status="success"
 
 init_log $step
 
@@ -56,10 +57,10 @@ create_tables()
 
 #call external function to get IMP_HOST
 get_imp_details
-create_tables
 
 remove_old_files
 create_new_directories
+create_tables
 put_data
 
 echo "********************************************************************************"

@@ -4,6 +4,7 @@ set -e
 PWD=$( cd $( dirname ${BASH_SOURCE[0]} ) && pwd )
 source $PWD/../functions.sh
 source $PWD/../tpcds-env.sh
+log_status="success"
 
 get_count_generate_data()
 {

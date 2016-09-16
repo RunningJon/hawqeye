@@ -60,9 +60,9 @@ view_reports()
 
 #call external function to get IMP_HOST
 get_imp_details
-create_tables
 
 remove_old_files
 create_new_directories
+create_tables
 put_data
 view_reports

@@ -1,2 +1,2 @@
 #example crontab to kill long running queries
-*/5 * * * * /home/impadmin/hawqeye/impala-tpcds/kill_long_running.sh 7200 >> /home/impadmin/hawqeye/impala-tpcds/kill_long_running.log 2>&1 < /home/impadmin/hawqeye/impala-tpcds/kill_long_running.log
+*/5 * * * * /home/impadmin/hawqeye/impala-tpcds/kill_long_running.sh >> /home/impadmin/hawqeye/impala-tpcds/kill_long_running.log 2>&1 < /home/impadmin/hawqeye/impala-tpcds/kill_long_running.log

@@ -55,11 +55,16 @@ log()
 	fi
 
 	tuples=$1
+	log_status=$2
 	if [ "$tuples" == "" ]; then
 		tuples="0"
 	fi
 
-	printf "$id|$schema_name.$table_name|$tuples|%02d:%02d:%02d.%03d\n" "$((S/3600%24))" "$((S/60%60))" "$((S%60))" "${M}" >> $LOCAL_PWD/log/$logfile
+	if [ "$log_status" == "" ]; then
+		log_status="success"
+	fi
+
+	printf "$id|$schema_name.$table_name|$tuples|$log_status|%02d:%02d:%02d.%03d\n" "$((S/3600%24))" "$((S/60%60))" "$((S%60))" "${M}" >> $LOCAL_PWD/log/$logfile
 }
 
 get_imp_details()
