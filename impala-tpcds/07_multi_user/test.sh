@@ -91,83 +91,88 @@ for i in $(ls $sql_dir/*.sql); do
 		# out of memory error happens on some queries and won't finish no matter what.  
 		oom=$(grep "Memory limit exceeded" $query_log_file | wc -l)
 
-		#Errors that warrant a retry
-		if [[ "$error_state_store" -gt "0" || "$error_connect_timeout" -gt "0" || "$error_communicate_impalad" -gt "0" || "$error_connection_reset" -gt "0" || "$error_connection_refused" -gt "0" || "$error_unreachable_impalad" -gt "0" || "$error_econnreset" -gt "0" || "$error_sender_timeout" -gt "0" ]]; then
-			# Wait 5 seconds and try again
-			# Print the error message and continue
-			if [ "$error_state_store" -gt "0" ]; then
-				grep "Waiting for catalog update from the StateStore" $query_log_file 
-			fi
-			if [ "$error_connect_timeout" -gt "0" ]; then 
-				grep "Error connecting: TTransportException" $query_log_file
-			fi
-			if [ "$error_communicate_impalad" -gt "0" ]; then 
-				grep "Error communicating with impalad" $query_log_file
-			fi
-			if [ "$error_connection_reset" -gt "0" ]; then 
-				grep "Socket error 104: Connection reset by peer" $query_log_file
-			fi
-			if [ "$error_connection_refused" -gt "0" ]; then 
-				grep "Connection refused" $query_log_file
-			fi
-			if [ "$error_unreachable_impalad" -gt "0" ]; then
-				grep "Cancelled due to unreachable impalad" $query_log_file
-			fi
-			if [ "$error_econnreset" -gt "0" ]; then
-				grep "ECONNRESET" $query_log_file
-			fi
-			if [ "$error_sender_timeout" -gt "0" ]; then
-				grep "Sender timed out waiting for receiver fragment instance" $query_log_file
-			fi
-			# capture the execution time and if too long, then don't retry
-			if [ "$OSVERSION" == "Linux" ]; then
-				current_t="$(($(date +%s%N)-T))"
-				# seconds
-				current_s="$((current_t/1000000000))"
+		#OOM and terminated 
+		if [[ "$oom" -gt "0" || "$myoutput" -eq "143" ]]; then
+			if [ "$oom" -gt "0" ]; then
+				log_status="oom"
+				cat $query_log_file
 			else
-				# must be OSX which doesn't have nano-seconds
-				current_s="$(($(date +%s)-T))"
-			fi
-			# give up after hitting the long_running_timeout
-			if [ "$current_s" -ge "$LONG_RUNNING_TIMEOUT" ]; then
-				echo "Long running timeout exceeded."
-				run_query="0"
-				log_status="timeout"
-				tuples="0"
-				log $tuples $log_status
-			else
-				run_query="1"
-				sleep 5
-			fi
-		else
-			#OOM, unsupported SQL, and terminated 
-			if [[ "$oom" -gt "0" || "$unsupported_analysis_exception" -gt "0" || "$myoutput" -eq "143" ]]; then
-				if [ "$oom" -gt "0" ]; then
-					log_status="oom"
-					cat $query_log_file
-				else
-					if [ "$unsupported_analysis_exception" -gt "0" ]; then
-						log_status="error"
-						cat $query_log_file
-					else
-						if [ "$myoutput" == "143" ]; then
-							log_status="timeout"
-						fi
-					fi
+				if [ "$myoutput" == "143" ]; then
+					log_status="timeout"
+					echo "Timeout"
 				fi
+			fi
 	
-				tuples="0"
-				run_query="0"
-				log $tuples $log_status
+			tuples="0"
+			run_query="0"
+			log $tuples $log_status
+		else
+			#Errors that warrant a retry
+			if [[ "$error_state_store" -gt "0" || "$error_connect_timeout" -gt "0" || "$error_communicate_impalad" -gt "0" || "$error_connection_reset" -gt "0" || "$error_connection_refused" -gt "0" || "$error_unreachable_impalad" -gt "0" || "$error_econnreset" -gt "0" || "$error_sender_timeout" -gt "0" ]]; then
+				# Wait 5 seconds and try again
+				# Print the error message and continue
+				if [ "$error_state_store" -gt "0" ]; then
+					grep "Waiting for catalog update from the StateStore" $query_log_file 
+				fi
+				if [ "$error_connect_timeout" -gt "0" ]; then 
+					grep "Error connecting: TTransportException" $query_log_file
+				fi
+				if [ "$error_communicate_impalad" -gt "0" ]; then 
+					grep "Error communicating with impalad" $query_log_file
+				fi
+				if [ "$error_connection_reset" -gt "0" ]; then 
+					grep "Socket error 104: Connection reset by peer" $query_log_file
+				fi
+				if [ "$error_connection_refused" -gt "0" ]; then 
+					grep "Connection refused" $query_log_file
+				fi
+				if [ "$error_unreachable_impalad" -gt "0" ]; then
+					grep "Cancelled due to unreachable impalad" $query_log_file
+				fi
+				if [ "$error_econnreset" -gt "0" ]; then
+					grep "ECONNRESET" $query_log_file
+				fi
+				if [ "$error_sender_timeout" -gt "0" ]; then
+					grep "Sender timed out waiting for receiver fragment instance" $query_log_file
+				fi
+				# capture the execution time and if too long, then don't retry
+				if [ "$OSVERSION" == "Linux" ]; then
+					current_t="$(($(date +%s%N)-T))"
+					# seconds
+					current_s="$((current_t/1000000000))"
+				else
+					# must be OSX which doesn't have nano-seconds
+					current_s="$(($(date +%s)-T))"
+				fi
+				# give up after hitting the long_running_timeout
+				if [ "$current_s" -ge "$LONG_RUNNING_TIMEOUT" ]; then
+					echo "Long running timeout exceeded."
+					run_query="0"
+					log_status="timeout"
+					echo "Timeout"
+					tuples="0"
+					log $tuples $log_status
+				else
+					run_query="1"
+					sleep 5
+				fi
 			else
-				tuples=$(cat $query_log_file | wc -l)
-				run_query="0"
-				log_status="success"
-				log $tuples $log_status
+				#unsupported SQL that isn't a retry error
+				if [ "$unsupported_analysis_exception" -gt "0" ]; then
+					log_status="error"
+					cat $query_log_file
+					tuples="0"
+					run_query="0"
+					log $tuples $log_status
+				else
+					tuples=$(cat $query_log_file | wc -l)
+					run_query="0"
+					log_status="success"
+					log $tuples $log_status
+				fi
 			fi
 		fi
 	done
-
 done
 
 end_step $step
