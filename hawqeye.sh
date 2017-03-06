@@ -25,15 +25,15 @@ ADMIN_USER=$(echo $USER)
 yum_checks()
 {
 	echo "############################################################################"
-	echo "Make sure git and gcc is installed."
+	echo "Make sure git and curl are installed."
 	echo "############################################################################"
 	echo ""
-	# Install git and gcc if not found
-	local CURL_INSTALLED=$(gcc --help 2> /dev/null | wc -l)
+	# Install git and curl if not found
+	local CURL_INSTALLED=$(curl --help 2> /dev/null | wc -l)
 	local GIT_INSTALLED=$(git --help 2> /dev/null | wc -l)
 
 	if [ "$CURL_INSTALLED" -eq "0" ]; then
-		echo "gcc not installed.  Please install gcc and try again."
+		echo "curl not installed.  Please install curl and try again."
 		exit 1
 	fi
 	if [ "$GIT_INSTALLED" -eq "0" ]; then
